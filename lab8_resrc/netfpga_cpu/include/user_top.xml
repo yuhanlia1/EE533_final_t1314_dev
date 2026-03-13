@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+  <nf:name>user_top</nf:name>
+  <nf:prefix>user_top</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Registers for user_top CPU + Convertible FIFO integration</nf:description>
+  <nf:blocksize>64</nf:blocksize>
+  <nf:registers>
+
+    <!-- SOFTWARE REGISTERS -->
+    <!-- Order must match generic_regs address slicing: lowest address first -->
+    <nf:register>
+      <nf:name>sw_ctrl</nf:name>
+      <nf:description>Control register: bypass, icache write strobe, BRAM debug enable, soft reset</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_icache_addr</nf:name>
+      <nf:description>Icache program address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_icache_wdata</nf:name>
+      <nf:description>Icache program write data</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_bram_addr</nf:name>
+      <nf:description>Debug BRAM read address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <!-- HARDWARE REGISTERS -->
+    <nf:register>
+      <nf:name>hw_status</nf:name>
+      <nf:description>Status register: fifo_full, pkt_ready, proc_active, proc_done, debug valid, state, pkt_len</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_pc</nf:name>
+      <nf:description>CPU debug PC</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_bram_lo</nf:name>
+      <nf:description>Debug BRAM read data low 32 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_bram_hi</nf:name>
+      <nf:description>Debug BRAM read data high 32 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_bram_ctrl</nf:name>
+      <nf:description>Debug BRAM read control field</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+  </nf:registers>
+</nf:module>

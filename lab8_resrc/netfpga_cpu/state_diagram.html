@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FSM State Transition Diagrams</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+  :root {
+    --bg:        #080c10;
+    --panel:     #0d1520;
+    --border:    #1a2d42;
+    --amber:     #f5a623;
+    --amber-dim: #b57a1a;
+    --cyan:      #00e5ff;
+    --cyan-dim:  #0097aa;
+    --green:     #39ff14;
+    --green-dim: #1a7a06;
+    --pink:      #ff3cac;
+    --pink-dim:  #9e1f6a;
+    --text:      #c8d8e8;
+    --muted:     #5a7080;
+    --mono: 'Share Tech Mono', monospace;
+    --head: 'Orbitron', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  h1 {
+    font-family: var(--head);
+    font-size: 1.1rem;
+    letter-spacing: 0.18em;
+    color: var(--cyan);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+    letter-spacing: 0.1em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 16px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .card.amber::before  { background: var(--amber); }
+  .card.cyan::before   { background: var(--cyan); }
+  .card.green::before  { background: var(--green); }
+  .card.pink::before   { background: var(--pink); }
+
+  /* Span full width */
+  .card.full { grid-column: 1 / -1; }
+
+  .card-title {
+    font-family: var(--head);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .card.amber .card-title { color: var(--amber); }
+  .card.cyan  .card-title { color: var(--cyan); }
+  .card.green .card-title { color: var(--green); }
+  .card.pink  .card-title { color: var(--pink); }
+
+  svg { display: block; }
+
+  /* State circle */
+  .state-circle { cursor: default; }
+  .state-bg { transition: opacity 0.2s; }
+  .state-circle:hover .state-bg { opacity: 0.25; }
+
+  /* Tooltip */
+  .tooltip-box {
+    position: absolute;
+    background: #0d1a26;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 0.68rem;
+    color: var(--text);
+    pointer-events: none;
+    z-index: 100;
+    max-width: 280px;
+    line-height: 1.6;
+    display: none;
+  }
+  .tooltip-box.visible { display: block; }
+  .tooltip-box .tkey { color: var(--amber); }
+  .tooltip-box .tval { color: var(--cyan); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 0.65rem;
+    color: var(--muted);
+    margin-top: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Output signals table */
+  .sig-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.67rem;
+    margin-top: 8px;
+  }
+  .sig-table th {
+    font-family: var(--head);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .sig-table td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #111e2b;
+    vertical-align: top;
+  }
+  .sig-table tr:last-child td { border-bottom: none; }
+  .sig-val-1  { color: var(--green); }
+  .sig-val-0  { color: var(--muted); }
+  .sig-cond   { color: var(--cyan); font-size: 0.62rem; }
+  .state-name { font-family: var(--head); font-size: 0.6rem; letter-spacing: 0.05em; }
+
+  .note {
+    font-size: 0.63rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-top: 6px;
+  }
+  .note span { color: var(--amber); }
+</style>
+</head>
+<body>
+
+<h1>Hardware FSM State Transition Diagrams</h1>
+<p class="subtitle">dropfifo · convertible_fifo · pipeline_datapath · user_top</p>
+
+<div class="grid">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CARD 1 · dropfifo — Main 4-State FSM (full width)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="card amber full">
+    <div class="card-title">dropfifo.v — Primary Packet Processing FSM</div>
+    <svg id="svg-dropfifo" viewBox="0 0 900 420" width="100%"></svg>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Active write path</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--cyan)"></div>Process / CPU path</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Drain / output path</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--pink)"></div>Drop / reset path</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--muted)"></div>Self-loop / stay</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CARD 2 · dropfifo output signal table
+  ════════════════════════════════════════════════════════════ -->
+  <div class="card amber">
+    <div class="card-title">dropfifo — Output Signals per State</div>
+    <table class="sig-table">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>fifo_full</th>
+          <th>pkt_ready</th>
+          <th>write_ready</th>
+          <th>proc_active</th>
+          <th>Key Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="state-name" style="color:var(--cyan)">S_IDLE</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-1">1</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-cond">Reset write_count, read_issue_count; allow dbg read</td>
+        </tr>
+        <tr>
+          <td class="state-name" style="color:var(--amber)">S_FILL</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-1">1</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-cond">Increment write_count each fill_write; latch pkt_len on lastword</td>
+        </tr>
+        <tr>
+          <td class="state-name" style="color:var(--pink)">S_PROCESS</td>
+          <td class="sig-val-1">1</td>
+          <td class="sig-val-1">1</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-1">1</td>
+          <td class="sig-cond">CPU R/W BRAM via proc_mem; latch proc_done → proc_done_seen</td>
+        </tr>
+        <tr>
+          <td class="state-name" style="color:var(--green)">S_DRAIN</td>
+          <td class="sig-val-1">1</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-val-0">0</td>
+          <td class="sig-cond">Issue reads: read_issue_count++ ; push resp_fifo; track flight_count</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note" style="margin-top:10px">
+      <span>start_write</span> = (state==S_IDLE) &amp;&amp; fifowrite &amp;&amp; firstword<br>
+      <span>fill_write</span>  = (state==S_FILL)  &amp;&amp; fifowrite<br>
+      <span>proc_done_safe</span> = proc_done_seen &amp;&amp; !proc_rd_valid_d &amp;&amp; !proc_read_req<br>
+      <span>drain_done</span>  = read_issue_count==pkt_len &amp;&amp; flight_count==0 &amp;&amp; resp_empty
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CARD 3 · convertible_fifo hold_valid FSM
+  ════════════════════════════════════════════════════════════ -->
+  <div class="card cyan">
+    <div class="card-title">convertible_fifo.v — hold_valid Register FSM</div>
+    <svg id="svg-hold" viewBox="0 0 420 260" width="100%"></svg>
+    <div class="note">
+      <span>accept_in</span>      = in_wr &amp;&amp; in_rdy<br>
+      <span>can_flush_hold</span> = hold_valid &amp;&amp; dropfifo_write_ready<br>
+      <span>in_rdy</span>         = !fifo_full &amp;&amp; (!hold_valid || can_flush_hold)<br>
+      <span>incoming_first</span> = (in_ctrl != 0)&nbsp;&nbsp;[marks header word]
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CARD 4 · pipeline_datapath boot_wait FSM
+  ════════════════════════════════════════════════════════════ -->
+  <div class="card green">
+    <div class="card-title">pipeline_datapath.v — boot_wait_r &amp; CPU Activation</div>
+    <svg id="svg-boot" viewBox="0 0 420 260" width="100%"></svg>
+    <div class="note">
+      <span>cpu_rst_local</span> = rst | ~proc_active<br>
+      <span>en_reg</span>        = proc_active &amp;&amp; !mem_stall &amp;&amp; !cpu_boot_wait<br>
+      <span>proc_done</span>     driven by mm_stage when all instructions retire<br>
+      Pipeline enabled only when: <span>proc_active=1 &amp;&amp; boot_wait_r=0 &amp;&amp; !mem_stall</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CARD 5 · user_top control logic (full width)
+  ════════════════════════════════════════════════════════════ -->
+  <div class="card pink full">
+    <div class="card-title">user_top.v — Control Register &amp; Signal Flow</div>
+    <svg id="svg-usertop" viewBox="0 0 900 200" width="100%"></svg>
+  </div>
+
+</div><!-- /.grid -->
+
+<div id="tooltip" class="tooltip-box"></div>
+
+<script>
+/* ──────────────────────────────────────────────────────────────
+   HELPERS
+────────────────────────────────────────────────────────────── */
+const SVG_NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs={}, parent=null) {
+  const e = document.createElementNS(SVG_NS, tag);
+  for (const [k,v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function text(content, attrs={}, parent=null) {
+  const e = el('text', attrs, parent);
+  e.textContent = content;
+  return e;
+}
+function tspan(content, attrs={}, parent) {
+  const e = document.createElementNS(SVG_NS, 'tspan');
+  Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));
+  e.textContent = content;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function mkMarker(svg, id, color, size=8) {
+  let defs = svg.querySelector('defs');
+  if (!defs) { defs = el('defs',{},svg); }
+  const m = el('marker',{id,markerWidth:size,markerHeight:size,
+    refX:size-1,refY:size/2,orient:'auto',markerUnits:'userSpaceOnUse'},defs);
+  el('polygon',{points:`0 0, ${size} ${size/2}, 0 ${size}`,fill:color},m);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   DRAW STATE CIRCLE
+────────────────────────────────────────────────────────────── */
+function drawState(svg, cx, cy, r, label, sublabel, color, isInit=false) {
+  const g = el('g',{'class':'state-circle'},svg);
+  // glow
+  el('circle',{cx,cy,r:r+8,fill:color,opacity:'0.08','class':'state-bg'},g);
+  el('circle',{cx,cy,r,fill:'#0d1520',stroke:color,'stroke-width':'2'},g);
+  if (isInit) {
+    el('circle',{cx,cy,r:r-5,fill:'none',stroke:color,'stroke-width':'1','stroke-dasharray':'3,2'},g);
+  }
+  const t = el('text',{x:cx,y:cy+(sublabel?-7:4),
+    'text-anchor':'middle','dominant-baseline':'middle',
+    fill:color,'font-family':'Orbitron,sans-serif','font-size':'10','font-weight':'700'},g);
+  t.textContent = label;
+  if (sublabel) {
+    const s = el('text',{x:cx,y:cy+10,
+      'text-anchor':'middle','dominant-baseline':'middle',
+      fill:'#5a7080','font-family':'Share Tech Mono,monospace','font-size':'8'},g);
+    s.textContent = sublabel;
+  }
+  return g;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   DRAW CURVED ARROW  (quadratic bezier)
+────────────────────────────────────────────────────────────── */
+function drawArrow(svg, x1,y1,x2,y2, cx_off,cy_off, label, color, mId, labelAnchor='middle') {
+  const mx = (x1+x2)/2 + cx_off;
+  const my = (y1+y2)/2 + cy_off;
+  const d = `M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`;
+  el('path',{d,fill:'none',stroke:color,'stroke-width':'1.5',
+    'marker-end':`url(#${mId})`},svg);
+  // label background
+  const lx = (x1 + 2*mx + x2)/4;
+  const ly = (y1 + 2*my + y2)/4;
+  // label
+  const words = label.split('\n');
+  const tg = el('text',{x:lx,y:ly-(words.length-1)*6,
+    'text-anchor':labelAnchor,'dominant-baseline':'middle',
+    fill:color,'font-family':'Share Tech Mono,monospace','font-size':'8','opacity':'0.95'},svg);
+  words.forEach((w,i)=>{
+    const sp = document.createElementNS(SVG_NS,'tspan');
+    sp.setAttribute('x', lx); sp.setAttribute('dy', i===0?'0':'10');
+    sp.textContent = w;
+    tg.appendChild(sp);
+  });
+}
+
+/* ──────────────────────────────────────────────────────────────
+   DRAW SELF-LOOP
+────────────────────────────────────────────────────────────── */
+function drawSelfLoop(svg, cx, cy, r, angle, label, color, mId) {
+  const rad = angle * Math.PI/180;
+  const sx = cx + r * Math.cos(rad - 0.5);
+  const sy = cy + r * Math.sin(rad - 0.5);
+  const ex = cx + r * Math.cos(rad + 0.5);
+  const ey = cy + r * Math.sin(rad + 0.5);
+  const lx = cx + (r+30)*Math.cos(rad);
+  const ly = cy + (r+30)*Math.sin(rad);
+  const d = `M ${sx} ${sy} C ${lx} ${ly-14} ${lx} ${ly+14} ${ex} ${ey}`;
+  el('path',{d,fill:'none',stroke:color,'stroke-width':'1.5',
+    'marker-end':`url(#${mId})`},svg);
+  const words = label.split('\n');
+  const tg = el('text',{
+    x: cx+(r+45)*Math.cos(rad),
+    y: cy+(r+45)*Math.sin(rad),
+    'text-anchor':'middle','dominant-baseline':'middle',
+    fill:color,'font-family':'Share Tech Mono,monospace','font-size':'8'},svg);
+  words.forEach((w,i)=>{
+    const sp = document.createElementNS(SVG_NS,'tspan');
+    sp.setAttribute('x', cx+(r+45)*Math.cos(rad));
+    sp.setAttribute('dy', i===0?'0':'10');
+    sp.textContent = w;
+    tg.appendChild(sp);
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════
+   1.  DROPFIFO  MAIN FSM
+════════════════════════════════════════════════════════════ */
+(function(){
+  const svg = document.getElementById('svg-dropfifo');
+  mkMarker(svg,'arr-amber','#f5a623',9);
+  mkMarker(svg,'arr-cyan', '#00e5ff',9);
+  mkMarker(svg,'arr-green','#39ff14',9);
+  mkMarker(svg,'arr-pink', '#ff3cac',9);
+  mkMarker(svg,'arr-muted','#5a7080',9);
+
+  // state positions
+  const states = {
+    IDLE:    {cx:450, cy:80,  r:44, color:'#00e5ff', label:'S_IDLE',    sub:'2\'b00'},
+    FILL:    {cx:180, cy:280, r:44, color:'#f5a623', label:'S_FILL',    sub:'2\'b01'},
+    PROCESS: {cx:720, cy:280, r:44, color:'#ff3cac', label:'S_PROCESS', sub:'2\'b10'},
+    DRAIN:   {cx:450, cy:370, r:44, color:'#39ff14', label:'S_DRAIN',   sub:'2\'b11'},
+  };
+
+  Object.entries(states).forEach(([k,s])=>{
+    drawState(svg,s.cx,s.cy,s.r,s.label,s.sub,s.color, k==='IDLE');
+  });
+
+  // ── TRANSITIONS ──────────────────────────────────────────────
+
+  // IDLE → FILL  (left side down)
+  drawArrow(svg, 415,105, 215,255, -80,0,
+    'start_write\n&& !lastword',
+    '#f5a623','arr-amber','end');
+
+  // FILL → IDLE  (right side up, parallel)
+  drawArrow(svg, 210,240, 420,100, 80,0,
+    'fill_write && lastword\n&& drop_pkt',
+    '#ff3cac','arr-pink','start');
+
+  // IDLE → PROCESS  (right side down)
+  drawArrow(svg, 486,105, 686,255, 80,0,
+    'start_write && lastword\n&& !drop_pkt && process_en',
+    '#ff3cac','arr-pink','end');
+
+  // IDLE → DRAIN  (straight down, slight left curve)
+  drawArrow(svg, 440,122, 430,328, -60,0,
+    'start_write && lastword\n&& !drop_pkt && !process_en',
+    '#39ff14','arr-green','end');
+
+  // FILL → PROCESS  (bottom across right)
+  drawArrow(svg, 224,275, 676,280, 0,-30,
+    'fill_write && lastword && !drop_pkt && process_en',
+    '#ff3cac','arr-pink','middle');
+
+  // FILL → DRAIN  (down-right)
+  drawArrow(svg, 205,320, 408,360, 0,30,
+    'fill_write && lastword\n&& !drop_pkt && !process_en',
+    '#39ff14','arr-green','middle');
+
+  // PROCESS → DRAIN  (down-left)
+  drawArrow(svg, 695,318, 495,355, 0,30,
+    'proc_done_safe',
+    '#39ff14','arr-green','middle');
+
+  // DRAIN → IDLE  (right, up, loop)
+  drawArrow(svg, 490,348, 490,105, 120,-30,
+    'drain_done\n(read_issue_count==pkt_len\n&& flight_count==0\n&& resp_empty)',
+    '#00e5ff','arr-cyan','start');
+
+  // IDLE self-loop: start_write && lastword && drop_pkt
+  drawSelfLoop(svg,450,80,44,270,
+    'start_write && lastword\n&& drop_pkt',
+    '#5a7080','arr-muted');
+
+  // PROCESS stays label
+  el('text',{x:720,y:220,'text-anchor':'middle',fill:'#9e1f6a',
+    'font-family':'Share Tech Mono','font-size':'8'},svg).textContent = '(proc_active: CPU R/W BRAM)';
+
+  // DRAIN label
+  el('text',{x:450,y:418,'text-anchor':'middle',fill:'#1a7a06',
+    'font-family':'Share Tech Mono','font-size':'8'},svg).textContent = '(issue reads → resp_fifo → out_fifo)';
+
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   2.  CONVERTIBLE_FIFO  hold_valid FSM
+════════════════════════════════════════════════════════════ */
+(function(){
+  const svg = document.getElementById('svg-hold');
+  mkMarker(svg,'hv-cyan','#00e5ff',9);
+  mkMarker(svg,'hv-amber','#f5a623',9);
+  mkMarker(svg,'hv-pink','#ff3cac',9);
+
+  // Two states: hold_valid=0 (left), hold_valid=1 (right)
+  drawState(svg,110,130,50,'hold_valid\n= 0',null,'#00e5ff');
+  drawState(svg,310,130,50,'hold_valid\n= 1',null,'#f5a623');
+
+  // 0 → 1: !hold_valid && accept_in
+  drawArrow(svg, 160,115, 260,115, 0,-40,
+    '!hold_valid && accept_in\n(latch in_data/in_ctrl/incoming_first)',
+    '#f5a623','hv-amber','middle');
+
+  // 1 → 1 self: can_flush_hold && accept_in  (stay valid, update hold)
+  drawSelfLoop(svg,310,130,50,270,
+    'can_flush_hold && accept_in\n(flush old→BRAM, latch new)',
+    '#00e5ff','hv-cyan');
+
+  // 1 → 0: can_flush_hold && !accept_in
+  drawArrow(svg, 262,145, 162,145, 0,40,
+    'can_flush_hold && !accept_in\n(flush old→BRAM, clear hold)',
+    '#ff3cac','hv-pink','middle');
+
+  // Initial arrow for hold_valid=0
+  el('line',{x1:40,y1:130,x2:58,y2:130,stroke:'#00e5ff','stroke-width':'1.5',
+    'marker-end':'url(#hv-cyan)'},svg);
+  text('RESET',{x:36,y:125,'text-anchor':'end',fill:'#00e5ff',
+    'font-family':'Share Tech Mono','font-size':'8'},svg);
+
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   3.  PIPELINE_DATAPATH  boot_wait_r FSM
+════════════════════════════════════════════════════════════ */
+(function(){
+  const svg = document.getElementById('svg-boot');
+  mkMarker(svg,'bw-green','#39ff14',9);
+  mkMarker(svg,'bw-amber','#f5a623',9);
+  mkMarker(svg,'bw-pink','#ff3cac',9);
+  mkMarker(svg,'bw-muted','#5a7080',9);
+
+  drawState(svg,110,110,50,'WAIT\nboot_wait_r=1',null,'#ff3cac');
+  drawState(svg,310,110,50,'ACTIVE\nboot_wait_r=0',null,'#39ff14');
+
+  // WAIT → ACTIVE (one cycle after rst deasserts + proc_active)
+  drawArrow(svg, 160,95, 260,95, 0,-40,
+    '!cpu_rst_local\n(proc_active && !rst, 1-cycle delay)',
+    '#39ff14','bw-green','middle');
+
+  // ACTIVE → WAIT: cpu_rst_local (rst | ~proc_active)
+  drawArrow(svg, 262,125, 162,125, 0,40,
+    'cpu_rst_local\n(rst | ~proc_active)',
+    '#ff3cac','bw-pink','middle');
+
+  // Self-loop WAIT: cpu_rst_local keeps it in wait
+  drawSelfLoop(svg,110,110,50,200,
+    'cpu_rst_local\n(held in reset)',
+    '#5a7080','bw-muted');
+
+  // ACTIVE self-loop: en_reg drives pipeline
+  drawSelfLoop(svg,310,110,50,340,
+    '!mem_stall && proc_active\n(en_reg=1, pipeline advances)',
+    '#f5a623','bw-amber');
+
+  // stall annotation
+  el('text',{x:210,y:200,'text-anchor':'middle',fill:'#5a7080',
+    'font-family':'Share Tech Mono','font-size':'8'},svg).textContent = 'mem_stall → en_reg=0 (pipeline frozen)';
+
+  // Reset arrow
+  el('line',{x1:38,y1:110,x2:58,y2:110,stroke:'#ff3cac','stroke-width':'1.5',
+    'marker-end':'url(#bw-pink)'},svg);
+  text('RESET',{x:34,y:106,'text-anchor':'end',fill:'#ff3cac',
+    'font-family':'Share Tech Mono','font-size':'8'},svg);
+
+})();
+
+/* ══════════════════════════════════════════════════════════════
+   4.  USER_TOP  Control Signal Flow
+════════════════════════════════════════════════════════════ */
+(function(){
+  const svg = document.getElementById('svg-usertop');
+  mkMarker(svg,'ut-pink','#ff3cac',9);
+  mkMarker(svg,'ut-cyan','#00e5ff',9);
+  mkMarker(svg,'ut-amber','#f5a623',9);
+  mkMarker(svg,'ut-green','#39ff14',9);
+
+  const BOX_H = 54, BOX_W = 130;
+  const boxes = [
+    {x:20,  y:75, w:BOX_W, h:BOX_H, color:'#5a7080', label:'generic_regs', sub:'sw_ctrl[3:0]\nsw_icache_addr\nsw_icache_wdata\nsw_bram_addr'},
+    {x:220, y:75, w:110,   h:BOX_H, color:'#ff3cac', label:'sw_ctrl decode', sub:'bypass/icache_wr\ndbg_bram/soft_rst'},
+    {x:390, y:75, w:BOX_W, h:BOX_H, color:'#00e5ff', label:'pipeline_datapath\n(u_cpu)', sub:'RISC-V 5-stage\nic_prog / proc_mem'},
+    {x:580, y:75, w:BOX_W, h:BOX_H, color:'#f5a623', label:'convertible_fifo\n(u_fifo)', sub:'dropfifo inside\nhold_valid logic'},
+    {x:760, y:75, w:118,   h:BOX_H, color:'#39ff14', label:'hw_status/regs', sub:'hw_pc, hw_bram\ncpu_done_sticky'},
+  ];
+
+  boxes.forEach(b=>{
+    el('rect',{x:b.x,y:b.y,width:b.w,height:b.h,rx:6,
+      fill:'#0d1520',stroke:b.color,'stroke-width':'1.5'},svg);
+    const lines = b.label.split('\n');
+    lines.forEach((l,i)=>{
+      el('text',{x:b.x+b.w/2,y:b.y+13+i*11,'text-anchor':'middle',
+        fill:b.color,'font-family':'Orbitron,sans-serif','font-size':'7.5','font-weight':'700'},svg).textContent=l;
+    });
+    const slines = b.sub.split('\n');
+    slines.forEach((l,i)=>{
+      el('text',{x:b.x+b.w/2,y:b.y+34+i*9,'text-anchor':'middle',
+        fill:'#5a7080','font-family':'Share Tech Mono','font-size':'7'},svg).textContent=l;
+    });
+  });
+
+  // Arrows between boxes
+  function hArrow(x1,y,x2,color,mId,label='',labelY=0){
+    el('line',{x1,y1:y,x2,y2:y,stroke:color,'stroke-width':'1.5',
+      'marker-end':`url(#${mId})`},svg);
+    if(label) el('text',{x:(x1+x2)/2,y:labelY||y-5,'text-anchor':'middle',
+      fill:color,'font-family':'Share Tech Mono','font-size':'7'},svg).textContent=label;
+  }
+
+  // generic_regs → sw_ctrl decode
+  hArrow(152,102,218,'#5a7080','ut-pink','sw_ctrl[3:0]',96);
+  // sw_ctrl → cpu (icache_prog_pulse)
+  hArrow(332,95,388,'#ff3cac','ut-cyan','icache_prog_pulse',90);
+  // sw_ctrl → fifo (process_en, bypass_enable)
+  hArrow(332,115,388,'#ff3cac','ut-amber','process_en=!bypass',120);
+  // cpu → fifo (proc_mem bus)
+  hArrow(522,102,578,'#00e5ff','ut-amber','proc_mem bus');
+  // fifo → hw_regs (status/debug)
+  hArrow(712,102,758,'#f5a623','ut-green','dbg signals');
+  // hw_regs → generic_regs (feedback up, drawn as down arc)
+  const fb = el('path',{d:'M 820 75 Q 820 30 450 30 Q 90 30 90 73',
+    fill:'none',stroke:'#39ff14','stroke-width':'1.2','stroke-dasharray':'4,3',
+    'marker-end':'url(#ut-green)'},svg);
+  el('text',{x:450,y:24,'text-anchor':'middle',fill:'#39ff14',
+    'font-family':'Share Tech Mono','font-size':'7'},svg).textContent='hw_status → generic_regs.hardware_regs (read-back to host)';
+
+  // module_reset label
+  el('text',{x:450,y:170,'text-anchor':'middle',fill:'#5a7080',
+    'font-family':'Share Tech Mono','font-size':'8'},svg).textContent=
+    'module_reset = reset | soft_reset   ·   soft_reset = sw_ctrl[3]   ·   icache_prog_pulse = icache_wr_req & ~icache_wr_req_d  (rising-edge detect)';
+
+})();
+</script>
+</body>
+</html>
