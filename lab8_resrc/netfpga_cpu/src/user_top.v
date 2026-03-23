@@ -8,16 +8,19 @@ module user_top #(
   input  [CTRL_WIDTH-1:0]           in_ctrl,
   input                             in_wr,
   output                            in_rdy,
+
   output [DATA_WIDTH-1:0]           out_data,
   output [CTRL_WIDTH-1:0]           out_ctrl,
   output                            out_wr,
   input                             out_rdy,
+
   input                             reg_req_in,
   input                             reg_ack_in,
   input                             reg_rd_wr_L_in,
   input  [`UDP_REG_ADDR_WIDTH-1:0]  reg_addr_in,
   input  [`CPCI_NF2_DATA_WIDTH-1:0] reg_data_in,
   input  [UDP_REG_SRC_WIDTH-1:0]    reg_src_in,
+  
   output                            reg_req_out,
   output                            reg_ack_out,
   output                            reg_rd_wr_L_out,

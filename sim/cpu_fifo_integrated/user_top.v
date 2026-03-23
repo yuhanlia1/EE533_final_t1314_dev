@@ -1,5 +1,3 @@
-`timescale 1ns/1ps
-
 module user_top #(
   parameter DATA_WIDTH = 64,
   parameter CTRL_WIDTH = DATA_WIDTH / 8,
