@@ -2,7 +2,7 @@
 `define UDP_REG_ADDR_WIDTH 23
 `define CPCI_NF2_DATA_WIDTH 32
 
-module tb_user_top_gpu_ptx_v;
+module tb_user_top_gpu_ptx_v3;
 
   localparam DATA_WIDTH = 64;
   localparam CTRL_WIDTH = DATA_WIDTH/8;
