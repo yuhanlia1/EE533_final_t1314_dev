@@ -1,0 +1,10 @@
+./user_top_regs.pl reset
+./user_top_regs.pl mode_cpu
+./user_top_regs.pl mode_bypass
+./user_top_regs.pl ctrl
+./user_top_regs.pl status
+./user_top_regs.pl pc
+./user_top_regs.pl icache_write 0 0x12345678
+./user_top_regs.pl bram_read 0
+./user_top_regs.pl bram_dump 0 8
+./user_top_regs.pl allregs
