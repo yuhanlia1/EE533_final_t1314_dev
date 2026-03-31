@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+  <nf:name>user_top</nf:name>
+  <nf:prefix>user_top</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Registers for user_top CPU + FIFO + 2-lane GPU integration</nf:description>
+  <nf:blocksize>64</nf:blocksize>
+  <nf:registers>
+
+    <nf:register>
+      <nf:name>sw_ctrl</nf:name>
+      <nf:description>
+        Control register.
+        bit0=bypass_enable,
+        bit1=icache_wr_req pulse,
+        bit2=dbg_bram_en,
+        bit3=soft_reset,
+        bit4=proc_owner_gpu_cfg,
+        bit5=gpu_mmio_wr_req pulse,
+        bit6=gpu_mmio_rd_req pulse,
+        bit7=gpu_imem_wr_req pulse
+      </nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_icache_addr</nf:name>
+      <nf:description>CPU I-cache program address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_icache_wdata</nf:name>
+      <nf:description>CPU I-cache program write data</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_bram_addr</nf:name>
+      <nf:description>FIFO debug BRAM read address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_gpu_mmio_addr</nf:name>
+      <nf:description>2-lane GPU internal MMIO address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_gpu_mmio_wdata</nf:name>
+      <nf:description>2-lane GPU internal MMIO write data</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_gpu_imem_addr</nf:name>
+      <nf:description>2-lane GPU instruction memory program address</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>sw_gpu_imem_wdata</nf:name>
+      <nf:description>2-lane GPU instruction memory program write data</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_status</nf:name>
+      <nf:description>
+        Global FIFO/processor status.
+        bit0=fifo_full,
+        bit1=proc_owner_gpu_live,
+        bit2=pkt_ready,
+        bit3=fifo_proc_active,
+        bit4=done_sticky_any,
+        bit5=fifo_dbg_mem_rvalid,
+        bit7:6=fifo_dbg_state,
+        bit16:8=fifo_dbg_pkt_len
+      </nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_pc</nf:name>
+      <nf:description>Debug PC of current processing owner: CPU PC or 2-lane GPU PC depending on proc_owner_gpu_live</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_bram_lo</nf:name>
+      <nf:description>FIFO debug BRAM read data low 32 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_bram_hi</nf:name>
+      <nf:description>FIFO debug BRAM read data high 32 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_bram_ctrl</nf:name>
+      <nf:description>FIFO debug BRAM read control field</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_gpu_mmio_rdata</nf:name>
+      <nf:description>Readback data from 2-lane GPU internal MMIO</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_gpu_status</nf:name>
+      <nf:description>
+        2-lane GPU status register.
+        bit0=gpu_busy,
+        bit1=proc_owner_gpu_live,
+        bit2=gpu_proc_active,
+        bit3=gpu_proc_done,
+        bit4=gpu_done_sticky,
+        bit9:5=reserved,
+        bit25:10=gpu_dbg_pc,
+        bit31:26=reserved
+      </nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+  </nf:registers>
+</nf:module>
