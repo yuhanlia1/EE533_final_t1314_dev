@@ -71,6 +71,8 @@ module gpu_platform_bridge #(
   reg         mem0_rvalid_reg;
   reg         mem1_rvalid_reg;
   reg         core_done_d;
+  integer      i;
+  integer      j;
 
   wire                   mmio_wr_sel;
   wire                   mmio_rd_sel;
@@ -114,7 +116,6 @@ module gpu_platform_bridge #(
   assign core_done_out   = core_done;
 
   initial begin
-    integer i;
     for (i = 0; i < (1 << MEM_AW); i = i + 1) begin
       mem0[i] = 64'd0;
       mem1[i] = 64'd0;
@@ -132,7 +133,6 @@ module gpu_platform_bridge #(
   end
 
   always @(posedge clk or posedge reset) begin
-    integer j;
     if (reset) begin
       for (j = 0; j < (1 << MEM_AW); j = j + 1) begin
         mem0[j] <= 64'd0;
@@ -265,7 +265,7 @@ module gpu_platform_bridge #(
     end
   end
 
-  gpu_top_fifo_if_copy #(
+  gpu_top_fifo_if #(
     .MMIO_ADDR_W(MMIO_ADDR_W),
     .IMEM_AW    (IMEM_AW),
     .MEM_AW     (MEM_AW)

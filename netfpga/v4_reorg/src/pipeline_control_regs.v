@@ -36,17 +36,15 @@ module pipeline_control_regs #(
   output reg [31:0] sw_d_mem_addr,
   output reg [31:0] sw_i_mem_wdata,
   output reg [31:0] sw_i_mem_addr,
-  output reg [31:0] sw_network_la_addr,
-  output reg [31:0] sw_gpu_ifmap_wdata,
-  output reg [31:0] sw_gpu_ifmap_addr,
+  output reg [31:0] sw_engine_ctrl,
+  output reg [31:0] sw_gpu_i_mem_wdata,
+  output reg [31:0] sw_gpu_i_mem_addr,
   output reg [31:0] sw_gpu_w_mem_wdata_1,
   output reg [31:0] sw_gpu_w_mem_wdata_0,
   output reg [31:0] sw_gpu_w_mem_addr,
   output reg [31:0] sw_gpu_ofmap_addr,
 
-  input      [31:0] hw_network_la_word_out_0,
-  input      [31:0] hw_network_la_word_out_1,
-  input      [31:0] hw_gpu_drop,
+  input      [31:0] hw_engine_status,
   input      [31:0] hw_gpu_ofmap_data_0,
   input      [31:0] hw_gpu_ofmap_data_1,
 
@@ -64,16 +62,16 @@ module pipeline_control_regs #(
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_D_MEM_ADDR          = 0;
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_I_MEM_WDATA         = 1;
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_I_MEM_ADDR          = 2;
-  localparam [WORD_INDEX_WIDTH-1:0] REG_SW_NETWORK_LA_ADDR     = 3;
-  localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_IFMAP_WDATA     = 4;
-  localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_IFMAP_ADDR      = 5;
+  localparam [WORD_INDEX_WIDTH-1:0] REG_SW_ENGINE_CTRL         = 3;
+  localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_I_MEM_WDATA     = 4;
+  localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_I_MEM_ADDR      = 5;
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_W_MEM_WDATA_1   = 6;
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_W_MEM_WDATA_0   = 7;
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_W_MEM_ADDR      = 8;
   localparam [WORD_INDEX_WIDTH-1:0] REG_SW_GPU_OFMAP_ADDR      = 9;
-  localparam [WORD_INDEX_WIDTH-1:0] REG_HW_NETWORK_LA_WORD_OUT_0 = 10;
-  localparam [WORD_INDEX_WIDTH-1:0] REG_HW_NETWORK_LA_WORD_OUT_1 = 11;
-  localparam [WORD_INDEX_WIDTH-1:0] REG_HW_GPU_DROP            = 12;
+  localparam [WORD_INDEX_WIDTH-1:0] REG_HW_ENGINE_STATUS       = 10;
+  localparam [WORD_INDEX_WIDTH-1:0] REG_HW_RESERVED_0          = 11;
+  localparam [WORD_INDEX_WIDTH-1:0] REG_HW_RESERVED_1          = 12;
   localparam [WORD_INDEX_WIDTH-1:0] REG_HW_GPU_OFMAP_DATA_0    = 13;
   localparam [WORD_INDEX_WIDTH-1:0] REG_HW_GPU_OFMAP_DATA_1    = 14;
 
@@ -98,16 +96,16 @@ module pipeline_control_regs #(
       REG_SW_D_MEM_ADDR:            local_read_data = sw_d_mem_addr;
       REG_SW_I_MEM_WDATA:           local_read_data = sw_i_mem_wdata;
       REG_SW_I_MEM_ADDR:            local_read_data = sw_i_mem_addr;
-      REG_SW_NETWORK_LA_ADDR:       local_read_data = sw_network_la_addr;
-      REG_SW_GPU_IFMAP_WDATA:       local_read_data = sw_gpu_ifmap_wdata;
-      REG_SW_GPU_IFMAP_ADDR:        local_read_data = sw_gpu_ifmap_addr;
+      REG_SW_ENGINE_CTRL:           local_read_data = sw_engine_ctrl;
+      REG_SW_GPU_I_MEM_WDATA:       local_read_data = sw_gpu_i_mem_wdata;
+      REG_SW_GPU_I_MEM_ADDR:        local_read_data = sw_gpu_i_mem_addr;
       REG_SW_GPU_W_MEM_WDATA_1:     local_read_data = sw_gpu_w_mem_wdata_1;
       REG_SW_GPU_W_MEM_WDATA_0:     local_read_data = sw_gpu_w_mem_wdata_0;
       REG_SW_GPU_W_MEM_ADDR:        local_read_data = sw_gpu_w_mem_addr;
       REG_SW_GPU_OFMAP_ADDR:        local_read_data = sw_gpu_ofmap_addr;
-      REG_HW_NETWORK_LA_WORD_OUT_0: local_read_data = hw_network_la_word_out_0;
-      REG_HW_NETWORK_LA_WORD_OUT_1: local_read_data = hw_network_la_word_out_1;
-      REG_HW_GPU_DROP:              local_read_data = hw_gpu_drop;
+      REG_HW_ENGINE_STATUS:         local_read_data = hw_engine_status;
+      REG_HW_RESERVED_0:            local_read_data = 32'd0;
+      REG_HW_RESERVED_1:            local_read_data = 32'd0;
       REG_HW_GPU_OFMAP_DATA_0:      local_read_data = hw_gpu_ofmap_data_0;
       REG_HW_GPU_OFMAP_DATA_1:      local_read_data = hw_gpu_ofmap_data_1;
       default:                      local_read_data = 32'd0;
@@ -119,9 +117,9 @@ module pipeline_control_regs #(
       sw_d_mem_addr        <= 32'd0;
       sw_i_mem_wdata       <= 32'd0;
       sw_i_mem_addr        <= 32'd0;
-      sw_network_la_addr   <= 32'd0;
-      sw_gpu_ifmap_wdata   <= 32'd0;
-      sw_gpu_ifmap_addr    <= 32'd0;
+      sw_engine_ctrl       <= 32'd0;
+      sw_gpu_i_mem_wdata   <= 32'd0;
+      sw_gpu_i_mem_addr    <= 32'd0;
       sw_gpu_w_mem_wdata_1 <= 32'd0;
       sw_gpu_w_mem_wdata_0 <= 32'd0;
       sw_gpu_w_mem_addr    <= 32'd0;
@@ -132,9 +130,9 @@ module pipeline_control_regs #(
         REG_SW_D_MEM_ADDR:          sw_d_mem_addr        <= reg_data_in;
         REG_SW_I_MEM_WDATA:         sw_i_mem_wdata       <= reg_data_in;
         REG_SW_I_MEM_ADDR:          sw_i_mem_addr        <= reg_data_in;
-        REG_SW_NETWORK_LA_ADDR:     sw_network_la_addr   <= reg_data_in;
-        REG_SW_GPU_IFMAP_WDATA:     sw_gpu_ifmap_wdata   <= reg_data_in;
-        REG_SW_GPU_IFMAP_ADDR:      sw_gpu_ifmap_addr    <= reg_data_in;
+        REG_SW_ENGINE_CTRL:         sw_engine_ctrl       <= reg_data_in;
+        REG_SW_GPU_I_MEM_WDATA:     sw_gpu_i_mem_wdata   <= reg_data_in;
+        REG_SW_GPU_I_MEM_ADDR:      sw_gpu_i_mem_addr    <= reg_data_in;
         REG_SW_GPU_W_MEM_WDATA_1:   sw_gpu_w_mem_wdata_1 <= reg_data_in;
         REG_SW_GPU_W_MEM_WDATA_0:   sw_gpu_w_mem_wdata_0 <= reg_data_in;
         REG_SW_GPU_W_MEM_ADDR:      sw_gpu_w_mem_addr    <= reg_data_in;

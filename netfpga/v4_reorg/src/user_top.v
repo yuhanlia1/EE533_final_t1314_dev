@@ -1,11 +1,19 @@
 `timescale 1ns/1ps
 
 `ifndef UDP_REG_ADDR_WIDTH
-`define UDP_REG_ADDR_WIDTH 16
+`define UDP_REG_ADDR_WIDTH 24
 `endif
 
 `ifndef CPCI_NF2_DATA_WIDTH
 `define CPCI_NF2_DATA_WIDTH 32
+`endif
+
+`ifndef PIPELINE_BLOCK_ADDR
+`define PIPELINE_BLOCK_ADDR 10'h155
+`endif
+
+`ifndef PIPELINE_REG_ADDR_WIDTH
+`define PIPELINE_REG_ADDR_WIDTH 6
 `endif
 
 module user_top #(
@@ -43,33 +51,33 @@ module user_top #(
 
   localparam ACTION_WIDTH = 2;
 
-  reg  [31:0] sw_network_la_addr_latch;
+  reg  [31:0] sw_engine_ctrl_latch;
   reg  [31:0] sw_i_mem_addr_latch;
   reg  [31:0] sw_i_mem_wdata_latch;
   reg  [31:0] sw_d_mem_addr_latch;
+  reg  [31:0] sw_gpu_i_mem_addr_latch;
+  reg  [31:0] sw_gpu_i_mem_wdata_latch;
   reg  [31:0] sw_gpu_w_mem_addr_latch;
   reg  [31:0] sw_gpu_w_mem_wdata_0_latch;
   reg  [31:0] sw_gpu_w_mem_wdata_1_latch;
-  reg  [31:0] sw_gpu_ifmap_addr_latch;
-  reg  [31:0] sw_gpu_ifmap_wdata_latch;
   reg  [31:0] sw_gpu_ofmap_addr_latch;
 
-  wire [31:0] sw_network_la_addr;
+  wire [31:0] sw_engine_ctrl;
   wire [31:0] sw_i_mem_addr;
   wire [31:0] sw_i_mem_wdata;
   wire [31:0] sw_d_mem_addr;
+  wire [31:0] sw_gpu_i_mem_addr;
+  wire [31:0] sw_gpu_i_mem_wdata;
   wire [31:0] sw_gpu_w_mem_addr;
   wire [31:0] sw_gpu_w_mem_wdata_0;
   wire [31:0] sw_gpu_w_mem_wdata_1;
-  wire [31:0] sw_gpu_ifmap_addr;
-  wire [31:0] sw_gpu_ifmap_wdata;
   wire [31:0] sw_gpu_ofmap_addr;
 
-  wire [31:0] hw_gpu_drop;
-  reg  [31:0] hw_network_la_word_out_1;
-  reg  [31:0] hw_network_la_word_out_0;
+  wire [31:0] hw_engine_status;
   wire [31:0] hw_gpu_ofmap_data_1;
   wire [31:0] hw_gpu_ofmap_data_0;
+  wire [31:0] hw_reserved_1;
+  wire [31:0] hw_reserved_0;
 
   wire [DATA_WIDTH-1:0] ingress_out_data;
   wire [CTRL_WIDTH-1:0] ingress_out_ctrl;
@@ -97,43 +105,62 @@ module user_top #(
   wire                  offload_wr;
   wire                  offload_rdy;
 
+  wire [DATA_WIDTH-1:0] offload_slice_data;
+  wire [CTRL_WIDTH-1:0] offload_slice_ctrl;
+  wire                  offload_slice_wr;
+  wire                  offload_slice_rdy;
+
   wire [DATA_WIDTH-1:0] ann_out_data;
   wire [CTRL_WIDTH-1:0] ann_out_ctrl;
   wire                  ann_out_wr;
   wire                  ann_out_rdy;
 
-  pipeline_control_regs #(
-    .UDP_REG_SRC_WIDTH(UDP_REG_SRC_WIDTH)
+  assign hw_reserved_0 = 32'd0;
+  assign hw_reserved_1 = 32'd0;
+
+  generic_regs #(
+    .UDP_REG_SRC_WIDTH (UDP_REG_SRC_WIDTH),
+    .TAG               (`PIPELINE_BLOCK_ADDR),
+    .REG_ADDR_WIDTH    (`PIPELINE_REG_ADDR_WIDTH),
+    .NUM_COUNTERS      (0),
+    .NUM_SOFTWARE_REGS (10),
+    .NUM_HARDWARE_REGS (5)
   ) control_regs (
-    .reg_req_in              (reg_req_in),
-    .reg_ack_in              (reg_ack_in),
-    .reg_rd_wr_L_in          (reg_rd_wr_L_in),
-    .reg_addr_in             (reg_addr_in),
-    .reg_data_in             (reg_data_in),
-    .reg_src_in              (reg_src_in),
-    .reg_req_out             (reg_req_out),
-    .reg_ack_out             (reg_ack_out),
-    .reg_rd_wr_L_out         (reg_rd_wr_L_out),
-    .reg_addr_out            (reg_addr_out),
-    .reg_data_out            (reg_data_out),
-    .reg_src_out             (reg_src_out),
-    .sw_d_mem_addr           (sw_d_mem_addr),
-    .sw_i_mem_wdata          (sw_i_mem_wdata),
-    .sw_i_mem_addr           (sw_i_mem_addr),
-    .sw_network_la_addr      (sw_network_la_addr),
-    .sw_gpu_ifmap_wdata      (sw_gpu_ifmap_wdata),
-    .sw_gpu_ifmap_addr       (sw_gpu_ifmap_addr),
-    .sw_gpu_w_mem_wdata_1    (sw_gpu_w_mem_wdata_1),
-    .sw_gpu_w_mem_wdata_0    (sw_gpu_w_mem_wdata_0),
-    .sw_gpu_w_mem_addr       (sw_gpu_w_mem_addr),
-    .sw_gpu_ofmap_addr       (sw_gpu_ofmap_addr),
-    .hw_network_la_word_out_0(hw_network_la_word_out_0),
-    .hw_network_la_word_out_1(hw_network_la_word_out_1),
-    .hw_gpu_drop             (hw_gpu_drop),
-    .hw_gpu_ofmap_data_0     (hw_gpu_ofmap_data_0),
-    .hw_gpu_ofmap_data_1     (hw_gpu_ofmap_data_1),
-    .clk                     (clk),
-    .reset                   (reset)
+    .reg_req_in       (reg_req_in),
+    .reg_ack_in       (reg_ack_in),
+    .reg_rd_wr_L_in   (reg_rd_wr_L_in),
+    .reg_addr_in      (reg_addr_in),
+    .reg_data_in      (reg_data_in),
+    .reg_src_in       (reg_src_in),
+    .reg_req_out      (reg_req_out),
+    .reg_ack_out      (reg_ack_out),
+    .reg_rd_wr_L_out  (reg_rd_wr_L_out),
+    .reg_addr_out     (reg_addr_out),
+    .reg_data_out     (reg_data_out),
+    .reg_src_out      (reg_src_out),
+    .counter_updates  (),
+    .counter_decrement(),
+    .software_regs ({
+      sw_gpu_ofmap_addr,
+      sw_gpu_w_mem_addr,
+      sw_gpu_w_mem_wdata_0,
+      sw_gpu_w_mem_wdata_1,
+      sw_gpu_i_mem_addr,
+      sw_gpu_i_mem_wdata,
+      sw_engine_ctrl,
+      sw_i_mem_addr,
+      sw_i_mem_wdata,
+      sw_d_mem_addr
+    }),
+    .hardware_regs ({
+      hw_gpu_ofmap_data_1,
+      hw_gpu_ofmap_data_0,
+      hw_reserved_1,
+      hw_reserved_0,
+      hw_engine_status
+    }),
+    .clk              (clk),
+    .reset            (reset)
   );
 
   convertible_fifo #(
@@ -212,82 +239,75 @@ module user_top #(
     .clk       (clk)
   );
 
+  network_stream_slice #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .CTRL_WIDTH(CTRL_WIDTH)
+  ) offload_input_slice (
+    .clk     (clk),
+    .reset   (reset),
+    .s_data  (offload_data),
+    .s_ctrl  (offload_ctrl),
+    .s_valid (offload_wr),
+    .s_ready (offload_rdy),
+    .m_data  (offload_slice_data),
+    .m_ctrl  (offload_slice_ctrl),
+    .m_valid (offload_slice_wr),
+    .m_ready (offload_slice_rdy)
+  );
+
   ann_engine_wrapper #(
     .DATA_WIDTH(DATA_WIDTH),
     .CTRL_WIDTH(CTRL_WIDTH)
   ) ann_engine (
-    .in_data               (offload_data),
-    .in_ctrl               (offload_ctrl),
-    .in_wr                 (offload_wr),
-    .in_rdy                (offload_rdy),
+    .in_data               (offload_slice_data),
+    .in_ctrl               (offload_slice_ctrl),
+    .in_wr                 (offload_slice_wr),
+    .in_rdy                (offload_slice_rdy),
     .out_data              (ann_out_data),
     .out_ctrl              (ann_out_ctrl),
     .out_wr                (ann_out_wr),
     .out_rdy               (ann_out_rdy),
+    .sw_engine_ctrl        (sw_engine_ctrl_latch),
     .sw_i_mem_addr         (sw_i_mem_addr_latch),
     .sw_i_mem_wdata        (sw_i_mem_wdata_latch),
     .sw_d_mem_addr         (sw_d_mem_addr_latch),
+    .sw_gpu_i_mem_addr     (sw_gpu_i_mem_addr_latch),
+    .sw_gpu_i_mem_wdata    (sw_gpu_i_mem_wdata_latch),
     .sw_gpu_w_mem_addr     (sw_gpu_w_mem_addr_latch),
     .sw_gpu_w_mem_wdata_0  (sw_gpu_w_mem_wdata_0_latch),
     .sw_gpu_w_mem_wdata_1  (sw_gpu_w_mem_wdata_1_latch),
-    .sw_gpu_ifmap_addr     (sw_gpu_ifmap_addr_latch),
-    .sw_gpu_ifmap_wdata    (sw_gpu_ifmap_wdata_latch),
     .sw_gpu_ofmap_addr     (sw_gpu_ofmap_addr_latch),
     .hw_gpu_ofmap_data_1   (hw_gpu_ofmap_data_1),
     .hw_gpu_ofmap_data_0   (hw_gpu_ofmap_data_0),
-    .hw_gpu_drop           (hw_gpu_drop),
+    .hw_engine_status      (hw_engine_status),
     .clk                   (clk),
     .reset                 (reset)
   );
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      sw_network_la_addr_latch   <= 32'd0;
+      sw_engine_ctrl_latch       <= 32'd0;
       sw_i_mem_addr_latch        <= 32'd0;
       sw_i_mem_wdata_latch       <= 32'd0;
       sw_d_mem_addr_latch        <= 32'd0;
+      sw_gpu_i_mem_addr_latch    <= 32'd0;
+      sw_gpu_i_mem_wdata_latch   <= 32'd0;
       sw_gpu_w_mem_addr_latch    <= 32'd0;
       sw_gpu_w_mem_wdata_0_latch <= 32'd0;
       sw_gpu_w_mem_wdata_1_latch <= 32'd0;
-      sw_gpu_ifmap_addr_latch    <= 32'd0;
-      sw_gpu_ifmap_wdata_latch   <= 32'd0;
       sw_gpu_ofmap_addr_latch    <= 32'd0;
     end
     else begin
-      sw_network_la_addr_latch   <= sw_network_la_addr;
+      sw_engine_ctrl_latch       <= sw_engine_ctrl;
       sw_i_mem_addr_latch        <= sw_i_mem_addr;
       sw_i_mem_wdata_latch       <= sw_i_mem_wdata;
       sw_d_mem_addr_latch        <= sw_d_mem_addr;
+      sw_gpu_i_mem_addr_latch    <= sw_gpu_i_mem_addr;
+      sw_gpu_i_mem_wdata_latch   <= sw_gpu_i_mem_wdata;
       sw_gpu_w_mem_addr_latch    <= sw_gpu_w_mem_addr;
       sw_gpu_w_mem_wdata_0_latch <= sw_gpu_w_mem_wdata_0;
       sw_gpu_w_mem_wdata_1_latch <= sw_gpu_w_mem_wdata_1;
-      sw_gpu_ifmap_addr_latch    <= sw_gpu_ifmap_addr;
-      sw_gpu_ifmap_wdata_latch   <= sw_gpu_ifmap_wdata;
       sw_gpu_ofmap_addr_latch    <= sw_gpu_ofmap_addr;
-    end
-  end
-
-  reg [DATA_WIDTH-1:0] nw_la_mem [0:127];
-  reg [6:0] nw_la_wr_ptr;
-
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      nw_la_wr_ptr <= 7'd0;
-    end
-    else if (in_wr && in_rdy && nw_la_wr_ptr < 7'd127) begin
-      nw_la_mem[nw_la_wr_ptr] <= in_data;
-      nw_la_wr_ptr            <= nw_la_wr_ptr + 1'b1;
-    end
-  end
-
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      hw_network_la_word_out_0 <= 32'd0;
-      hw_network_la_word_out_1 <= 32'd0;
-    end
-    else begin
-      hw_network_la_word_out_0 <= nw_la_mem[sw_network_la_addr_latch[6:0]][31:0];
-      hw_network_la_word_out_1 <= nw_la_mem[sw_network_la_addr_latch[6:0]][63:32];
     end
   end
 

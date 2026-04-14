@@ -4,7 +4,6 @@ module packet_action_selector #(
   parameter DATA_WIDTH = 64,
   parameter CTRL_WIDTH = DATA_WIDTH / 8,
   parameter ACTION_WIDTH = 2,
-  parameter MAX_PKT_WORDS = 512,
   parameter [15:0] CUSTOM_ETHERTYPE = 16'h88B5,
   parameter [15:0] ANN_TASK_MAGIC   = 16'hA11E
 ) (
@@ -17,114 +16,170 @@ module packet_action_selector #(
   output [CTRL_WIDTH-1:0]     out_ctrl,
   output                      out_wr,
   input                       out_rdy,
+
   output [ACTION_WIDTH-1:0]   out_action,
 
   input                       clk,
   input                       reset
 );
 
-  localparam [ACTION_WIDTH-1:0] ACTION_BYPASS = 2'b00;
-  localparam [ACTION_WIDTH-1:0] ACTION_DROP   = 2'b01;
+  localparam [ACTION_WIDTH-1:0] ACTION_BYPASS  = 2'b00;
   localparam [ACTION_WIDTH-1:0] ACTION_OFFLOAD = 2'b10;
 
-  localparam S_IDLE    = 2'd0;
-  localparam S_CAPTURE = 2'd1;
-  localparam S_DRAIN   = 2'd2;
+  localparam [1:0] S_IDLE       = 2'd0;
+  localparam [1:0] S_CAPTURE    = 2'd1;
+  localparam [1:0] S_DRAIN_HDR  = 2'd2;
+  localparam [1:0] S_STREAM     = 2'd3;
 
   reg [1:0] state;
-  reg [DATA_WIDTH-1:0] pkt_data [0:MAX_PKT_WORDS-1];
-  reg [CTRL_WIDTH-1:0] pkt_ctrl [0:MAX_PKT_WORDS-1];
-  reg [9:0]            write_idx;
-  reg [9:0]            pkt_len;
-  reg [9:0]            read_idx;
+  reg [DATA_WIDTH-1:0] header_data_0;
+  reg [DATA_WIDTH-1:0] header_data_1;
+  reg [DATA_WIDTH-1:0] header_data_2;
+  reg [DATA_WIDTH-1:0] header_data_3;
+  reg [CTRL_WIDTH-1:0] header_ctrl_0;
+  reg [CTRL_WIDTH-1:0] header_ctrl_1;
+  reg [CTRL_WIDTH-1:0] header_ctrl_2;
+  reg [CTRL_WIDTH-1:0] header_ctrl_3;
+  reg [2:0]            header_count;
+  reg [2:0]            drain_count;
+  reg [2:0]            drain_idx;
+  reg                  packet_ended_in_header;
   reg [ACTION_WIDTH-1:0] packet_action;
-  reg                    ethertype_match_seen;
 
-  wire accept_word;
-  wire packet_end_word;
+  wire header_accept;
+  wire stream_accept;
 
-  assign accept_word = in_wr && in_rdy;
-  assign packet_end_word = accept_word && (write_idx != 0) && (in_ctrl != 0);
+  assign header_accept     = in_wr && in_rdy && (state == S_IDLE || state == S_CAPTURE);
+  assign stream_accept     = in_wr && in_rdy && (state == S_STREAM);
 
-  assign in_rdy = (state != S_DRAIN) && (write_idx < MAX_PKT_WORDS);
-  assign out_data = pkt_data[read_idx];
-  assign out_ctrl = pkt_ctrl[read_idx];
-  assign out_wr = (state == S_DRAIN);
+  assign in_rdy = ((state == S_IDLE) || (state == S_CAPTURE)) ? 1'b1   :
+                  (state == S_STREAM)                         ? out_rdy :
+                                                                1'b0;
+
+  assign out_data = (state == S_DRAIN_HDR) ? ((drain_idx == 3'd0) ? header_data_0 :
+                                              (drain_idx == 3'd1) ? header_data_1 :
+                                              (drain_idx == 3'd2) ? header_data_2 :
+                                                                    header_data_3) :
+                                             in_data;
+  assign out_ctrl = (state == S_DRAIN_HDR) ? ((drain_idx == 3'd0) ? header_ctrl_0 :
+                                              (drain_idx == 3'd1) ? header_ctrl_1 :
+                                              (drain_idx == 3'd2) ? header_ctrl_2 :
+                                                                    header_ctrl_3) :
+                                             in_ctrl;
+  assign out_wr   = (state == S_DRAIN_HDR) ? 1'b1                   :
+                    (state == S_STREAM)    ? in_wr                   :
+                                             1'b0;
   assign out_action = packet_action;
 
-  integer i;
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      state         <= S_IDLE;
-      write_idx     <= 10'd0;
-      pkt_len       <= 10'd0;
-      read_idx      <= 10'd0;
-      packet_action <= ACTION_BYPASS;
-      ethertype_match_seen <= 1'b0;
-      for (i = 0; i < MAX_PKT_WORDS; i = i + 1) begin
-        pkt_data[i] <= {DATA_WIDTH{1'b0}};
-        pkt_ctrl[i] <= {CTRL_WIDTH{1'b0}};
-      end
+      state                <= S_IDLE;
+      header_data_0        <= {DATA_WIDTH{1'b0}};
+      header_data_1        <= {DATA_WIDTH{1'b0}};
+      header_data_2        <= {DATA_WIDTH{1'b0}};
+      header_data_3        <= {DATA_WIDTH{1'b0}};
+      header_ctrl_0        <= {CTRL_WIDTH{1'b0}};
+      header_ctrl_1        <= {CTRL_WIDTH{1'b0}};
+      header_ctrl_2        <= {CTRL_WIDTH{1'b0}};
+      header_ctrl_3        <= {CTRL_WIDTH{1'b0}};
+      header_count         <= 3'd0;
+      drain_count          <= 3'd0;
+      drain_idx            <= 3'd0;
+      packet_ended_in_header <= 1'b0;
+      packet_action        <= ACTION_BYPASS;
     end
     else begin
       case (state)
-        S_IDLE,
+        S_IDLE: begin
+          if (header_accept) begin
+            header_data_0          <= in_data;
+            header_ctrl_0          <= in_ctrl;
+            header_count           <= 3'd1;
+            drain_idx              <= 3'd0;
+            drain_count            <= 3'd1;
+            packet_ended_in_header <= 1'b0;
+            packet_action          <= ACTION_BYPASS;
+            state                  <= S_CAPTURE;
+          end
+        end
+
         S_CAPTURE: begin
-          if (accept_word) begin
-            pkt_data[write_idx] <= in_data;
-            pkt_ctrl[write_idx] <= in_ctrl;
+          if (header_accept) begin
+            case (header_count)
+              3'd1: begin
+                header_data_1 <= in_data;
+                header_ctrl_1 <= in_ctrl;
+              end
+              3'd2: begin
+                header_data_2 <= in_data;
+                header_ctrl_2 <= in_ctrl;
+              end
+              default: begin
+                header_data_3 <= in_data;
+                header_ctrl_3 <= in_ctrl;
+              end
+            endcase
 
-            if (state == S_IDLE) begin
-              state         <= S_CAPTURE;
-              packet_action <= ACTION_BYPASS;
-              ethertype_match_seen <= 1'b0;
-            end
-
-            if (write_idx == 2) begin
-              ethertype_match_seen <= (in_data[15:0] == CUSTOM_ETHERTYPE);
-            end
-
-            if (write_idx == 3) begin
-              if (ethertype_match_seen && (in_data[63:48] == ANN_TASK_MAGIC))
+            if (((in_ctrl != {CTRL_WIDTH{1'b0}}) && (header_count != 3'd0)) ||
+                (header_count == 3'd3)) begin
+              drain_count            <= header_count + 3'd1;
+              packet_ended_in_header <= (in_ctrl != {CTRL_WIDTH{1'b0}});
+              drain_idx              <= 3'd0;
+              if ((header_count == 3'd3) &&
+                  (header_data_2[15:0] == CUSTOM_ETHERTYPE) &&
+                  (in_data[63:48] == ANN_TASK_MAGIC)) begin
                 packet_action <= ACTION_OFFLOAD;
-              else
+              end
+              else begin
                 packet_action <= ACTION_BYPASS;
-            end
-
-            if (packet_end_word) begin
-              pkt_len   <= write_idx + 10'd1;
-              read_idx  <= 10'd0;
-              write_idx <= 10'd0;
-              state     <= S_DRAIN;
+              end
+              state <= S_DRAIN_HDR;
             end
             else begin
-              write_idx <= write_idx + 10'd1;
+              header_count <= header_count + 3'd1;
             end
           end
         end
 
-        S_DRAIN: begin
+        S_DRAIN_HDR: begin
           if (out_rdy) begin
-            if (read_idx + 10'd1 >= pkt_len) begin
-              state         <= S_IDLE;
-              pkt_len       <= 10'd0;
-              read_idx      <= 10'd0;
-              packet_action <= ACTION_BYPASS;
-              ethertype_match_seen <= 1'b0;
+            if ((drain_idx + 3'd1) >= drain_count) begin
+              if (packet_ended_in_header) begin
+                state                  <= S_IDLE;
+                header_count           <= 3'd0;
+                drain_count            <= 3'd0;
+                drain_idx              <= 3'd0;
+                packet_ended_in_header <= 1'b0;
+                packet_action          <= ACTION_BYPASS;
+              end
+              else begin
+                state <= S_STREAM;
+              end
             end
             else begin
-              read_idx <= read_idx + 10'd1;
+              drain_idx <= drain_idx + 3'd1;
             end
+          end
+        end
+
+        S_STREAM: begin
+          if (stream_accept && (in_ctrl != {CTRL_WIDTH{1'b0}})) begin
+            state                  <= S_IDLE;
+            header_count           <= 3'd0;
+            drain_count            <= 3'd0;
+            drain_idx              <= 3'd0;
+            packet_ended_in_header <= 1'b0;
+            packet_action          <= ACTION_BYPASS;
           end
         end
 
         default: begin
-          state         <= S_IDLE;
-          write_idx     <= 10'd0;
-          pkt_len       <= 10'd0;
-          read_idx      <= 10'd0;
-          packet_action <= ACTION_BYPASS;
-          ethertype_match_seen <= 1'b0;
+          state                  <= S_IDLE;
+          header_count           <= 3'd0;
+          drain_count            <= 3'd0;
+          drain_idx              <= 3'd0;
+          packet_ended_in_header <= 1'b0;
+          packet_action          <= ACTION_BYPASS;
         end
       endcase
     end

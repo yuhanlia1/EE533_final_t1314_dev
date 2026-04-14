@@ -12,7 +12,8 @@ module action_dispatcher #(
   input  [CTRL_WIDTH-1:0]   in_ctrl,
   input                     in_wr,
   output reg                in_rdy,
-  input  [ACTION_WIDTH-1:0] in_action,
+  
+  input  [ACTION_WIDTH-1:0] in_action,	// packet action
 
   output reg [DATA_WIDTH-1:0] out_data,
   output reg [CTRL_WIDTH-1:0] out_ctrl,

@@ -21,26 +21,42 @@ module ann_engine_wrapper #(
   input  [31:0]            sw_i_mem_addr,
   input  [31:0]            sw_i_mem_wdata,
   input  [31:0]            sw_d_mem_addr,
+  input  [31:0]            sw_engine_ctrl,
+  input  [31:0]            sw_gpu_i_mem_addr,
+  input  [31:0]            sw_gpu_i_mem_wdata,
   input  [31:0]            sw_gpu_w_mem_addr,
   input  [31:0]            sw_gpu_w_mem_wdata_0,
   input  [31:0]            sw_gpu_w_mem_wdata_1,
-  input  [31:0]            sw_gpu_ifmap_addr,
-  input  [31:0]            sw_gpu_ifmap_wdata,
   input  [31:0]            sw_gpu_ofmap_addr,
 
   output [31:0]            hw_gpu_ofmap_data_1,
   output [31:0]            hw_gpu_ofmap_data_0,
-  output     [31:0]        hw_gpu_drop,
+  output [31:0]            hw_engine_status,
 
   input                    clk,
   input                    reset
 );
 
-  localparam integer FRAME_LEN_WIDTH = $clog2(MAX_FRAME_BYTES + 1);
-  localparam integer MAX_FEATURES = ((MAX_FRAME_BYTES > 24) ? ((MAX_FRAME_BYTES - 24) / 2) : 1);
+  function integer clog2;
+    input integer value;
+    integer tmp;
+    begin
+      tmp = value - 1;
+      clog2 = 0;
+      while (tmp > 0) begin
+        tmp = tmp >> 1;
+        clog2 = clog2 + 1;
+      end
+    end
+  endfunction
+
+  localparam integer FRAME_LEN_WIDTH = clog2(MAX_FRAME_BYTES + 1);
+  localparam integer FRAME_WORD_ADDR_WIDTH = clog2((MAX_FRAME_BYTES + CTRL_WIDTH - 1) / CTRL_WIDTH);
+  localparam integer MAX_FEATURES = 8;
   localparam integer RESULT_FRAME_BYTES = 30;
   localparam integer RESULT_DATA_WORDS  = ((RESULT_FRAME_BYTES + 7) / 8);
   localparam integer RESULT_PKT_WORDS   = RESULT_DATA_WORDS + 1;
+  localparam integer OUT_PKT_IDX_WIDTH  = clog2(RESULT_PKT_WORDS);
   localparam [7:0] STATUS_OK            = 8'h00;
   localparam [7:0] STATUS_FEATURE_TRUNC = 8'h05;
 
@@ -54,15 +70,19 @@ module ann_engine_wrapper #(
   localparam [2:0] ST_DRAIN        = 3'd7;
 
   reg  [2:0] state;
-  reg  [$clog2(RESULT_PKT_WORDS)-1:0] out_pkt_idx;
+  reg  [OUT_PKT_IDX_WIDTH-1:0] out_pkt_idx;
 
   wire                                  ingress_frame_valid;
   wire                                  ingress_in_rdy;
   wire [DATA_WIDTH-1:0]                 ingress_module_header_word;
   wire [FRAME_LEN_WIDTH-1:0]            ingress_frame_len;
-  wire [MAX_FRAME_BYTES*8-1:0]          ingress_frame_bytes_flat;
+  wire [FRAME_WORD_ADDR_WIDTH:0]        ingress_frame_word_count;
   wire                                  ingress_frame_overflow;
   wire                                  ingress_frame_taken;
+  wire [FRAME_WORD_ADDR_WIDTH-1:0]      parse_rd_addr;
+  wire [DATA_WIDTH+CTRL_WIDTH-1:0]      parse_rd_word;
+  wire [FRAME_WORD_ADDR_WIDTH-1:0]      compute_rd_addr;
+  wire [DATA_WIDTH+CTRL_WIDTH-1:0]      compute_rd_word;
 
   wire                                  parse_start;
   wire                                  parse_done;
@@ -77,6 +97,14 @@ module ann_engine_wrapper #(
   wire [47:0]                           parse_eth_src;
   wire [15:0]                           parse_ethertype;
   wire [MAX_FEATURES*16-1:0]            parse_features_flat;
+  wire [15:0]                           parse_feature_0;
+  wire [15:0]                           parse_feature_1;
+  wire [15:0]                           parse_feature_2;
+  wire [15:0]                           parse_feature_3;
+  wire [15:0]                           parse_feature_4;
+  wire [15:0]                           parse_feature_5;
+  wire [15:0]                           parse_feature_6;
+  wire [15:0]                           parse_feature_7;
 
   wire                                  compute_start;
   wire                                  compute_done;
@@ -97,12 +125,13 @@ module ann_engine_wrapper #(
   wire [15:0] build_result_len;
   wire [15:0] build_result_data_0;
   wire [15:0] build_result_data_1;
+  reg  [DATA_WIDTH-1:0]                 out_data_mux;
+  reg  [CTRL_WIDTH-1:0]                 out_ctrl_mux;
 
   assign in_rdy            = ingress_in_rdy;
-  assign out_data          = built_pkt_data_flat[(out_pkt_idx * DATA_WIDTH) +: DATA_WIDTH];
-  assign out_ctrl          = built_pkt_ctrl_flat[(out_pkt_idx * CTRL_WIDTH) +: CTRL_WIDTH];
+  assign out_data          = out_data_mux;
+  assign out_ctrl          = out_ctrl_mux;
   assign out_wr            = (state == ST_DRAIN);
-  assign hw_gpu_drop = 32'd0;
 
   assign parse_start        = (state == ST_PARSE_START);
   assign compute_start      = (state == ST_COMPUTE_START);
@@ -117,11 +146,37 @@ module ann_engine_wrapper #(
   assign build_result_data_0 = parse_nonfatal ? compute_result_data_0 : 16'd0;
   assign build_result_data_1 = parse_nonfatal ? compute_result_data_1 : 16'd0;
 
+  always @(*) begin
+    case (out_pkt_idx)
+      3'd0: begin
+        out_data_mux = built_pkt_data_flat[(0 * DATA_WIDTH) +: DATA_WIDTH];
+        out_ctrl_mux = built_pkt_ctrl_flat[(0 * CTRL_WIDTH) +: CTRL_WIDTH];
+      end
+      3'd1: begin
+        out_data_mux = built_pkt_data_flat[(1 * DATA_WIDTH) +: DATA_WIDTH];
+        out_ctrl_mux = built_pkt_ctrl_flat[(1 * CTRL_WIDTH) +: CTRL_WIDTH];
+      end
+      3'd2: begin
+        out_data_mux = built_pkt_data_flat[(2 * DATA_WIDTH) +: DATA_WIDTH];
+        out_ctrl_mux = built_pkt_ctrl_flat[(2 * CTRL_WIDTH) +: CTRL_WIDTH];
+      end
+      3'd3: begin
+        out_data_mux = built_pkt_data_flat[(3 * DATA_WIDTH) +: DATA_WIDTH];
+        out_ctrl_mux = built_pkt_ctrl_flat[(3 * CTRL_WIDTH) +: CTRL_WIDTH];
+      end
+      default: begin
+        out_data_mux = built_pkt_data_flat[(4 * DATA_WIDTH) +: DATA_WIDTH];
+        out_ctrl_mux = built_pkt_ctrl_flat[(4 * CTRL_WIDTH) +: CTRL_WIDTH];
+      end
+    endcase
+  end
+
   ann_task_ingress #(
     .DATA_WIDTH(DATA_WIDTH),
     .CTRL_WIDTH(CTRL_WIDTH),
     .MAX_FRAME_BYTES(MAX_FRAME_BYTES),
-    .FRAME_LEN_WIDTH(FRAME_LEN_WIDTH)
+    .FRAME_LEN_WIDTH(FRAME_LEN_WIDTH),
+    .FRAME_WORD_ADDR_WIDTH(FRAME_WORD_ADDR_WIDTH)
   ) ingress (
     .in_data            (in_data),
     .in_ctrl            (in_ctrl),
@@ -131,15 +186,21 @@ module ann_engine_wrapper #(
     .frame_taken        (ingress_frame_taken),
     .module_header_word (ingress_module_header_word),
     .frame_len          (ingress_frame_len),
-    .frame_bytes_flat   (ingress_frame_bytes_flat),
+    .frame_word_count   (ingress_frame_word_count),
     .frame_overflow     (ingress_frame_overflow),
+    .parser_rd_addr     (parse_rd_addr),
+    .parser_rd_word     (parse_rd_word),
+    .compute_rd_addr    (compute_rd_addr),
+    .compute_rd_word    (compute_rd_word),
     .clk                (clk),
     .reset              (reset)
   );
 
   ann_feature_unpack #(
-    .MAX_FRAME_BYTES(MAX_FRAME_BYTES),
+    .DATA_WIDTH(DATA_WIDTH),
+    .CTRL_WIDTH(CTRL_WIDTH),
     .FRAME_LEN_WIDTH(FRAME_LEN_WIDTH),
+    .FRAME_WORD_ADDR_WIDTH(FRAME_WORD_ADDR_WIDTH),
     .MAX_FEATURES(MAX_FEATURES),
     .CUSTOM_ETHERTYPE(CUSTOM_ETHERTYPE),
     .ANN_TASK_MAGIC(ANN_TASK_MAGIC)
@@ -150,7 +211,9 @@ module ann_engine_wrapper #(
     .frame_overflow          (ingress_frame_overflow),
     .module_header_word      (ingress_module_header_word),
     .frame_len               (ingress_frame_len),
-    .frame_bytes_flat        (ingress_frame_bytes_flat),
+    .frame_word_count        (ingress_frame_word_count),
+    .rd_addr                 (parse_rd_addr),
+    .rd_word                 (parse_rd_word),
     .done                    (parse_done),
     .parse_status            (parse_status),
     .request_id              (parse_request_id),
@@ -162,33 +225,51 @@ module ann_engine_wrapper #(
     .eth_dst                 (parse_eth_dst),
     .eth_src                 (parse_eth_src),
     .ethertype               (parse_ethertype),
-    .features_flat           (parse_features_flat)
+    .features_flat           (parse_features_flat),
+    .feature_data_0          (parse_feature_0),
+    .feature_data_1          (parse_feature_1),
+    .feature_data_2          (parse_feature_2),
+    .feature_data_3          (parse_feature_3),
+    .feature_data_4          (parse_feature_4),
+    .feature_data_5          (parse_feature_5),
+    .feature_data_6          (parse_feature_6),
+    .feature_data_7          (parse_feature_7)
   );
 
   ann_cpu_gpu_compute_core #(
     .DATA_WIDTH(DATA_WIDTH),
     .CTRL_WIDTH(CTRL_WIDTH),
-    .MAX_FRAME_BYTES(MAX_FRAME_BYTES),
     .FRAME_LEN_WIDTH(FRAME_LEN_WIDTH),
-    .MAX_FEATURES(MAX_FEATURES)
+    .FRAME_WORD_ADDR_WIDTH(FRAME_WORD_ADDR_WIDTH),
+    .IN_DIM(MAX_FEATURES)
   ) compute_core (
     .clk                (clk),
     .reset              (reset),
     .start              (compute_start),
     .module_header_word (ingress_module_header_word),
     .frame_len          (ingress_frame_len),
-    .frame_bytes_flat   (ingress_frame_bytes_flat),
+    .frame_word_count   (ingress_frame_word_count),
+    .frame_rd_addr      (compute_rd_addr),
+    .frame_rd_word      (compute_rd_word),
     .task_type          (parse_task_type),
     .feature_count      (parse_parsed_feature_count),
-    .features_flat      (parse_features_flat),
+    .feature_data_0     (parse_feature_0),
+    .feature_data_1     (parse_feature_1),
+    .feature_data_2     (parse_feature_2),
+    .feature_data_3     (parse_feature_3),
+    .feature_data_4     (parse_feature_4),
+    .feature_data_5     (parse_feature_5),
+    .feature_data_6     (parse_feature_6),
+    .feature_data_7     (parse_feature_7),
     .sw_i_mem_addr      (sw_i_mem_addr),
     .sw_i_mem_wdata     (sw_i_mem_wdata),
     .sw_d_mem_addr      (sw_d_mem_addr),
+    .sw_engine_ctrl     (sw_engine_ctrl),
+    .sw_gpu_i_mem_addr  (sw_gpu_i_mem_addr),
+    .sw_gpu_i_mem_wdata (sw_gpu_i_mem_wdata),
     .sw_gpu_w_mem_addr  (sw_gpu_w_mem_addr),
     .sw_gpu_w_mem_wdata_0(sw_gpu_w_mem_wdata_0),
     .sw_gpu_w_mem_wdata_1(sw_gpu_w_mem_wdata_1),
-    .sw_gpu_ifmap_addr  (sw_gpu_ifmap_addr),
-    .sw_gpu_ifmap_wdata (sw_gpu_ifmap_wdata),
     .sw_gpu_ofmap_addr  (sw_gpu_ofmap_addr),
     .done               (compute_done),
     .result_status      (compute_result_status),
@@ -197,7 +278,8 @@ module ann_engine_wrapper #(
     .result_data_0      (compute_result_data_0),
     .result_data_1      (compute_result_data_1),
     .hw_gpu_ofmap_data_0(hw_gpu_ofmap_data_0),
-    .hw_gpu_ofmap_data_1(hw_gpu_ofmap_data_1)
+    .hw_gpu_ofmap_data_1(hw_gpu_ofmap_data_1),
+    .hw_engine_status   (hw_engine_status)
   );
 
   ann_result_packet_builder #(
@@ -230,12 +312,12 @@ module ann_engine_wrapper #(
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       state               <= ST_WAIT_FRAME;
-      out_pkt_idx         <= {($clog2(RESULT_PKT_WORDS)){1'b0}};
+      out_pkt_idx         <= {OUT_PKT_IDX_WIDTH{1'b0}};
     end
     else begin
       case (state)
         ST_WAIT_FRAME: begin
-          out_pkt_idx <= {($clog2(RESULT_PKT_WORDS)){1'b0}};
+          out_pkt_idx <= {OUT_PKT_IDX_WIDTH{1'b0}};
           if (ingress_frame_valid)
             state <= ST_PARSE_START;
         end
@@ -271,7 +353,7 @@ module ann_engine_wrapper #(
 
         ST_BUILD_WAIT: begin
           if (build_done) begin
-            out_pkt_idx <= {($clog2(RESULT_PKT_WORDS)){1'b0}};
+            out_pkt_idx <= {OUT_PKT_IDX_WIDTH{1'b0}};
             state <= ST_DRAIN;
           end
         end
@@ -279,7 +361,7 @@ module ann_engine_wrapper #(
         ST_DRAIN: begin
           if (out_rdy) begin
             if (out_pkt_idx == RESULT_PKT_WORDS - 1) begin
-              out_pkt_idx <= {($clog2(RESULT_PKT_WORDS)){1'b0}};
+              out_pkt_idx <= {OUT_PKT_IDX_WIDTH{1'b0}};
               state <= ST_WAIT_FRAME;
             end
             else begin

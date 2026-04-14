@@ -1,4 +1,4 @@
-module gpu_imem_copy #(
+module gpu_imem #(
   parameter AW = 9,
   parameter DW = 32,
   parameter DEPTH = 512

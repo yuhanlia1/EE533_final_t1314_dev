@@ -59,6 +59,8 @@ module fetch_stage1 #(
     pc2_next = pc2;
     pc3_next = pc3;
     thread_id_next = thread_id;
+    pc_out = {INST_ADDR_WIDTH{1'b0}};
+    pc_next_out = {INST_ADDR_WIDTH{1'b0}};
 
     if (fetch_reset) begin
       fsm_state_next  = ST_NORMAL;
@@ -79,6 +81,8 @@ module fetch_stage1 #(
           2'd1: if (pc1 != 126) pc1_next = pc1 + 1;
           2'd2: if (pc2 != 126) pc2_next = pc2 + 1;
           2'd3: if (pc3 != 126) pc3_next = pc3 + 1;
+          default: begin
+          end
         endcase
 
         if (thread_id == 2'd3) begin

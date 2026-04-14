@@ -38,7 +38,7 @@
     <nf:group name="udp">
       <nf:instance name="in_arb" />
       <nf:instance name="router_op_lut" />
-      <nf:instance name="pipeline" />
+      <nf:instance name="user_top" />
       <nf:instance name="strip_headers" />
       <nf:instance name="output_queues" />
     </nf:group>

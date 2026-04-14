@@ -30,9 +30,11 @@ declare -A PASS_MARKERS=(
   [tb_packet]='[TB] === PASS: 3 full packets completed through ARM -> GPU NN -> TX ==='
   [tb_communication_nn]='[TB] === PASS: final-copy ARM -> GPU NN flow completed correctly ==='
   [tb_communication_matrix]='[TB] === PASS: final-copy ARM -> GPU matrix flow completed correctly ==='
+  [tb_user_top_offload]='[TB] === PASS: user_top offload end-to-end scenarios completed ==='
 )
 
 ALL_TESTBENCHES=(
+  tb_user_top_offload
   tb_packet
   tb_communication_nn
   tb_communication_matrix
@@ -59,6 +61,25 @@ COMMON_SOURCES=(
 )
 CPU_SOURCES=("$ROOT_DIR"/src/cpu/*.v)
 GPU_SOURCES=("$ROOT_DIR"/src/gpu/*.v)
+USER_TOP_SOURCES=(
+  "$ROOT_DIR/src/fifo_bram.v"
+  "$ROOT_DIR/src/convertible_fifo.v"
+  "$ROOT_DIR/src/packet_action_selector.v"
+  "$ROOT_DIR/src/action_dispatcher.v"
+  "$ROOT_DIR/src/pipeline_control_regs.v"
+  "$ROOT_DIR/src/ann_task_ingress.v"
+  "$ROOT_DIR/src/ann_feature_unpack.v"
+  "$ROOT_DIR/src/ann_compute_core_simple.v"
+  "$ROOT_DIR/src/ann_cpu_gpu_compute_core.v"
+  "$ROOT_DIR/src/ann_result_packet_builder.v"
+  "$ROOT_DIR/src/ann_engine_wrapper.v"
+  "$ROOT_DIR/src/bram_wrapper.v"
+  "$ROOT_DIR/src/cpu_gpu_controller.v"
+  "$ROOT_DIR/src/gpu_platform_bridge.v"
+  "${CPU_SOURCES[@]}"
+  "${GPU_SOURCES[@]}"
+  "$ROOT_DIR/src/user_top.v"
+)
 
 run_testbench() {
   local tb_name="$1"
@@ -66,17 +87,36 @@ run_testbench() {
   local compile_log="$tb_dir/compile.log"
   local run_log="$tb_dir/run.log"
   local sim_bin="$tb_dir/$tb_name.out"
+  local tb_file
+  local -a tb_sources
+  local -a tb_defines
 
   mkdir -p "$tb_dir"
+
+  case "$tb_name" in
+    tb_user_top_offload)
+      tb_file="$ROOT_DIR/tb/$tb_name.v"
+      tb_sources=("${USER_TOP_SOURCES[@]}")
+      tb_defines=(-DUDP_REG_ADDR_WIDTH=16 -DCPCI_NF2_DATA_WIDTH=32 -DNO_VCD)
+      ;;
+    *)
+      tb_file="$ROOT_DIR/tb/unit/$tb_name.v"
+      tb_sources=(
+        "${COMMON_SOURCES[@]}"
+        "${CPU_SOURCES[@]}"
+        "${GPU_SOURCES[@]}"
+      )
+      tb_defines=()
+      ;;
+  esac
 
   printf '[tb] compiling %s\n' "$tb_name"
   if ! iverilog -g2012 \
       -I "$ROOT_DIR/include" \
+      "${tb_defines[@]}" \
       -o "$sim_bin" \
-      "$ROOT_DIR/tb/$tb_name.v" \
-      "${COMMON_SOURCES[@]}" \
-      "${CPU_SOURCES[@]}" \
-      "${GPU_SOURCES[@]}" \
+      "$tb_file" \
+      "${tb_sources[@]}" \
       >"$compile_log" 2>&1; then
     VERIFY_FAILED=1
     cat "$compile_log" >&2

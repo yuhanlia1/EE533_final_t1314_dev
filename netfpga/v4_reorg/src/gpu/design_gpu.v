@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module gpu_top_fifo_if_copy #(
+module gpu_top_fifo_if #(
   parameter MMIO_ADDR_W = 8,
   parameter IMEM_AW     = 9,
   parameter MEM_AW      = 8
@@ -218,7 +218,7 @@ module gpu_top_fifo_if_copy #(
   assign proc_done = done;
   assign dbg_pc = {7'd0, pc_if};
 
-  gpu_control_copy #(.ADDR_W(MMIO_ADDR_W)) u_ctrl (
+  gpu_control #(.ADDR_W(MMIO_ADDR_W)) u_ctrl (
     .clk(clk),
     .rst(rst),
     .mmio_wr_en(mmio_wr_en),
@@ -250,7 +250,7 @@ module gpu_top_fifo_if_copy #(
     .error_code(error_code)
   );
 
-  gpu_if_stage_copy u_if (
+  gpu_if_stage u_if (
     .clk(clk),
     .rst(rst),
     .run_en(pipe_run_en),
@@ -267,7 +267,7 @@ module gpu_top_fifo_if_copy #(
     .instr_if(instr_if)
   );
 
-  gpu_if_id_reg_copy u_ifid (
+  gpu_if_id_reg u_ifid (
     .clk(clk),
     .rst(rst),
     .stall(front_stall),
@@ -279,7 +279,7 @@ module gpu_top_fifo_if_copy #(
     .flush_out(flush_id)
   );
 
-  gpu_id_stage_copy u_id (
+  gpu_id_stage u_id (
     .clk(clk),
     .rst(rst),
     .run_en(pipe_run_en),
@@ -320,7 +320,7 @@ module gpu_top_fifo_if_copy #(
     .id_acc_1(id_acc_1)
   );
 
-  gpu_id_ex_reg_copy u_idex (
+  gpu_id_ex_reg u_idex (
     .clk(clk),
     .rst(rst),
     .stall(busy_stall),
@@ -358,7 +358,7 @@ module gpu_top_fifo_if_copy #(
     .out_acc_1(ex_in_acc_1)
   );
 
-  gpu_ex_stage_copy #(.DMEM_AW(MEM_AW)) u_ex (
+  gpu_ex_stage #(.DMEM_AW(MEM_AW)) u_ex (
     .clk(clk),
     .rst(rst),
     .in_valid(ex_in_valid),
@@ -393,7 +393,7 @@ module gpu_top_fifo_if_copy #(
     .out_res1(ex_res1)
   );
 
-  gpu_ex_mm_reg_copy #(.DMEM_AW(MEM_AW)) u_exmm (
+  gpu_ex_mm_reg #(.DMEM_AW(MEM_AW)) u_exmm (
     .clk(clk),
     .rst(rst),
     .stall(stall_mm),
@@ -420,7 +420,7 @@ module gpu_top_fifo_if_copy #(
     .out_res1(mm_res1)
   );
 
-  gpu_mm_stage_copy #(.DMEM_AW(MEM_AW)) u_mm (
+  gpu_mm_stage #(.DMEM_AW(MEM_AW)) u_mm (
     .clk(clk),
     .rst(rst),
     .proc_active(proc_active),
@@ -458,7 +458,7 @@ module gpu_top_fifo_if_copy #(
     .out_res1(mm_out_res1)
   );
 
-  gpu_mm_wb_reg_copy u_mmwbr (
+  gpu_mm_wb_reg u_mmwbr (
     .clk(clk),
     .rst(rst),
     .in_valid(mm_out_valid),
@@ -479,7 +479,7 @@ module gpu_top_fifo_if_copy #(
     .out_load1(wb_in_load1)
   );
 
-  gpu_wb_stage_copy u_wb (
+  gpu_wb_stage u_wb (
     .clk(clk),
     .rst(rst),
     .in_valid(wb_in_valid),
@@ -499,7 +499,7 @@ module gpu_top_fifo_if_copy #(
 
 endmodule
 
-module gpu_control_copy #(
+module gpu_control #(
   parameter ADDR_W = 8
 )(
   input  wire              clk,
@@ -533,11 +533,11 @@ module gpu_control_copy #(
   output reg  [63:0]       base_c,
   output reg  [63:0]       base_d,
 
-  output reg               busy = 1'b0,
-  output reg               done = 1'b0,
-  output reg               error = 1'b0,
-  output reg  [7:0]        error_code = ERR_NONE
-);
+  output reg               busy,
+  output reg               done,
+  output reg               error,
+  output reg  [7:0]        error_code
+  );
 
   localparam [ADDR_W-1:0] REG_CONTROL      = 8'h00;
   localparam [ADDR_W-1:0] REG_STATUS       = 8'h04;
@@ -755,7 +755,7 @@ module gpu_control_copy #(
 
 endmodule
 
-module gpu_if_stage_copy (
+module gpu_if_stage (
   input  wire        clk,
   input  wire        rst,
 
@@ -790,7 +790,7 @@ module gpu_if_stage_copy (
   assign pc_if = pc_w;
   assign imem_addr_w = imem_we ? imem_waddr : pc_w;
 
-  gpu_pc_copy u_pc (
+  gpu_pc u_pc (
     .clk(clk),
     .rst(rst),
     .run_en(run_en),
@@ -800,10 +800,10 @@ module gpu_if_stage_copy (
     .stall(stall),
     .jump_valid(jump_valid),
     .jump_addr(jump_addr),
-    .gpu_pc_copy(pc_w)
+    .gpu_pc(pc_w)
   );
 
-  gpu_imem_copy u_imem (
+  gpu_imem u_imem (
     .clk(clk),
     .we(imem_we),
     .addr(imem_addr_w),
@@ -835,7 +835,7 @@ module gpu_if_stage_copy (
 endmodule
 
 
-module gpu_pc_copy (
+module gpu_pc (
   input  wire       clk,
   input  wire       rst,
   input  wire       run_en,
@@ -845,22 +845,22 @@ module gpu_pc_copy (
   input  wire       stall,
   input  wire       jump_valid,
   input  wire [8:0] jump_addr,
-  output reg  [8:0] gpu_pc_copy
+  output reg  [8:0] gpu_pc
 );
 
   always @(posedge clk) begin
-    if (rst) gpu_pc_copy <= 9'd0;
-    else if (soft_reset_pulse) gpu_pc_copy <= 9'd0;
-    else if (stall) gpu_pc_copy <= gpu_pc_copy;
-    else if (start_pulse) gpu_pc_copy <= entry_pc;
-    else if (!run_en) gpu_pc_copy <= gpu_pc_copy;
-    else if (jump_valid) gpu_pc_copy <= jump_addr;
-    else gpu_pc_copy <= gpu_pc_copy + 9'd1;
+    if (rst) gpu_pc <= 9'd0;
+    else if (soft_reset_pulse) gpu_pc <= 9'd0;
+    else if (stall) gpu_pc <= gpu_pc;
+    else if (start_pulse) gpu_pc <= entry_pc;
+    else if (!run_en) gpu_pc <= gpu_pc;
+    else if (jump_valid) gpu_pc <= jump_addr;
+    else gpu_pc <= gpu_pc + 9'd1;
   end
 
 endmodule
 
-module gpu_if_id_reg_copy (
+module gpu_if_id_reg (
   input  wire        clk,
   input  wire        rst,
   input  wire        stall,
@@ -868,25 +868,25 @@ module gpu_if_id_reg_copy (
   input  wire [31:0] instr_in,
   input  wire        flush_in,
   output reg  [8:0]  pc_id,
-  output wire [31:0] instr_id,
+  output reg  [31:0] instr_id,
   output reg         flush_out
 );
-
-  assign instr_id = instr_in;
 
   always @(posedge clk) begin
     if (rst) begin
       pc_id     <= 9'd0;
+      instr_id  <= 32'd0;
       flush_out <= 1'b0;
     end else if (!stall) begin
       pc_id     <= pc_in;
+      instr_id  <= instr_in;
       flush_out <= flush_in;
     end
   end
 endmodule
 
 
-module gpu_id_stage_copy (
+module gpu_id_stage (
   input  wire        clk,
   input  wire        rst,
 
@@ -1075,7 +1075,7 @@ module gpu_id_stage_copy (
 endmodule
 
 
-module gpu_id_ex_reg_copy (
+module gpu_id_ex_reg (
   input  wire        clk,
   input  wire        rst,
 
@@ -1178,7 +1178,7 @@ module gpu_id_ex_reg_copy (
 
 endmodule
 
-module gpu_ex_stage_copy #(
+module gpu_ex_stage #(
   parameter DMEM_AW = 10,
   parameter integer BFMUL_OBS_LAT = 8,
   parameter integer BFADD_OBS_LAT = 14
@@ -1384,14 +1384,14 @@ module gpu_ex_stage_copy #(
   wire [15:0] cur_b16 = bf_lane ? get16(bf_op2_1, bf_elem) : get16(bf_op2_0, bf_elem);
   wire [15:0] cur_c16 = bf_lane ? get16(bf_acc_1, bf_elem) : get16(bf_acc_0, bf_elem);
 
-  bf16_mult_copy u_bf16_mult (
+  bf16_mult u_bf16_mult (
     .clk(clk),
     .a(mul_a_r),
     .b(mul_b_r),
     .result(mul_r)
   );
 
-  bf16_add_sub_copy u_bf16_add_sub (
+  bf16_add_sub u_bf16_add_sub (
     .clk(clk),
     .operation(6'b000000),
     .a(add_a_r),
@@ -1566,7 +1566,7 @@ module gpu_ex_stage_copy #(
 
 endmodule
 
-module gpu_ex_mm_reg_copy #(
+module gpu_ex_mm_reg #(
   parameter DMEM_AW = 10
 )(
   input  wire               clk,
@@ -1651,7 +1651,7 @@ module gpu_ex_mm_reg_copy #(
 
 endmodule
 
-module gpu_mm_stage_copy #(
+module gpu_mm_stage #(
   parameter DMEM_AW = 10
 )(
   input  wire               clk,
@@ -1747,7 +1747,7 @@ module gpu_mm_stage_copy #(
 
 endmodule
 
-module gpu_mm_wb_reg_copy (
+module gpu_mm_wb_reg (
   input  wire        clk,
   input  wire        rst,
 
@@ -1798,7 +1798,7 @@ module gpu_mm_wb_reg_copy (
 endmodule
 
 
-module gpu_wb_stage_copy (
+module gpu_wb_stage (
   input  wire        clk,
   input  wire        rst,
 
