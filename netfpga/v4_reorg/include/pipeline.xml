@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+	<nf:name>pipeline</nf:name>
+	<nf:prefix>pipeline</nf:prefix>
+	<nf:location>udp</nf:location>
+	<nf:description>Registers for Pipeline</nf:description>
+	<nf:blocksize>64</nf:blocksize>
+  <nf:registers>
+
+    <!-- SOFTWARE REGISTERS -->
+    <nf:register>
+        <nf:name>sw_d_mem_addr</nf:name>
+        <nf:description>sw_d_mem_addr</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_i_mem_wdata</nf:name>
+        <nf:description>sw_i_mem_wdata</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_i_mem_addr</nf:name>
+        <nf:description>sw_i_mem_addr</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_network_la_addr</nf:name>
+        <nf:description>sw_network_la_addr</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_gpu_ifmap_wdata</nf:name>
+        <nf:description>sw_gpu_ifmap_wdata</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_gpu_ifmap_addr</nf:name>
+        <nf:description>sw_gpu_ifmap_addr</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_gpu_w_mem_wdata_1</nf:name>
+        <nf:description>sw_gpu_w_mem_wdata_1</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_gpu_w_mem_wdata_0</nf:name>
+        <nf:description>sw_gpu_w_mem_wdata_0</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_gpu_w_mem_addr</nf:name>
+        <nf:description>sw_gpu_w_mem_addr</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>sw_gpu_ofmap_addr</nf:name>
+        <nf:description>sw_gpu_ofmap_addr</nf:description>
+        <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <!-- HARDWARE REGISTERS -->
+    <nf:register>
+        <nf:name>hw_network_la_word_out_0</nf:name>
+        <nf:description>hw_network_la_word_out_0</nf:description>
+        <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>hw_network_la_word_out_1</nf:name>
+        <nf:description>hw_network_la_word_out_1</nf:description>
+        <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>hw_gpu_drop</nf:name>
+        <nf:description>hw_gpu_drop</nf:description>
+        <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>hw_gpu_ofmap_data_0</nf:name>
+        <nf:description>hw_gpu_ofmap_data_0</nf:description>
+        <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+        <nf:name>hw_gpu_ofmap_data_1</nf:name>
+        <nf:description>hw_gpu_ofmap_data_1</nf:description>
+        <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+  </nf:registers>
+</nf:module>

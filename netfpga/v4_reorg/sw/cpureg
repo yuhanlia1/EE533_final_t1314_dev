@@ -1,0 +1,348 @@
+#!/usr/bin/perl -w
+use strict;
+use warnings;
+use lib "/usr/local/netfpga/lib/Perl5";
+
+###############################################################################
+# Base Address and Offsets
+###############################################################################
+my $BASE = 0x2000300;
+
+# --- Software register offsets ---
+my $SW_D_MEM_WDATA_1   = sprintf("0x%08x", $BASE + 4 * 0);
+my $SW_D_MEM_WDATA_0   = sprintf("0x%08x", $BASE + 4 * 1);
+my $SW_D_MEM_ADDR      = sprintf("0x%08x", $BASE + 4 * 2);
+my $SW_I_MEM_WDATA     = sprintf("0x%08x", $BASE + 4 * 3);
+my $SW_I_MEM_ADDR      = sprintf("0x%08x", $BASE + 4 * 4);
+my $SW_PIPELINE_ENABLE = sprintf("0x%08x", $BASE + 4 * 5);
+my $SW_NETWORK_LA_ADDR = sprintf("0x%08x", $BASE + 4 * 6);
+
+# --- Hardware register offsets ---
+my $HW_D_WORD_OUT_0      = sprintf("0x%08x", $BASE + 4 * 7);
+my $HW_D_WORD_OUT_1      = sprintf("0x%08x", $BASE + 4 * 8);
+my $HW_I_MEM_WORD_OUT    = sprintf("0x%08x", $BASE + 4 * 9);
+my $HW_NETWORK_LA_WORD_OUT_0 = sprintf("0x%08x", $BASE + 4 * 10);
+my $HW_NETWORK_LA_WORD_OUT_1 = sprintf("0x%08x", $BASE + 4 * 11);
+
+###############################################################################
+# regread / regwrite Helpers
+###############################################################################
+sub regwrite {
+   my ($addr, $val) = @_;
+   my $cmd = sprintf("regwrite %s 0x%08x", $addr, $val);
+   my $result = `$cmd`;
+}
+
+sub regread {
+   my ($addr) = @_;
+   my $cmd = sprintf("regread %s", $addr);
+   my @out = `$cmd`;
+   my $line = $out[0] || '';
+   if ($line =~ /Reg (0x[0-9a-f]+)\s*\(\d+\):\s+(0x[0-9a-f]+)/i) {
+      return $2;
+   }
+   return "0x00000000";
+}
+
+###############################################################################
+# Global Pipeline Control
+###############################################################################
+sub set_pipeline_enable {
+   my ($enable) = @_;
+   my $val = $enable ? 1 : 0;
+   regwrite($SW_PIPELINE_ENABLE, $val);
+}
+
+###############################################################################
+# i_mem_write, d_mem_write
+###############################################################################
+sub i_mem_write {
+   my ($addr, $inst_val) = @_;
+   my $addr_val = 0x80000000 | ($addr & 0x7FFFFFFF);  # bit31=1 => we=1
+   regwrite($SW_I_MEM_ADDR, $addr_val);
+   regwrite($SW_I_MEM_WDATA, $inst_val);
+
+   # Clear the Write
+   regwrite($SW_I_MEM_ADDR, 0x00000000);
+}
+
+sub d_mem_write {
+   my ($addr, $hi32, $lo32) = @_;
+   my $addr_val = 0x80000000 | ($addr & 0x7FFFFFFF);  # bit31=1 => we=1
+   regwrite($SW_D_MEM_ADDR,   $addr_val);
+   regwrite($SW_D_MEM_WDATA_1, $hi32);
+   regwrite($SW_D_MEM_WDATA_0, $lo32);
+
+   # Clear the Write
+   regwrite($SW_D_MEM_ADDR, 0x00000000);
+}
+
+###############################################################################
+# i_mem_read, d_mem_read
+###############################################################################
+sub i_mem_read {
+   my ($addr) = @_;
+   my $READ_ENABLE_MASK = 0x40000000;                 # bit30=1 => i_mem_re=1
+   my $addr_val = $READ_ENABLE_MASK | ($addr & 0x3FFFFFFF);
+   regwrite($SW_I_MEM_ADDR, $addr_val);
+
+   my $inst32 = regread($HW_I_MEM_WORD_OUT);
+
+   # Clear the Read
+   regwrite($SW_I_MEM_ADDR, 0x00000000);
+
+   return $inst32;
+}
+
+sub d_mem_read {
+   my ($addr) = @_;
+   my $READ_ENABLE_MASK = 0x40000000;                 # bit30=1 => d_mem_re=1
+   my $addr_val = $READ_ENABLE_MASK | ($addr & 0x3FFFFFFF);
+   regwrite($SW_D_MEM_ADDR, $addr_val);
+
+   my $hi32 = regread($HW_D_WORD_OUT_1);
+   my $lo32 = regread($HW_D_WORD_OUT_0);
+
+   # Clear the Read
+   regwrite($SW_D_MEM_ADDR, 0x00000000);
+
+   return ($hi32, $lo32);
+}
+
+sub nw_la_read {
+   my ($addr) = @_;
+   regwrite($SW_NETWORK_LA_ADDR, $addr);
+
+   my $hi32 = regread($HW_NETWORK_LA_WORD_OUT_1);
+   my $lo32 = regread($HW_NETWORK_LA_WORD_OUT_0);
+
+   return ($hi32, $lo32);
+}
+
+###############################################################################
+# Dump a range of data memory addresses
+###############################################################################
+sub i_mem_dump {
+   my ($start_addr, $end_addr) = @_;
+
+   for (my $addr = $start_addr; $addr <= $end_addr; $addr += 1) {
+      my ($inst32) = i_mem_read($addr);
+      printf("i_mem[%d] => %s\n", $addr, $inst32);
+   }
+}
+
+sub d_mem_dump {
+   my ($start_addr, $end_addr) = @_;
+
+   for (my $addr = $start_addr; $addr <= $end_addr; $addr += 1) {
+      my ($hi32, $lo32) = d_mem_read($addr);
+      printf("d_mem[%d] => hi=%s, lo=%s\n", $addr, $hi32, $lo32);
+   }
+}
+
+sub nw_la_dump {
+   my ($start_addr, $end_addr) = @_;
+
+   for (my $addr = $start_addr; $addr <= $end_addr; $addr += 1) {
+      my ($hi32, $lo32) = nw_la_read($addr);
+      printf("nw_la[%d] => hi=%s, lo=%s\n", $addr, $hi32, $lo32);
+   }
+}
+
+###############################################################################
+# Usage / Command Parsing
+###############################################################################
+sub usage {
+   print <<"EOF_USAGE";
+Usage: $0 <command> [args]
+
+Examples:
+  $0 pipeline start
+  $0 pipeline stop
+  $0 i_mem_write 0x01 0x11112222
+  $0 i_mem_read 0x01
+  $0 i_mem_dump 0 5
+  $0 d_mem_write 0x01 0x11223344 0x55667788
+  $0 d_mem_read 0x01
+  $0 d_mem_dump 0 5
+  $0 nw_la_dump 0 5
+  $0 allregs
+  $0 initialize
+  $0 reg_write 0x2000300 0x12345678
+
+EOF_USAGE
+   exit(1);
+}
+
+#-----------------------------
+# MAIN
+#-----------------------------
+(@ARGV >= 1) or usage();
+my $cmd = shift @ARGV;
+defined($cmd) or usage();
+
+if ($cmd eq "pipeline") {
+   my $action = shift @ARGV;
+   defined($action) or usage();
+   if    ($action eq "start") { set_pipeline_enable(1); print "Pipeline started.\n"; }
+   elsif ($action eq "stop")  { set_pipeline_enable(0); print "Pipeline stopped.\n"; }
+   else { usage(); }
+}
+elsif ($cmd eq "reg_write") {
+   my $addr_hex = shift @ARGV;
+   defined($addr_hex) or usage();
+   my $val_hex  = shift @ARGV;
+   defined($val_hex) or usage();
+
+   my $addr_num = hex($addr_hex);
+   my $val_num  = hex($val_hex);
+   regwrite(sprintf("%08x", $addr_num), $val_num);
+   print "RegWrite($addr_hex, $val_hex) done.\n";
+}
+elsif ($cmd eq "i_mem_write") {
+   my $addr_hex = shift @ARGV;
+   defined($addr_hex) or usage();
+   my $data_hex = shift @ARGV;
+   defined($data_hex) or usage();
+
+   i_mem_write(hex($addr_hex), hex($data_hex));
+}
+elsif ($cmd eq "i_mem_read") {
+   my $addr_hex = shift @ARGV;
+   defined($addr_hex) or usage();
+
+   my $instr_val = i_mem_read(hex($addr_hex));
+   print "i_mem[$addr_hex] => inst=$instr_val\n";
+}
+elsif ($cmd eq "i_mem_dump") {
+   my $start = shift @ARGV;
+   defined($start) or usage();
+   my $end = shift @ARGV;
+   defined($end) or usage();
+
+   i_mem_dump($start, $end);
+}
+elsif ($cmd eq "d_mem_write") {
+   my $addr_hex = shift @ARGV;
+   defined($addr_hex) or usage();
+   my $hi_hex   = shift @ARGV;
+   defined($hi_hex) or usage();
+   my $lo_hex   = shift @ARGV;
+   defined($lo_hex) or usage();
+
+   d_mem_write(hex($addr_hex), hex($hi_hex), hex($lo_hex));
+}
+elsif ($cmd eq "d_mem_read") {
+   my $addr_hex = shift @ARGV;
+   defined($addr_hex) or usage();
+
+   my $addr_val = hex($addr_hex);
+   my ($hi32, $lo32) = d_mem_read($addr_val);
+   print "d_mem[$addr_hex] => hi=$hi32, lo=$lo32\n";
+}
+elsif ($cmd eq "d_mem_dump") {
+   my $start = shift @ARGV;
+   defined($start) or usage();
+   my $end = shift @ARGV;
+   defined($end) or usage();
+
+   d_mem_dump($start, $end);
+}
+elsif ($cmd eq "nw_la_dump") {
+  my $start = shift @ARGV;
+  defined($start) or usage();
+  my $end = shift @ARGV;
+  defined($end) or usage();
+
+  nw_la_dump($start, $end);
+}
+elsif ($cmd eq "allregs") {
+   print "SW_PIPELINE_ENABLE        = ", regread($SW_PIPELINE_ENABLE),  "\n";
+   print "SW_I_MEM_ADDR             = ", regread($SW_I_MEM_ADDR),       "\n";
+   print "SW_I_MEM_WDATA            = ", regread($SW_I_MEM_WDATA),      "\n";
+   print "SW_D_MEM_ADDR             = ", regread($SW_D_MEM_ADDR),       "\n";
+   print "SW_D_MEM_WDATA_0          = ", regread($SW_D_MEM_WDATA_0),    "\n";
+   print "SW_D_MEM_WDATA_1          = ", regread($SW_D_MEM_WDATA_1),    "\n";
+   print "HW_D_WORD_OUT_1           = ", regread($HW_D_WORD_OUT_1),     "\n";
+   print "HW_D_WORD_OUT_0           = ", regread($HW_D_WORD_OUT_0),     "\n";
+   print "HW_I_MEM_WORD_OUT         = ", regread($HW_I_MEM_WORD_OUT),   "\n";
+   print "SW_NETWORK_LA_ADDR        = ", regread($SW_NETWORK_LA_ADDR),         "\n";
+   print "HW_NETWORK_LA_WORD_OUT_0  = ", regread($HW_NETWORK_LA_WORD_OUT_0),   "\n";
+   print "HW_NETWORK_LA_WORD_OUT_1  = ", regread($HW_NETWORK_LA_WORD_OUT_1),   "\n";
+}
+elsif ($cmd eq "initialize") {
+  # Load some Data Memory Values
+  # d_mem_write(0, 0, 4);
+  # d_mem_write(4, 0, 100);
+
+  ############################################
+  # Thread 0 Instructions (offset = 0)
+  ############################################
+  i_mem_write(0,  0xE1A02002); 
+  i_mem_write(1,  0xE5B2A000);
+  i_mem_write(2,  0xE28AA001);
+  i_mem_write(3,  0xE3A02000);
+  i_mem_write(4,  0xE3A03000);
+  i_mem_write(5,  0xE3A01002);
+  i_mem_write(6,  0xE152000A);
+  i_mem_write(7,  0xAA000004);
+  i_mem_write(8,  0xE5923000);
+  i_mem_write(9,  0xE0833001);
+  i_mem_write(10, 0xE5823000);
+  i_mem_write(11, 0xE2822004);
+  i_mem_write(12, 0xEAFFFFF8);
+
+  ############################################
+  # Thread 1 Instructions (offset = 128)
+  ############################################
+  i_mem_write(128,  0xE1A02002);
+  i_mem_write(129,  0xE5B2A000);
+  i_mem_write(130,  0xE28AA001);
+  i_mem_write(131,  0xE3A02001);
+  i_mem_write(132,  0xE3A03000);
+  i_mem_write(133,  0xE3A01003);
+  i_mem_write(134,  0xE152000A);
+  i_mem_write(135,  0xAA000004);
+  i_mem_write(136,  0xE5923000);
+  i_mem_write(137,  0xE0833001);
+  i_mem_write(138,  0xE5823000);
+  i_mem_write(139,  0xE2822004);
+  i_mem_write(140,  0xEAFFFFF8);
+
+  ############################################
+  # Thread 2 Instructions (offset = 256)
+  ############################################
+  i_mem_write(256,  0xE1A02002);
+  i_mem_write(257,  0xE5B2A000);
+  i_mem_write(258,  0xE28AA001);
+  i_mem_write(259,  0xE3A02002);
+  i_mem_write(260,  0xE3A03000);
+  i_mem_write(261,  0xE3A01004);
+  i_mem_write(262,  0xE152000A);
+  i_mem_write(263,  0xAA000004);
+  i_mem_write(264,  0xE5923000);
+  i_mem_write(265,  0xE0833001);
+  i_mem_write(266,  0xE5823000);
+  i_mem_write(267,  0xE2822004);
+  i_mem_write(268,  0xEAFFFFF8);
+
+  ############################################
+  # Thread 3 Instructions (offset = 384)
+  ############################################
+  i_mem_write(384,  0xE1A02002);
+  i_mem_write(385,  0xE5B2A000);
+  i_mem_write(386,  0xE28AA001);
+  i_mem_write(387,  0xE3A02003);
+  i_mem_write(388,  0xE3A03000);
+  i_mem_write(389,  0xE3A01005);
+  i_mem_write(390,  0xE152000A);
+  i_mem_write(391,  0xAA000004);
+  i_mem_write(392,  0xE5923000);
+  i_mem_write(393,  0xE0833001);
+  i_mem_write(394,  0xE5823000);
+  i_mem_write(395,  0xE2822004);
+  i_mem_write(396,  0xEAFFFFF8);
+}
+else {
+   usage();
+}
