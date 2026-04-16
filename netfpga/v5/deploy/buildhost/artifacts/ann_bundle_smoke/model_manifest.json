@@ -1,0 +1,93 @@
+{
+  "model_type": "mlp",
+  "quant_type": "int16",
+  "source": "/home/reili/ee533/network_protocol/v5/deploy/netfpga/testdata/ann_model_mlp_int16.json",
+  "hardware_limits": {
+    "input_dim_max": 784,
+    "output_dim_max": 96,
+    "a_scratch_capacity": 96,
+    "d_scratch_capacity": 2048,
+    "result_capacity_max": 96,
+    "result_semantics": "wire_result_data_0/1 carry logits for binary models or class_id/score for compact multi-class models"
+  },
+  "runtime": {
+    "cpu_mmio_base": 128,
+    "base_a": 128,
+    "base_b": 3072,
+    "base_c": 32,
+    "base_d": 1024,
+    "work_size": 1,
+    "entry_pc": 0,
+    "result_mode": "legacy_logits",
+    "result_output_base": 928,
+    "result_output_count": 2
+  },
+  "input_dim": 8,
+  "output_dim": 2,
+  "labels": [
+    "class0",
+    "class1"
+  ],
+  "layers": [
+    {
+      "index": 0,
+      "in_dim": 8,
+      "out_dim": 4,
+      "activation": "relu",
+      "src": {
+        "bank": "A",
+        "offset": 0
+      },
+      "dst": {
+        "bank": "D",
+        "offset": 0
+      },
+      "weight_offset": 0,
+      "bias_offset": 0
+    },
+    {
+      "index": 1,
+      "in_dim": 4,
+      "out_dim": 2,
+      "activation": "none",
+      "src": {
+        "bank": "D",
+        "offset": 0
+      },
+      "dst": {
+        "bank": "A",
+        "offset": 800
+      },
+      "weight_offset": 32,
+      "bias_offset": 4
+    }
+  ],
+  "tests": [
+    {
+      "name": "sample_class0",
+      "input_s16": [
+        3,
+        2,
+        1,
+        1,
+        2,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "name": "sample_class1",
+      "input_s16": [
+        0,
+        0,
+        5,
+        0,
+        0,
+        4,
+        1,
+        2
+      ]
+    }
+  ]
+}

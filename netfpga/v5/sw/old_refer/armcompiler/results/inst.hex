@@ -1,0 +1,13 @@
+mov r8, r8
+mov r2, #5
+ldr r6, [r8, #5]
+mov r8, r8
+mov r8, r8
+mov r8, r8
+mov r8, r8
+add r5, r6, r6
+mov r8, r8
+mov r8, r8
+mov r8, r8
+mov r8, r8
+str r5, [r2]

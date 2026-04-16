@@ -1,0 +1,12 @@
+{
+  "entry_pc": 0,
+  "tid_init": 0,
+  "work_size": 2,
+  "base_a": 16,
+  "base_b": 64,
+  "base_c": 224,
+  "base_d": 248,
+  "m": 0,
+  "n": 0,
+  "k": 0
+}
