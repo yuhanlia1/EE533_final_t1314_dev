@@ -1,0 +1,38 @@
+[
+  {
+    "dst_ip": "10.0.14.3",
+    "dst_mac": "00:4e:46:32:43:00",
+    "expected_rx_kind": "offload",
+    "expected_rx_magic": "0xf11e",
+    "name": "udp_ann_offload_smoke_usc",
+    "pcap": "udp_ann_offload_smoke_usc.pcap",
+    "src_ip": "10.0.12.3",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "udp_dst_port": "0x88b5",
+    "wire_len": 66
+  },
+  {
+    "dst_ip": "10.0.14.3",
+    "dst_mac": "00:4e:46:32:43:00",
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": "0xbeef",
+    "name": "wrong_magic_bypass_usc",
+    "pcap": "wrong_magic_bypass_usc.pcap",
+    "src_ip": "10.0.12.3",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "udp_dst_port": "0x88b5",
+    "wire_len": 66
+  },
+  {
+    "dst_ip": "10.0.14.3",
+    "dst_mac": "00:4e:46:32:43:00",
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": "0xa11e",
+    "name": "wrong_port_bypass_usc",
+    "pcap": "wrong_port_bypass_usc.pcap",
+    "src_ip": "10.0.12.3",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "udp_dst_port": "0x9999",
+    "wire_len": 66
+  }
+]

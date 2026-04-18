@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+  <nf:name>user_top</nf:name>
+  <nf:prefix>user_top</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Debug registers for only_fifo user_top</nf:description>
+  <nf:blocksize>64</nf:blocksize>
+  <nf:registers>
+
+    <nf:register>
+      <nf:name>debug_ctrl</nf:name>
+      <nf:description>Write bit0 rising edge to clear debug counters and snapshots</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_action</nf:name>
+      <nf:description>Last classified action, lower 2 bits</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_offload_match_count</nf:name>
+      <nf:description>Number of packets classified as offload</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_rewrite_fire_count</nf:name>
+      <nf:description>Number of header-word rewrites emitted</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_udp_dst_port</nf:name>
+      <nf:description>Lower 16 bits contain the last observed UDP destination port</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_payload_magic</nf:name>
+      <nf:description>Lower 16 bits contain the last observed payload magic</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_header_word5_hi</nf:name>
+      <nf:description>Upper 32 bits of captured header word 5</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_header_word5_lo</nf:name>
+      <nf:description>Lower 32 bits of captured header word 5</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_header_word6_hi</nf:name>
+      <nf:description>Upper 32 bits of captured header word 6</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_header_word6_lo</nf:name>
+      <nf:description>Lower 32 bits of captured header word 6</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_rewrite_word_hi</nf:name>
+      <nf:description>Upper 32 bits of the last emitted rewritten word</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_rewrite_word_lo</nf:name>
+      <nf:description>Lower 32 bits of the last emitted rewritten word</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+  </nf:registers>
+</nf:module>

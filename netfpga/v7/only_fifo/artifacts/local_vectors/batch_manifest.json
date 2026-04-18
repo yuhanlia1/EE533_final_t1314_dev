@@ -1,0 +1,62 @@
+[
+  {
+    "expected_rx_kind": "offload",
+    "expected_rx_magic": "0xf11e",
+    "json_path": "udp_ann_offload_smoke.json",
+    "name": "udp_ann_offload_smoke",
+    "opl_path": "udp_ann_offload_smoke.opl.txt",
+    "packet_kind": "udp_ann",
+    "selector_expected_action": "offload",
+    "wire_hex_path": "udp_ann_offload_smoke.wire.hex"
+  },
+  {
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": "0xbeef",
+    "json_path": "wrong_magic_bypass.json",
+    "name": "wrong_magic_bypass",
+    "opl_path": "wrong_magic_bypass.opl.txt",
+    "packet_kind": "udp_ann",
+    "selector_expected_action": "bypass",
+    "wire_hex_path": "wrong_magic_bypass.wire.hex"
+  },
+  {
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": "0xa11e",
+    "json_path": "wrong_port_bypass.json",
+    "name": "wrong_port_bypass",
+    "opl_path": "wrong_port_bypass.opl.txt",
+    "packet_kind": "udp_ann",
+    "selector_expected_action": "bypass",
+    "wire_hex_path": "wrong_port_bypass.wire.hex"
+  },
+  {
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": null,
+    "json_path": "tcp_bypass.json",
+    "name": "tcp_bypass",
+    "opl_path": "tcp_bypass.opl.txt",
+    "packet_kind": "tcp",
+    "selector_expected_action": "bypass",
+    "wire_hex_path": "tcp_bypass.wire.hex"
+  },
+  {
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": null,
+    "json_path": "non_ipv4_bypass.json",
+    "name": "non_ipv4_bypass",
+    "opl_path": "non_ipv4_bypass.opl.txt",
+    "packet_kind": "non_ipv4",
+    "selector_expected_action": "bypass",
+    "wire_hex_path": "non_ipv4_bypass.wire.hex"
+  },
+  {
+    "expected_rx_kind": "bypass",
+    "expected_rx_magic": null,
+    "json_path": "short_prefix_bypass.json",
+    "name": "short_prefix_bypass",
+    "opl_path": "short_prefix_bypass.opl.txt",
+    "packet_kind": "short_ipv4_udp_prefix",
+    "selector_expected_action": "bypass",
+    "wire_hex_path": "short_prefix_bypass.wire.hex"
+  }
+]

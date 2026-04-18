@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PYTHON_ROOT = SCRIPT_DIR.parent / "python"
+if str(PYTHON_ROOT) not in sys.path:
+    sys.path.insert(0, str(PYTHON_ROOT))
+
+from model_toolchain.bundle import (  # noqa: E402
+    build_model,
+    build_model_and_load,
+    ensure_out_dir,
+    inspect_model,
+    load_bundle,
+)
+
+
+def _print_result(result) -> None:
+    print(f"mode={result.mode}")
+    print(f"out_dir={result.out_dir}")
+    print(f"source={result.source_path}")
+    print(f"manifest={result.manifest_path}")
+    print(f"cpu_source={result.cpu_source_path}")
+    print(f"cpu_image={result.cpu_image_path}")
+    print(f"gpu_program={result.gpu_program_path}")
+    print(f"gpu_imem={result.gpu_imem_path}")
+    print(f"gpu_params={result.gpu_params_path}")
+    print(f"report={result.report_path}")
+    print(f"test_vectors={result.test_vector_path}")
+    print(f"expected_outputs={result.expected_output_path}")
+    print(f"input_dim={result.input_dim}")
+    print(f"output_dim={result.output_dim}")
+    print(f"result_mode={result.result_mode}")
+    print(f"result_base=0x{result.result_base:08x}")
+    print(f"layers={result.layer_count}")
+    print(f"tests={result.test_count}")
+    for layer in result.layers:
+        print(
+            f"layer{layer.index}: "
+            f"in={layer.in_dim} out={layer.out_dim} "
+            f"src={layer.src_bank}+0x{layer.src_offset:02x} "
+            f"dst={layer.dst_bank}+0x{layer.dst_offset:02x} "
+            f"act={layer.activation}"
+        )
+
+
+def build_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "annmodelctl_build_")
+    result = build_model(args.source, str(out_dir))
+    _print_result(result)
+    return 0
+
+
+def inspect_cmd(args: argparse.Namespace) -> int:
+    result = inspect_model(args.source)
+    _print_result(result)
+    return 0
+
+
+def load_bundle_cmd(args: argparse.Namespace) -> int:
+    result = load_bundle(args.target, annctl_path=args.annctl)
+    _print_result(result)
+    return 0
+
+
+def build_load_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "annmodelctl_build_load_")
+    result = build_model_and_load(args.source, str(out_dir), annctl_path=args.annctl)
+    _print_result(result)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Build multi-layer int16 MLP ANN bundles for the NetFPGA v5 user_top design."
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    build_parser_ = subparsers.add_parser("build", help="build an ANN model bundle from a quantized MLP manifest")
+    build_parser_.add_argument("source")
+    build_parser_.add_argument("--out-dir")
+    build_parser_.set_defaults(func=build_cmd)
+
+    inspect_parser_ = subparsers.add_parser("inspect", help="inspect a quantized MLP manifest")
+    inspect_parser_.add_argument("source")
+    inspect_parser_.set_defaults(func=inspect_cmd)
+
+    load_parser_ = subparsers.add_parser("load-bundle", help="load a previously built ANN model bundle")
+    load_parser_.add_argument("target")
+    load_parser_.add_argument("--annctl")
+    load_parser_.set_defaults(func=load_bundle_cmd)
+
+    build_load_parser = subparsers.add_parser("build-load", help="build an ANN model bundle and load it")
+    build_load_parser.add_argument("source")
+    build_load_parser.add_argument("--out-dir")
+    build_load_parser.add_argument("--annctl")
+    build_load_parser.set_defaults(func=build_load_cmd)
+
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

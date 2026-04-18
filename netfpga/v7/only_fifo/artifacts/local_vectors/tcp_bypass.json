@@ -1,0 +1,104 @@
+{
+  "dst_ip": "192.168.1.2",
+  "dst_mac": "0b:ad:c0:de:00:01",
+  "dst_port_mask": "0x0008",
+  "expected_module_header": "0x0008000a0001004c",
+  "expected_rx_kind": "bypass",
+  "expected_rx_magic": null,
+  "expected_rx_magic_kind": null,
+  "expected_rx_udp_payload_hex": null,
+  "internal_data_word_count": 10,
+  "internal_frame_len": 76,
+  "ip_options_bytes": 0,
+  "name": "tcp_bypass",
+  "opl_words": [
+    {
+      "ctrl": "0xff",
+      "ctrl_int": 255,
+      "data": "0x0008000a0001004c",
+      "data_int": 2251842763423820,
+      "index": 0
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x00000badc0de0001",
+      "data_int": 12840893022209,
+      "index": 1
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0xf00dcafe00020800",
+      "data_int": 17297704936070580224,
+      "index": 2
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x4500003c12344000",
+      "data_int": 4971974246620479488,
+      "index": 3
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x4006a534c0a80101",
+      "data_int": 4613556514276770049,
+      "index": 4
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0xc0a80102500188b5",
+      "data_int": 13882346960813394101,
+      "index": 5
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x0102030405060708",
+      "data_int": 72623859790382856,
+      "index": 6
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x5018100000000000",
+      "data_int": 5771380514661335040,
+      "index": 7
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x2021222324252627",
+      "data_int": 2315169217770759719,
+      "index": 8
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x28292a2b2c2d2e2f",
+      "data_int": 2893890600475373103,
+      "index": 9
+    },
+    {
+      "ctrl": "0x10",
+      "ctrl_int": 16,
+      "data": "0x3031323300000000",
+      "data_int": 3472611982304083968,
+      "index": 10
+    }
+  ],
+  "packet_kind": "tcp",
+  "payload_len": 20,
+  "payload_seed": 32,
+  "selector_expected_action": "bypass",
+  "src_ip": "192.168.1.1",
+  "src_mac": "f0:0d:ca:fe:00:02",
+  "src_port": "0x0001",
+  "tcp_dst_port": "0x88b5",
+  "tcp_src_port": "0x5001",
+  "wire_frame_hex": "0badc0de0001f00dcafe000208004500003c123440004006a534c0a80101c0a80102500188b501020304050607085018100000000000202122232425262728292a2b2c2d2e2f30313233",
+  "wire_len": 74
+}

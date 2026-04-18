@@ -1,0 +1,110 @@
+{
+  "dst_ip": "192.168.1.2",
+  "dst_mac": "0b:ad:c0:de:00:01",
+  "dst_port_mask": "0x0008",
+  "emitted_feature_count": 8,
+  "expected_module_header": "0x0008000900010044",
+  "expected_rx_kind": "bypass",
+  "expected_rx_magic": "0xbeef",
+  "expected_rx_magic_kind": "other",
+  "expected_rx_udp_payload_hex": "beef2233000800000006fff90008fff7000afff5000cfff3",
+  "feature_count_field": 8,
+  "feature_values_be16": [
+    "0x0006",
+    "0xfff9",
+    "0x0008",
+    "0xfff7",
+    "0x000a",
+    "0xfff5",
+    "0x000c",
+    "0xfff3"
+  ],
+  "internal_data_word_count": 9,
+  "internal_frame_len": 68,
+  "name": "wrong_magic_bypass",
+  "opl_words": [
+    {
+      "ctrl": "0xff",
+      "ctrl_int": 255,
+      "data": "0x0008000900010044",
+      "data_int": 2251838468456516,
+      "index": 0
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x00000badc0de0001",
+      "data_int": 12840893022209,
+      "index": 1
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0xf00dcafe00020800",
+      "data_int": 17297704936070580224,
+      "index": 2
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x4500003412344000",
+      "data_int": 4971974212260741120,
+      "index": 3
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x4011a531c0a80101",
+      "data_int": 4616652726135685377,
+      "index": 4
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0xc0a80102400188b5",
+      "data_int": 13882346960544958645,
+      "index": 5
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x00200000beef2233",
+      "data_int": 9007202458083891,
+      "index": 6
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x000800000006fff9",
+      "data_int": 2251799814143993,
+      "index": 7
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x0008fff7000afff5",
+      "data_int": 2533236136411125,
+      "index": 8
+    },
+    {
+      "ctrl": "0x10",
+      "ctrl_int": 16,
+      "data": "0x000cfff300000000",
+      "data_int": 3659118862663680,
+      "index": 9
+    }
+  ],
+  "packet_kind": "udp_ann",
+  "request_id": "0x2233",
+  "selector_expected_action": "bypass",
+  "src_ip": "192.168.1.1",
+  "src_mac": "f0:0d:ca:fe:00:02",
+  "src_port": "0x0001",
+  "task_magic": "0xbeef",
+  "task_type": "0x0000",
+  "udp_dst_port": "0x88b5",
+  "udp_payload_hex": "beef2233000800000006fff90008fff7000afff5000cfff3",
+  "udp_src_port": "0x4001",
+  "wire_frame_hex": "0badc0de0001f00dcafe0002080045000034123440004011a531c0a80101c0a80102400188b500200000beef2233000800000006fff90008fff7000afff5000cfff3",
+  "wire_len": 66
+}
