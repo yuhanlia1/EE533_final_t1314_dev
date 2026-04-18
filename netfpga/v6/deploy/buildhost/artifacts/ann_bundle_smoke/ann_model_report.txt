@@ -1,0 +1,16 @@
+mode=model
+source=/home/reili/ee533/network_protocol/v5/deploy/netfpga/testdata/ann_model_mlp_int16.json
+input_dim=8
+output_dim=2
+result_mode=legacy_logits
+result_base=0x000003a0
+layer_count=2
+test_count=2
+manifest=model_manifest.json
+cpu_source=cpu_runtime.s
+cpu_image=/home/reili/ee533/network_protocol/v5/deploy/netfpga/artifacts/ann_bundle_smoke/cpu_build/image.txt
+gpu_program=/home/reili/ee533/network_protocol/v5/deploy/netfpga/artifacts/ann_bundle_smoke/gpu_bundle/program.gpus
+gpu_params=/home/reili/ee533/network_protocol/v5/deploy/netfpga/artifacts/ann_bundle_smoke/gpu_build/compiled_gpu_params.txt
+wire_result_semantics=binary models keep legacy logits; multi-class models use class_id+score
+layer0=in:8 out:4 src:A+0x00 dst:D+0x00 act=relu weight_off=0x00 bias_off=0x00
+layer1=in:4 out:2 src:D+0x00 dst:A+0x320 act=none weight_off=0x20 bias_off=0x04

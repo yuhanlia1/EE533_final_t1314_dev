@@ -1,0 +1,63 @@
+{
+  "dst_mac": "0b:ad:c0:de:00:01",
+  "dst_port_mask": "0x0008",
+  "expected_module_header": "0x0008000500010022",
+  "expected_rx_kind": "bypass",
+  "expected_rx_magic": null,
+  "expected_rx_magic_kind": null,
+  "expected_rx_udp_payload_hex": null,
+  "internal_data_word_count": 5,
+  "internal_frame_len": 34,
+  "name": "short_prefix_bypass",
+  "opl_words": [
+    {
+      "ctrl": "0xff",
+      "ctrl_int": 255,
+      "data": "0x0008000500010022",
+      "data_int": 2251821288587298,
+      "index": 0
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x00000badc0de0001",
+      "data_int": 12840893022209,
+      "index": 1
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0xf00dcafe00020800",
+      "data_int": 17297704936070580224,
+      "index": 2
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x4500002012344000",
+      "data_int": 4971974126361395200,
+      "index": 3
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x40110000c0a80101",
+      "data_int": 4616471096263704833,
+      "index": 4
+    },
+    {
+      "ctrl": "0x40",
+      "ctrl_int": 64,
+      "data": "0xc0a8000000000000",
+      "data_int": 13882345851369553920,
+      "index": 5
+    }
+  ],
+  "packet_kind": "short_ipv4_udp_prefix",
+  "selector_expected_action": "bypass",
+  "src_ip": "192.168.1.1",
+  "src_mac": "f0:0d:ca:fe:00:02",
+  "src_port": "0x0001",
+  "wire_frame_hex": "0badc0de0001f00dcafe00020800450000201234400040110000c0a80101c0a8",
+  "wire_len": 32
+}

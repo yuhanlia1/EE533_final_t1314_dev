@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+  <nf:name>user_pre_debug</nf:name>
+  <nf:prefix>user_pre_debug</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Sticky pre-user_top debug snapshot registers for only_fifo</nf:description>
+  <nf:blocksize>64</nf:blocksize>
+  <nf:registers>
+
+    <nf:register>
+      <nf:name>debug_ctrl</nf:name>
+      <nf:description>Write bit0 rising edge to clear and arm pre-user_top capture</nf:description>
+      <nf:type>generic_software32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_status</nf:name>
+      <nf:description>bits[0]=valid bits[1]=active bits[2]=done bits[15:8]=word_count bits[31:16]=pkt_seen_count</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_ctrl_pack_0</nf:name>
+      <nf:description>Captured ctrl bytes for words 0..3 packed little-endian by word index</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register>
+      <nf:name>hw_last_ctrl_pack_1</nf:name>
+      <nf:description>Captured ctrl bytes for words 4..5 packed little-endian by word index</nf:description>
+      <nf:type>generic_hardware32</nf:type>
+    </nf:register>
+
+    <nf:register><nf:name>hw_last_word0_hi</nf:name><nf:description>Upper 32 bits of captured pre-user_top word 0</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word0_lo</nf:name><nf:description>Lower 32 bits of captured pre-user_top word 0</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word1_hi</nf:name><nf:description>Upper 32 bits of captured pre-user_top word 1</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word1_lo</nf:name><nf:description>Lower 32 bits of captured pre-user_top word 1</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word2_hi</nf:name><nf:description>Upper 32 bits of captured pre-user_top word 2</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word2_lo</nf:name><nf:description>Lower 32 bits of captured pre-user_top word 2</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word3_hi</nf:name><nf:description>Upper 32 bits of captured pre-user_top word 3</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word3_lo</nf:name><nf:description>Lower 32 bits of captured pre-user_top word 3</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word4_hi</nf:name><nf:description>Upper 32 bits of captured pre-user_top word 4</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word4_lo</nf:name><nf:description>Lower 32 bits of captured pre-user_top word 4</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word5_hi</nf:name><nf:description>Upper 32 bits of captured pre-user_top word 5</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_last_word5_lo</nf:name><nf:description>Lower 32 bits of captured pre-user_top word 5</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+
+  </nf:registers>
+</nf:module>

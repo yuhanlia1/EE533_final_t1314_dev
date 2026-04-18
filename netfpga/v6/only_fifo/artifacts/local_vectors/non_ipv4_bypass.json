@@ -1,0 +1,72 @@
+{
+  "dst_mac": "0b:ad:c0:de:00:01",
+  "dst_port_mask": "0x0008",
+  "ethertype": "0x0806",
+  "expected_module_header": "0x0008000600010030",
+  "expected_rx_kind": "bypass",
+  "expected_rx_magic": null,
+  "expected_rx_magic_kind": null,
+  "expected_rx_udp_payload_hex": null,
+  "internal_data_word_count": 6,
+  "internal_frame_len": 48,
+  "name": "non_ipv4_bypass",
+  "opl_words": [
+    {
+      "ctrl": "0xff",
+      "ctrl_int": 255,
+      "data": "0x0008000600010030",
+      "data_int": 2251825583554608,
+      "index": 0
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x00000badc0de0001",
+      "data_int": 12840893022209,
+      "index": 1
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0xf00dcafe00020806",
+      "data_int": 17297704936070580230,
+      "index": 2
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x3031323334353637",
+      "data_int": 3472611983179986487,
+      "index": 3
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x38393a3b3c3d3e3f",
+      "data_int": 4051333365884599871,
+      "index": 4
+    },
+    {
+      "ctrl": "0x00",
+      "ctrl_int": 0,
+      "data": "0x4041424344454647",
+      "data_int": 4630054748589213255,
+      "index": 5
+    },
+    {
+      "ctrl": "0x01",
+      "ctrl_int": 1,
+      "data": "0x48494a4b4c4d4e4f",
+      "data_int": 5208776131293826639,
+      "index": 6
+    }
+  ],
+  "packet_kind": "non_ipv4",
+  "payload_len": 32,
+  "payload_seed": 48,
+  "selector_expected_action": "bypass",
+  "src_mac": "f0:0d:ca:fe:00:02",
+  "src_port": "0x0001",
+  "wire_frame_hex": "0badc0de0001f00dcafe00020806303132333435363738393a3b3c3d3e3f404142434445464748494a4b4c4d4e4f",
+  "wire_len": 46
+}

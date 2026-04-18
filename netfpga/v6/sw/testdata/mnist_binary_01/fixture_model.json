@@ -1,0 +1,57 @@
+{
+  "model_type": "mlp",
+  "quant_type": "int16",
+  "input_dim": 8,
+  "labels": [
+    "digit0",
+    "digit1"
+  ],
+  "feature_names": [
+    "total_avg",
+    "upper_half_avg",
+    "lower_half_avg",
+    "left_half_avg",
+    "right_half_avg",
+    "main_diag_band_avg",
+    "anti_diag_band_avg",
+    "center_window_avg"
+  ],
+  "layers": [
+    {
+      "out_dim": 2,
+      "activation": "relu",
+      "weights": [
+        [0, 0, 0, 0, 0, 1, 1, -1],
+        [0, 0, 0, 0, 0, -1, -1, 1]
+      ],
+      "bias": [0, 0]
+    },
+    {
+      "out_dim": 2,
+      "activation": "none",
+      "weights": [
+        [1, -1],
+        [-1, 1]
+      ],
+      "bias": [0, 0]
+    }
+  ],
+  "tests": [
+    {
+      "name": "digit0_like_000",
+      "input": [22, 11, 11, 11, 11, 20, 19, 8]
+    },
+    {
+      "name": "digit0_like_001",
+      "input": [20, 10, 10, 10, 10, 18, 17, 7]
+    },
+    {
+      "name": "digit1_like_000",
+      "input": [12, 6, 6, 6, 6, 4, 5, 18]
+    },
+    {
+      "name": "digit1_like_001",
+      "input": [10, 5, 5, 5, 5, 3, 4, 17]
+    }
+  ]
+}

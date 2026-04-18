@@ -1,0 +1,40 @@
+[
+  {
+    "name": "udp_ann_offload_smoke",
+    "packet_kind": "udp_ann",
+    "request_id": "0x1234",
+    "feature_seed": 3
+  },
+  {
+    "name": "wrong_magic_bypass",
+    "packet_kind": "udp_ann",
+    "request_id": "0x2233",
+    "task_magic": "0xbeef",
+    "feature_seed": 5
+  },
+  {
+    "name": "wrong_port_bypass",
+    "packet_kind": "udp_ann",
+    "request_id": "0x3344",
+    "udp_dst_port": "0x9999",
+    "feature_seed": 7
+  },
+  {
+    "name": "tcp_bypass",
+    "packet_kind": "tcp",
+    "payload_len": 20,
+    "payload_seed": "0x20"
+  },
+  {
+    "name": "non_ipv4_bypass",
+    "packet_kind": "non_ipv4",
+    "ethertype": "0x0806",
+    "payload_len": 32,
+    "payload_seed": "0x30"
+  },
+  {
+    "name": "short_prefix_bypass",
+    "packet_kind": "short_ipv4_udp_prefix"
+  }
+]
+

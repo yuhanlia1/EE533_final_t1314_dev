@@ -1,0 +1,10 @@
+mode=single
+image=image.txt
+total_words=18
+thread0.source=/home/reili/ee533/network_protocol/v5/deploy/netfpga/artifacts/ann_bundle_smoke/cpu_runtime.s
+thread0.auto_stub=0
+thread0.base_addr=0x00000000
+thread0.original_words=17
+thread0.inserted_nops=1
+thread0.final_words=18
+thread0.hazard0=pc5->pc6:r4
