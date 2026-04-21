@@ -1,0 +1,28 @@
+{
+  "num_samples_total": 119,
+  "num_train": 95,
+  "num_val": 24,
+  "best_epoch": 50,
+  "best_val_macro_f1": 0.6685714285714286,
+  "final_val_accuracy": 0.7916666666666666,
+  "final_val_macro_f1": 0.6685714285714286,
+  "device": "cpu",
+  "class_counts_total": {
+    "Free-flow": 6,
+    "Slow": 65,
+    "Congested": 43,
+    "Incident-risk": 5
+  },
+  "class_counts_train": {
+    "Free-flow": 5,
+    "Slow": 52,
+    "Congested": 34,
+    "Incident-risk": 4
+  },
+  "class_counts_val": {
+    "Free-flow": 1,
+    "Slow": 13,
+    "Congested": 9,
+    "Incident-risk": 1
+  }
+}
