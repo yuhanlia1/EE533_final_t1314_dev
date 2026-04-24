@@ -1,0 +1,66 @@
+##############################################################
+#
+# Xilinx Core Generator version K.31
+# Date: Tue Mar 31 04:37:35 2026
+#
+##############################################################
+#
+#  This file contains the customisation parameters for a
+#  Xilinx CORE Generator IP GUI. It is strongly recommended
+#  that you do not manually alter this file as it may cause
+#  unexpected and unsupported behavior.
+#
+##############################################################
+#
+# BEGIN Project Options
+SET addpads = False
+SET asysymbol = True
+SET busformat = BusFormatAngleBracketNotRipped
+SET createndf = False
+SET designentry = VHDL
+SET device = xc2vp2
+SET devicefamily = virtex2p
+SET flowvendor = Foundation_iSE
+SET formalverification = False
+SET foundationsym = False
+SET implementationfiletype = Ngc
+SET package = fg256
+SET removerpms = False
+SET simulationfiles = Behavioral
+SET speedgrade = -6
+SET verilogsim = True
+SET vhdlsim = True
+# END Project Options
+# BEGIN Select
+SELECT Floating-point family Xilinx,_Inc. 3.0
+# END Select
+# BEGIN Parameters
+CSET a_precision_type=Custom
+CSET add_sub_value=Both
+CSET c_a_exponent_width=8
+CSET c_a_fraction_width=8
+CSET c_compare_operation=Programmable
+CSET c_has_ce=false
+CSET c_has_divide_by_zero=false
+CSET c_has_invalid_op=false
+CSET c_has_operation_nd=false
+CSET c_has_operation_rfd=false
+CSET c_has_overflow=false
+CSET c_has_rdy=false
+CSET c_has_sclr=false
+CSET c_has_underflow=false
+CSET c_latency=10
+CSET c_mult_usage=No_Usage
+CSET c_optimization=Speed_Optimized
+CSET c_rate=1
+CSET c_result_exponent_width=8
+CSET c_result_fraction_width=8
+CSET c_speed=Maximum_speed
+CSET component_name=bf16_add_sub
+CSET maximum_latency=true
+CSET operation_type=Add_Subtract
+CSET result_precision_type=Custom
+# END Parameters
+GENERATE
+# CRC: 7047a3a8
+

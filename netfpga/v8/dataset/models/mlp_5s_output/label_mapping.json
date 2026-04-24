@@ -1,0 +1,6 @@
+{
+  "Free-flow": 0,
+  "Slow": 1,
+  "Congested": 2,
+  "Incident-risk": 3
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nf:module xmlns:nf="http://www.NetFPGA.org/NF2_register_system" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.NetFPGA.org/NF2_register_system NF2_register_system.xsd ">
+  <nf:name>user_top</nf:name>
+  <nf:prefix>user_top</nf:prefix>
+  <nf:location>udp</nf:location>
+  <nf:description>Registers for user_top</nf:description>
+  <nf:blocksize>128</nf:blocksize>
+  <nf:registers>
+
+    <nf:register><nf:name>sw_d_mem_addr</nf:name><nf:description>sw_d_mem_addr</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_i_mem_wdata</nf:name><nf:description>sw_i_mem_wdata</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_i_mem_addr</nf:name><nf:description>sw_i_mem_addr</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_engine_ctrl</nf:name><nf:description>sw_engine_ctrl</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_gpu_i_mem_wdata</nf:name><nf:description>sw_gpu_i_mem_wdata</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_gpu_i_mem_addr</nf:name><nf:description>sw_gpu_i_mem_addr</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_gpu_w_mem_wdata_1</nf:name><nf:description>sw_gpu_w_mem_wdata_1</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_gpu_w_mem_wdata_0</nf:name><nf:description>sw_gpu_w_mem_wdata_0</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_gpu_w_mem_addr</nf:name><nf:description>sw_gpu_w_mem_addr</nf:description><nf:type>generic_software32</nf:type></nf:register>
+    <nf:register><nf:name>sw_gpu_ofmap_addr</nf:name><nf:description>sw_gpu_ofmap_addr</nf:description><nf:type>generic_software32</nf:type></nf:register>
+
+    <nf:register><nf:name>hw_engine_status</nf:name><nf:description>hw_engine_status</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_reserved_0</nf:name><nf:description>hw_reserved_0</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_reserved_1</nf:name><nf:description>hw_reserved_1</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_gpu_ofmap_data_0</nf:name><nf:description>hw_gpu_ofmap_data_0</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_gpu_ofmap_data_1</nf:name><nf:description>hw_gpu_ofmap_data_1</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_offload_accept_count</nf:name><nf:description>hw_dbg_offload_accept_count</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_frame_hold_count</nf:name><nf:description>hw_dbg_frame_hold_count</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_compute_start_count</nf:name><nf:description>hw_dbg_compute_start_count</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_compute_done_count</nf:name><nf:description>hw_dbg_compute_done_count</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_result_emit_count</nf:name><nf:description>hw_dbg_result_emit_count</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_last_parse_request_id</nf:name><nf:description>hw_dbg_last_parse_request_id</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_last_compute_request_id</nf:name><nf:description>hw_dbg_last_compute_request_id</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_last_emit_request_id</nf:name><nf:description>hw_dbg_last_emit_request_id</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+    <nf:register><nf:name>hw_dbg_flags</nf:name><nf:description>hw_dbg_flags</nf:description><nf:type>generic_hardware32</nf:type></nf:register>
+
+  </nf:registers>
+</nf:module>
