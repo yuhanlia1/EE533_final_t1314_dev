@@ -1,0 +1,768 @@
+OpenROAD 26Q2-339-g0504146ce6 
+Features included (+) or not (-): +GPU +GUI +Python
+This program is licensed under the BSD-3 license. See the LICENSE file for details.
+Components of this program may be licensed under more restrictive licenses which must be honored.
+[INFO ODB-0227] LEF file: /home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/NangateOpenCellLibrary.tech.lef, created 22 layers, 27 vias
+[INFO ODB-0227] LEF file: /home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/NangateOpenCellLibrary.macro.mod.lef, created 135 library cells
+[INFO ODB-0227] LEF file: /home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/fakeram45_1024x32.lef, created 1 library cells
+[INFO ODB-0227] LEF file: /home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/fakeram45_256x16.lef, created 1 library cells
+[INFO ODB-0227] LEF file: /home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/fakeram45_256x32.lef, created 1 library cells
+[INFO ODB-0227] LEF file: /home/reili/ee533/network_protocol/v9/pd/asic_report/eval/user_top_eval/generated_macros/lef/placeholder_fifo_bram_256x72_dp.lef, created 1 library cells
+[INFO ODB-0227] LEF file: /home/reili/ee533/network_protocol/v9/pd/asic_report/eval/user_top_eval/generated_macros/lef/placeholder_gpu_shared_dmem_16384x64_dp.lef, created 1 library cells
+[INFO ODB-0227] LEF file: /home/reili/ee533/network_protocol/v9/pd/asic_report/eval/user_top_eval/generated_macros/lef/placeholder_mem_rf_64x64_1w2r.lef, created 1 library cells
+[WARNING STA-0441] set_input_delay relative to a clock defined on the same port/pin not allowed.
+[WARNING IFP-0028] Core area lower left (50.000, 50.000) snapped to (50.160, 50.400).
+[INFO IFP-0001] Added 1714 rows of 15262 site FreePDK45_38x28_10R_NP_162NW_34O.
+[INFO IFP-0100] Die BBox:  (  0.000  0.000 ) ( 3000.000 2500.000 ) um
+[INFO IFP-0101] Core BBox: ( 50.160 50.400 ) ( 2949.940 2450.000 ) um
+[INFO IFP-0102] Core area:                      6958312.088 um^2
+[INFO IFP-0103] Total instances area:            971556.906 um^2
+[INFO IFP-0104] Effective utilization:                0.140
+[INFO IFP-0105] Number of instances:                  53310
+Repair tie lo fanout using NangateOpenCellLibrary/LOGIC0_X1/Z ...
+[INFO RSZ-0042] Inserted 687 tie LOGIC0_X1 instances.
+Repair tie hi fanout using NangateOpenCellLibrary/LOGIC1_X1/Z ...
+[INFO RSZ-0042] Inserted 214 tie LOGIC1_X1 instances.
+Converting constant net ann_engine/compute_core/gpu_core/u_ex/zero_ from GROUND to SIGNAL.
+Converting constant net ann_engine/ingress/zero_ from GROUND to SIGNAL.
+Converted 2 constant POWER/GROUND nets to SIGNAL.
+[WARNING MPL-0074] -halo_width/-halo_height are deprecated, use the set_macro_default_halo command instead.
+Die Area: (0.00, 0.00) (3000.00, 2500.00),  Floorplan Area: (50.16, 50.40) (2949.94, 2450.00)
+	Number of std cell instances: 54172
+	Area of std cell instances: 86305.56
+	Number of macros: 13
+	Area of macros: 885716.84
+	Default halo (L, B, R, T): (35.00, 35.00, 35.00, 35.00)
+	Area of macros with halos: 1273123.44
+	Area of std cell instances + Area of macros: 972022.41
+	Floorplan area: 6958312.09
+	Design Utilization: 0.14
+	Floorplan Utilization: 0.01
+	Manufacturing Grid: 10
+
+Found 13 macro blocks.
+Using 2 tracks default min distance between IO pins.
+[INFO PPL-0001] Number of available slots 19628
+[INFO PPL-0002] Number of I/O             270
+[INFO PPL-0003] Number of I/O w/sink      248
+[INFO PPL-0004] Number of I/O w/o sink    22
+[INFO PPL-0005] Slots per section         200
+[INFO PPL-0008] Successfully assigned pins to sections.
+[INFO PPL-0012] I/O nets HPWL: 126148.55 um.
+[INFO ODB-0303] The initial 1714 rows (26159068 sites) were cut with 13 shapes for a total of 3029 rows (22743055 sites).
+[INFO TAP-0004] Inserted 3428 endcaps.
+[INFO TAP-0005] Inserted 17652 tapcells.
+[INFO PDN-0001] Inserting grid: grid
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/arm_cpu/IF1/I_MEM/u_mem
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/gpu_core/u_if/u_imem/gen_four_bank.u_mem0
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/gpu_core/u_if/u_imem/gen_four_bank.u_mem1
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/gpu_core/u_if/u_imem/gen_four_bank.u_mem2
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/gpu_core/u_if/u_imem/gen_four_bank.u_mem3
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/arm_cpu/MEM/CTRL_MEM/genblk1.gen_data_16.u_mem
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/arm_cpu/MEM/D_MEM/gen_data_64.u_mem_hi
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/arm_cpu/MEM/D_MEM/gen_data_64.u_mem_lo
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/ingress/packet_buf/u_macro
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - egress_fifo/u_bram/u_macro
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ingress_fifo/u_bram/u_macro
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/u_shared_dmem/u_macro
+[INFO PDN-0001] Inserting grid: CORE_macro_grid_1 - ann_engine/compute_core/arm_cpu/ID1/REG_FILE/u_macro
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (237.0500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (241.5300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (246.0100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (250.4900 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (254.9700 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (259.4500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (263.9300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (268.4100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (272.8900 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (277.3700 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (281.8500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (286.3300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (290.8100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (295.2900 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (299.7700 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (304.2500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (308.7300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (385.7100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (390.1900 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (394.6700 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (399.1500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (403.6300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (408.1100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (412.5900 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (417.0700 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (421.5500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (426.0300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (430.5100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (434.9900 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (439.4700 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (443.9500 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (448.4300 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (452.9100 um, 147.0000 um) for VSS
+[WARNING PDN-0195] Removing 1 via(s) between metal4 and metal5 at (457.3900 um, 147.0000 um) for VSS
+[INFO GPL-0001] ---- Initialize GPL Main Data Structures
+[INFO GPL-0002] DBU: 2000
+[INFO GPL-0003] SiteSize: (  0.190  1.400 ) um
+[INFO GPL-0004] CoreBBox: ( 50.160 50.400 ) ( 2949.940 2450.000 ) um
+[INFO GPL-0036] Movable instances area:      86305.562 um^2
+[INFO GPL-0037] Total instances area:       981180.102 um^2
+[INFO GPL-0035] Pin density area adjust:      8681.482 um^2
+[INFO GPL-0032] ---- Initialize Region: Top-level
+[INFO GPL-0006] Number of instances:             83677
+[INFO GPL-0007] Movable instances:               54172
+[INFO GPL-0008] Fixed instances:                 23723
+[INFO GPL-0009] Dummy instances:                  5782
+[INFO GPL-0010] Number of nets:                  62737
+[INFO GPL-0011] Number of pins:                 195886
+[INFO GPL-0012] Die BBox:  (  0.000  0.000 ) ( 3000.000 2500.000 ) um
+[INFO GPL-0013] Core BBox: ( 50.160 50.400 ) ( 2949.940 2450.000 ) um
+[INFO GPL-0016] Core area:                  6958312.088 um^2
+[INFO GPL-0014] Region name: top-level.
+[INFO GPL-0015] Region area:                6958312.088 um^2
+[INFO GPL-0017] Fixed instances area:       1280363.868 um^2
+[INFO GPL-0018] Movable instances area:      94987.044 um^2
+[INFO GPL-0019] Utilization:                     1.673 %
+[INFO GPL-0020] Standard cells area:         94987.044 um^2
+[INFO GPL-0021] Large instances area:            0.000 um^2
+[INFO GPL-0005] ---- Execute Conjugate Gradient Initial Placement.
+[INFO GPL-0051] Source of initial instance position counters:
+	Odb location = 54172	Core center = 0	Region center = 0
+[InitialPlace]  Iter: 1 conjugate gradient residual: 0.00257394 HPWL: 5889102452
+[InitialPlace]  Iter: 2 conjugate gradient residual: 0.00075747 HPWL: 4721618590
+[InitialPlace]  Iter: 3 conjugate gradient residual: 0.00062119 HPWL: 4390216704
+[InitialPlace]  Iter: 4 conjugate gradient residual: 0.00023258 HPWL: 4224809620
+[InitialPlace]  Iter: 5 conjugate gradient residual: 0.00023823 HPWL: 4150430570
+[InitialPlace]  Iter: 6 conjugate gradient residual: 0.00019408 HPWL: 4085509272
+[InitialPlace]  Iter: 7 conjugate gradient residual: 0.00007605 HPWL: 4041661066
+[InitialPlace]  Iter: 8 conjugate gradient residual: 0.00006350 HPWL: 4012843406
+[InitialPlace]  Iter: 9 conjugate gradient residual: 0.00007026 HPWL: 3988090063
+[InitialPlace]  Iter: 10 conjugate gradient residual: 0.00006504 HPWL: 3968065659
+[InitialPlace]  Iter: 11 conjugate gradient residual: 0.00006629 HPWL: 3952591599
+[InitialPlace]  Iter: 12 conjugate gradient residual: 0.00006073 HPWL: 3938383162
+[InitialPlace]  Iter: 13 conjugate gradient residual: 0.00005908 HPWL: 3927269510
+[InitialPlace]  Iter: 14 conjugate gradient residual: 0.00005276 HPWL: 3918482778
+[InitialPlace]  Iter: 15 conjugate gradient residual: 0.00004423 HPWL: 3908229386
+[InitialPlace]  Iter: 16 conjugate gradient residual: 0.00004383 HPWL: 3900244775
+[InitialPlace]  Iter: 17 conjugate gradient residual: 0.00005057 HPWL: 3890786042
+[InitialPlace]  Iter: 18 conjugate gradient residual: 0.00005356 HPWL: 3882726208
+[InitialPlace]  Iter: 19 conjugate gradient residual: 0.00004120 HPWL: 3875661549
+[InitialPlace]  Iter: 20 conjugate gradient residual: 0.00003347 HPWL: 3870284882
+[INFO GPL-0033] ---- Initialize Nesterov Region: Top-level
+[INFO GPL-0023] Placement target density:       0.4000
+[INFO GPL-0024] Movable insts average area:      1.753 um^2
+[INFO GPL-0025] Ideal bin area:                  4.384 um^2
+[INFO GPL-0026] Ideal bin count:               1587356
+[INFO GPL-0027] Total bin area:             6958312.088 um^2
+[INFO GPL-0028] Bin count (X, Y):        1024 ,   1024
+[INFO GPL-0029] Bin size (W * H):       2.832 *  2.343 um
+[INFO GPL-0030] Number of bins:                1048576
+[INFO GPL-0007] ---- Execute Nesterov Global Placement.
+[INFO GPL-0031] HPWL: Half-Perimeter Wirelength
+Iteration | Overflow |     HPWL (um) |  HPWL(%) |   Penalty | Group
+---------------------------------------------------------------
+        0 |   0.9726 |  1.228304e+06 |   +0.00% |  2.80e-16 |      
+       10 |   0.9252 |  1.340739e+06 |   +9.15% |  4.38e-16 |      
+       20 |   0.8985 |  1.350992e+06 |   +0.76% |  7.11e-16 |      
+       30 |   0.8856 |  1.350566e+06 |   -0.03% |  1.16e-15 |      
+       40 |   0.8802 |  1.347561e+06 |   -0.22% |  1.89e-15 |      
+       50 |   0.8783 |  1.349506e+06 |   +0.14% |  3.07e-15 |      
+       60 |   0.8760 |  1.352740e+06 |   +0.24% |  5.00e-15 |      
+       70 |   0.8753 |  1.355765e+06 |   +0.22% |  8.13e-15 |      
+       80 |   0.8752 |  1.352472e+06 |   -0.24% |  1.32e-14 |      
+       90 |   0.8757 |  1.355204e+06 |   +0.20% |  2.16e-14 |      
+      100 |   0.8789 |  1.356049e+06 |   +0.06% |  3.51e-14 |      
+      110 |   0.8790 |  1.358192e+06 |   +0.16% |  5.72e-14 |      
+      120 |   0.8803 |  1.358740e+06 |   +0.04% |  9.31e-14 |      
+      130 |   0.8806 |  1.361770e+06 |   +0.22% |  1.52e-13 |      
+      140 |   0.8809 |  1.365761e+06 |   +0.29% |  2.47e-13 |      
+      150 |   0.8814 |  1.373472e+06 |   +0.56% |  4.01e-13 |      
+      160 |   0.8810 |  1.388041e+06 |   +1.06% |  6.51e-13 |      
+      170 |   0.8808 |  1.414823e+06 |   +1.93% |  1.06e-12 |      
+      180 |   0.8805 |  1.462002e+06 |   +3.33% |  1.70e-12 |      
+      190 |   0.8792 |  1.553301e+06 |   +6.24% |  2.72e-12 |      
+      200 |   0.8744 |  1.755653e+06 |  +13.03% |  4.25e-12 |      
+      210 |   0.8674 |  2.101616e+06 |  +19.71% |  6.43e-12 |      
+      220 |   0.8572 |  2.314454e+06 |  +10.13% |  9.93e-12 |      
+      230 |   0.8519 |  2.021576e+06 |  -12.65% |  1.62e-11 |      
+      240 |   0.8392 |  1.922428e+06 |   -4.90% |  2.61e-11 |      
+      250 |   0.8081 |  2.574910e+06 |  +33.94% |  3.67e-11 |      
+      260 |   0.7966 |  2.242736e+06 |  -12.90% |  5.93e-11 |      
+      270 |   0.7630 |  2.566961e+06 |  +14.46% |  8.95e-11 |      
+      280 |   0.7367 |  2.061876e+06 |  -19.68% |  1.45e-10 |      
+      290 |   0.6769 |  2.379012e+06 |  +15.38% |  2.12e-10 |      
+      300 |   0.6261 |  2.385869e+06 |   +0.29% |  3.26e-10 |      
+      310 |   0.5975 |  2.164176e+06 |   -9.29% |  5.20e-10 |      
+      320 |   0.5679 |  2.045360e+06 |   -5.49% |  8.22e-10 |      
+      330 |   0.5102 |  1.984093e+06 |   -3.00% |  1.30e-09 |      
+      340 |   0.4707 |  1.909771e+06 |   -3.75% |  2.12e-09 |      
+      350 |   0.4312 |  1.862327e+06 |   -2.48% |  3.45e-09 |      
+      360 |   0.4027 |  1.808646e+06 |   -2.88% |  5.61e-09 |      
+      370 |   0.3633 |  1.762196e+06 |   -2.57% |  9.14e-09 |      
+      380 |   0.3305 |  1.710468e+06 |   -2.94% |  1.42e-08 |      
+      390 |   0.3111 |  1.653371e+06 |   -3.34% |  2.09e-08 |      
+      400 |   0.2903 |  1.604827e+06 |   -2.94% |  3.07e-08 |      
+      410 |   0.2675 |  1.573914e+06 |   -1.93% |  4.53e-08 |      
+      420 |   0.2512 |  1.504932e+06 |   -4.38% |  6.67e-08 |      
+      430 |   0.2252 |  1.508082e+06 |   +0.21% |  9.82e-08 |      
+      440 |   0.2006 |  1.510835e+06 |   +0.18% |  1.45e-07 |      
+      450 |   0.1776 |  1.511401e+06 |   +0.04% |  2.13e-07 |      
+      460 |   0.1566 |  1.511741e+06 |   +0.02% |  3.14e-07 |      
+      470 |   0.1386 |  1.512673e+06 |   +0.06% |  4.62e-07 |      
+      480 |   0.1231 |  1.516213e+06 |   +0.23% |  6.80e-07 |      
+      490 |   0.1099 |  1.529064e+06 |   +0.85% |  1.00e-06 |      
+      500 |   0.0994 |  1.548743e+06 |   +1.29% |  1.47e-06 |      
+      500 |   0.0994 |  1.548743e+06 |          |  1.53e-06 |      
+---------------------------------------------------------------
+[INFO GPL-1001] Global placement finished at iteration 500
+[INFO GPL-1002] Placed Cell Area            94987.0438
+[INFO GPL-1003] Available Free Area         5677948.2200
+[INFO GPL-1004] Minimum Feasible Density        0.0200 (cell_area / free_area)
+[INFO GPL-1006]   Suggested Target Densities:
+[INFO GPL-1007]     - For 90% usage of free space: 0.0186
+[INFO GPL-1008]     - For 80% usage of free space: 0.0209
+[INFO GPL-1009]     - For 50% usage of free space: 0.0335
+[INFO GPL-1014] Final placement area: 94987.04 (+0.00%)
+[INFO DPL-0006] Core area: 6958312.09 um^2, Instances area: 978329.27 um^2, Utilization: 14.1%
+[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.
+[INFO DPL-1101] Legalizing using diamond search.
+Movements Summary
+---------------------------------------
+Total cells:                   54172
+Diamond Move Success:          54172 (100.00%)
+Diamond Move Failure:              0
+Rip-up and replace Success:        0 (  0.00% of diamond failures)
+Rip-up and replace Failure:        0
+Total Placement Failures:          0
+---------------------------------------
+Placement Analysis
+---------------------------------
+total displacement      44003.9 u
+average displacement        0.6 u
+max displacement           60.0 u
+original HPWL         1549613.3 u
+legalized HPWL        1580146.5 u
+delta HPWL                    2 %
+
+Design area 978329 um^2 14% utilization.
+[INFO CTS-0050] Root buffer is CLKBUF_X3.
+[INFO CTS-0051] Sink buffer is CLKBUF_X3.
+[INFO CTS-0052] The following clock buffers will be used for CTS:
+                    CLKBUF_X3
+[INFO CTS-0049] Characterization buffer is CLKBUF_X3.
+[INFO CTS-0007] Net "clk" found for clock "core_clk".
+[INFO CTS-0011]  Clock net "clk" for macros has 16 sinks.
+[INFO CTS-0011]  Clock net "clk_regs" for registers has 7483 sinks.
+[INFO CTS-0008] TritonCTS found 2 clock nets.
+[INFO CTS-0097] Characterization used 1 buffer(s) types.
+[INFO CTS-0201] 13 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clk.
+[INFO CTS-0028]  Total number of sinks: 16.
+[INFO CTS-0029]  Macro  sinks will be clustered in groups of up to 4 and with maximum cluster diameter of 2800.0 um.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 14000  dbu (7 um).
+[INFO CTS-0204] A clustering solution was found from clustering size of 4 and clustering diameter of 2800.
+[INFO CTS-0205] Better solution may be possible if either -sink_clustering_size, -sink_clustering_max_diameter, or both options are omitted to enable automatic clustering.
+[INFO CTS-0019]  Total number of sinks after clustering: 4.
+[INFO CTS-0024]  Normalized sink region: [(43.7714, 12.0143), (201.172, 94.425)].
+[INFO CTS-0025]     Width:  157.4007.
+[INFO CTS-0026]     Height: 82.4107.
+ Level 1
+    Direction: Horizontal
+    Sinks per sub-region: 2
+    Sub-region size: 78.7004 X 82.4107
+[INFO CTS-0034]     Segment length (rounded): 40.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 15.
+[INFO CTS-0035]  Number of sinks covered: 4.
+[INFO CTS-0201] 13 blockages from hard placement blockages and placed macros will be used.
+[INFO CTS-0027] Generating H-Tree topology for net clk_regs.
+[INFO CTS-0028]  Total number of sinks: 7483.
+[INFO CTS-0090]  Sinks will be clustered based on buffer max cap.
+[INFO CTS-0030]  Number of static layers: 0.
+[INFO CTS-0020]  Wire segment unit: 14000  dbu (7 um).
+[INFO CTS-0206] Best clustering solution was found from clustering size of 10 and clustering diameter of 50.
+[INFO CTS-0019]  Total number of sinks after clustering: 949.
+[INFO CTS-0024]  Normalized sink region: [(7.29607, 12.005), (391.488, 104.628)].
+[INFO CTS-0025]     Width:  384.1921.
+[INFO CTS-0026]     Height: 92.6230.
+ Level 1
+    Direction: Horizontal
+    Sinks per sub-region: 475
+    Sub-region size: 192.0961 X 92.6230
+[INFO CTS-0034]     Segment length (rounded): 96.
+ Level 2
+    Direction: Vertical
+    Sinks per sub-region: 238
+    Sub-region size: 192.0961 X 46.3115
+[INFO CTS-0034]     Segment length (rounded): 24.
+ Level 3
+    Direction: Horizontal
+    Sinks per sub-region: 119
+    Sub-region size: 96.0480 X 46.3115
+[INFO CTS-0034]     Segment length (rounded): 48.
+ Level 4
+    Direction: Vertical
+    Sinks per sub-region: 60
+    Sub-region size: 96.0480 X 23.1558
+[INFO CTS-0034]     Segment length (rounded): 12.
+ Level 5
+    Direction: Horizontal
+    Sinks per sub-region: 30
+    Sub-region size: 48.0240 X 23.1558
+[INFO CTS-0034]     Segment length (rounded): 24.
+ Level 6
+    Direction: Vertical
+    Sinks per sub-region: 15
+    Sub-region size: 48.0240 X 11.5779
+[INFO CTS-0034]     Segment length (rounded): 6.
+ Level 7
+    Direction: Horizontal
+    Sinks per sub-region: 8
+    Sub-region size: 24.0120 X 11.5779
+[INFO CTS-0034]     Segment length (rounded): 12.
+[INFO CTS-0032]  Stop criterion found. Max number of sinks is 15.
+[INFO CTS-0035]  Number of sinks covered: 949.
+[INFO CTS-0018]     Created 7 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 3.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 3.
+[INFO CTS-0015]     Created 7 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 2:2, 4:4..
+[INFO CTS-0017]     Max level of the clock tree: 1.
+[INFO CTS-0018]     Created 1130 clock buffers.
+[INFO CTS-0012]     Minimum number of buffers in the clock path: 8.
+[INFO CTS-0013]     Maximum number of buffers in the clock path: 9.
+[INFO CTS-0015]     Created 1130 clock nets.
+[INFO CTS-0016]     Fanout distribution for the current clock = 2:5, 3:10, 4:29, 5:29, 6:72, 7:176, 8:433, 9:273, 10:27, 11:6, 12:6, 13:5, 14:1, 15:1, 20:1, 22:1..
+[INFO CTS-0017]     Max level of the clock tree: 7.
+[INFO CTS-0098] Clock net "clk"
+[INFO CTS-0099]  Sinks 16
+[INFO CTS-0100]  Leaf buffers 4
+[INFO CTS-0101]  Average sink wire length 2291.94 um
+[INFO CTS-0102]  Path depth 3 - 3
+[INFO CTS-0207]  Dummy loads inserted 0
+[INFO CTS-0098] Clock net "clk_regs"
+[INFO CTS-0099]  Sinks 8290
+[INFO CTS-0100]  Leaf buffers 947
+[INFO CTS-0101]  Average sink wire length 1598.46 um
+[INFO CTS-0102]  Path depth 8 - 9
+[INFO CTS-0207]  Dummy loads inserted 807
+[INFO RSZ-0047] Found 5 long wires.
+[INFO RSZ-0048] Inserted 15 buffers in 5 nets.
+[INFO CTS-0033] Balancing latency for clock core_clk
+[INFO CTS-0036]  inserted 7 delay buffers
+[INFO CTS-0037] Total number of delay buffers: 7
+[INFO DPL-0006] Core area: 6958312.09 um^2, Instances area: 980583.08 um^2, Utilization: 14.1%
+[INFO DPL-0005] Diamond search max displacement: +/- 500 sites horizontally, +/- 100 rows vertically.
+[INFO DPL-1101] Legalizing using diamond search.
+Movements Summary
+---------------------------------------
+Total cells:                   56139
+Diamond Move Success:          56139 (100.00%)
+Diamond Move Failure:              0
+Rip-up and replace Success:        0 (  0.00% of diamond failures)
+Rip-up and replace Failure:        0
+Total Placement Failures:          0
+---------------------------------------
+Placement Analysis
+---------------------------------
+total displacement      15359.4 u
+average displacement        0.2 u
+max displacement          197.3 u
+original HPWL         1650189.0 u
+legalized HPWL        1662901.9 u
+delta HPWL                    1 %
+
+Converted 0 constant POWER/GROUND nets to SIGNAL.
+[INFO DRT-0149] Reading tech and libs.
+
+Units:                2000
+Number of layers:     21
+Number of macros:     141
+Number of vias:       42
+Number of viarulegen: 19
+
+[INFO DRT-0150] Reading design.
+[WARNING DRT-0120] Large net reg_addr_in[2] has 190 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net reg_addr_in[3] has 167 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net reg_addr_in[4] has 119 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net reset has 2514 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/_1200_ has 292 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/cpu_core_reset has 1434 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core_reset has 1896 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/ex1_alu_b_in[0] has 134 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/_0812_ has 250 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/_0814_ has 250 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/immediate_en_reg has 130 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/mov_lsl_flag_imm_en_reg has 130 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX2/_0705_ has 334 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX2/_0706_ has 334 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/MEM/_0855_ has 152 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/_078_ has 537 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/busy_stall has 537 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/ex_consume_pulse has 540 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/ex_in_ctrl[4] has 209 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/ex_in_ctrl[5] has 230 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/front_stall has 105 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/id_rd[0] has 520 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/id_rd[1] has 264 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/id_rd[2] has 776 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[19] has 519 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[20] has 263 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[21] has 775 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[22] has 519 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[23] has 263 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[24] has 775 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/stall_mm has 614 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/wb_in_ctrl[0] has 130 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01514_ has 112 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01516_ has 118 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01518_ has 117 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01520_ has 103 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01861_ has 381 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01862_ has 434 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_03328_ has 300 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_04208_ has 223 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_04212_ has 103 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/bf_commit has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_idex/_1069_ has 535 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net control_regs/_0661_ has 102 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net selector/_1068_ has 147 pins which may impact routing performance. Consider optimization.
+
+Design:                   user_top
+Die area:                 ( 0 0 ) ( 6000000 5000000 )
+Number of track patterns: 20
+Number of DEF vias:       0
+Number of components:     79862
+Number of terminals:      272
+Number of snets:          2
+Number of nets:           63897
+
+[INFO DRT-0167] List of default vias:
+  Layer via2
+    default via: via2_5
+  Layer via3
+    default via: via3_2
+  Layer via4
+    default via: via4_0
+  Layer via5
+    default via: via5_0
+  Layer via6
+    default via: via6_0
+  Layer via7
+    default via: via7_0
+  Layer via8
+    default via: via8_0
+  Layer via9
+    default via: via9_0
+[INFO DRT-0162] Library cell analysis.
+[INFO DRT-0163] Instance analysis.
+[INFO DRT-0164] Number of unique instances = 96.
+[INFO DRT-0168] Init region query.
+[INFO DRT-0024]   Complete active.
+[INFO DRT-0024]   Complete Fr_VIA.
+[INFO DRT-0024]   Complete metal1.
+[INFO DRT-0024]   Complete via1.
+[INFO DRT-0024]   Complete metal2.
+[INFO DRT-0024]   Complete via2.
+[INFO DRT-0024]   Complete metal3.
+[INFO DRT-0024]   Complete via3.
+[INFO DRT-0024]   Complete metal4.
+[INFO DRT-0024]   Complete via4.
+[INFO DRT-0024]   Complete metal5.
+[INFO DRT-0024]   Complete via5.
+[INFO DRT-0024]   Complete metal6.
+[INFO DRT-0024]   Complete via6.
+[INFO DRT-0024]   Complete metal7.
+[INFO DRT-0024]   Complete via7.
+[INFO DRT-0024]   Complete metal8.
+[INFO DRT-0024]   Complete via8.
+[INFO DRT-0024]   Complete metal9.
+[INFO DRT-0024]   Complete via9.
+[INFO DRT-0024]   Complete metal10.
+[INFO DRT-0033] active shape region query size = 0.
+[INFO DRT-0033] FR_VIA shape region query size = 0.
+[INFO DRT-0033] metal1 shape region query size = 1181414.
+[INFO DRT-0033] via1 shape region query size = 233601.
+[INFO DRT-0033] metal2 shape region query size = 155742.
+[INFO DRT-0033] via2 shape region query size = 233601.
+[INFO DRT-0033] metal3 shape region query size = 158813.
+[INFO DRT-0033] via3 shape region query size = 233601.
+[INFO DRT-0033] metal4 shape region query size = 92726.
+[INFO DRT-0033] via4 shape region query size = 100719.
+[INFO DRT-0033] metal5 shape region query size = 39238.
+[INFO DRT-0033] via5 shape region query size = 232629.
+[INFO DRT-0033] metal6 shape region query size = 39336.
+[INFO DRT-0033] via6 shape region query size = 76312.
+[INFO DRT-0033] metal7 shape region query size = 13784.
+[INFO DRT-0033] via7 shape region query size = 0.
+[INFO DRT-0033] metal8 shape region query size = 0.
+[INFO DRT-0033] via8 shape region query size = 0.
+[INFO DRT-0033] metal9 shape region query size = 0.
+[INFO DRT-0033] via9 shape region query size = 0.
+[INFO DRT-0033] metal10 shape region query size = 0.
+[INFO DRT-0165] Start pin access.
+[INFO DRT-0076]   Complete 1000 pins.
+[INFO DRT-0076]   Complete 2000 pins.
+[INFO DRT-0078]   Complete 2527 pins.
+[INFO DRT-0081]   Complete 85 unique inst patterns.
+[INFO DRT-0082]   Complete 10000 groups.
+[INFO DRT-0082]   Complete 20000 groups.
+[INFO DRT-0082]   Complete 30000 groups.
+[INFO DRT-0082]   Complete 40000 groups.
+[INFO DRT-0082]   Complete 50000 groups.
+[INFO DRT-0084]   Complete 56139 groups.
+#scanned instances     = 79862
+#unique  instances     = 96
+#stdCellGenAp          = 3604
+#stdCellValidPlanarAp  = 0
+#stdCellValidViaAp     = 2016
+#stdCellPinNoAp        = 0
+#stdCellPinCnt         = 196498
+#instTermValidViaApCnt = 0
+#macroGenAp            = 4988
+#macroValidPlanarAp    = 4988
+#macroValidViaAp       = 3417
+#macroNoAp             = 0
+[INFO DRT-0166] Complete pin access.
+[INFO DRT-0267] cpu time = 00:00:04, elapsed time = 00:00:04, memory = 2132.07 (MB), peak = 2150.82 (MB)
+[WARNING GRT-0281] Net reset has a large fanout of 2514 terminals.
+[WARNING GRT-0281] Net ann_engine/compute_core/cpu_core_reset has a large fanout of 1434 terminals.
+[WARNING GRT-0281] Net ann_engine/compute_core/gpu_core_reset has a large fanout of 1896 terminals.
+[WARNING DRT-0120] Large net reg_addr_in[2] has 190 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net reg_addr_in[3] has 167 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net reg_addr_in[4] has 119 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net reset has 2514 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/_1200_ has 292 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/cpu_core_reset has 1434 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core_reset has 1896 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/ex1_alu_b_in[0] has 134 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/_0812_ has 250 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/_0814_ has 250 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/immediate_en_reg has 130 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX1/mov_lsl_flag_imm_en_reg has 130 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX2/_0705_ has 334 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/EX2/_0706_ has 334 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/arm_cpu/MEM/_0855_ has 152 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/_078_ has 537 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/busy_stall has 537 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/ex_consume_pulse has 540 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/ex_in_ctrl[4] has 209 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/ex_in_ctrl[5] has 230 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/front_stall has 105 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/id_rd[0] has 520 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/id_rd[1] has 264 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/id_rd[2] has 776 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[19] has 519 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[20] has 263 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[21] has 775 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[22] has 519 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[23] has 263 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/instr_id[24] has 775 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/stall_mm has 614 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/wb_in_ctrl[0] has 130 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01514_ has 112 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01516_ has 118 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01518_ has 117 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01520_ has 103 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01861_ has 381 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_01862_ has 434 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_03328_ has 300 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_04208_ has 223 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/_04212_ has 103 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_ex/bf_commit has 126 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net ann_engine/compute_core/gpu_core/u_idex/_1069_ has 535 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net control_regs/_0661_ has 102 pins which may impact routing performance. Consider optimization.
+[WARNING DRT-0120] Large net selector/_1068_ has 147 pins which may impact routing performance. Consider optimization.
+[INFO DRT-0024]   Complete active.
+[INFO DRT-0024]   Complete Fr_VIA.
+[INFO DRT-0024]   Complete metal1.
+[INFO DRT-0024]   Complete via1.
+[INFO DRT-0024]   Complete metal2.
+[INFO DRT-0024]   Complete via2.
+[INFO DRT-0024]   Complete metal3.
+[INFO DRT-0024]   Complete via3.
+[INFO DRT-0024]   Complete metal4.
+[INFO DRT-0024]   Complete via4.
+[INFO DRT-0024]   Complete metal5.
+[INFO DRT-0024]   Complete via5.
+[INFO DRT-0024]   Complete metal6.
+[INFO DRT-0024]   Complete via6.
+[INFO DRT-0024]   Complete metal7.
+[INFO DRT-0024]   Complete via7.
+[INFO DRT-0024]   Complete metal8.
+[INFO DRT-0024]   Complete via8.
+[INFO DRT-0024]   Complete metal9.
+[INFO DRT-0024]   Complete via9.
+[INFO DRT-0024]   Complete metal10.
+[WARNING DRT-0617] PDN layer 1 not found.
+[INFO DRT-0165] Start pin access.
+[INFO DRT-0076]   Complete 1000 pins.
+[INFO DRT-0076]   Complete 2000 pins.
+[INFO DRT-0078]   Complete 2527 pins.
+[INFO DRT-0081]   Complete 85 unique inst patterns.
+[INFO DRT-0082]   Complete 10000 groups.
+[INFO DRT-0082]   Complete 20000 groups.
+[INFO DRT-0082]   Complete 30000 groups.
+[INFO DRT-0082]   Complete 40000 groups.
+[INFO DRT-0082]   Complete 50000 groups.
+[INFO DRT-0084]   Complete 56139 groups.
+#scanned instances     = 79862
+#unique  instances     = 96
+#stdCellGenAp          = 3604
+#stdCellValidPlanarAp  = 0
+#stdCellValidViaAp     = 2016
+#stdCellPinNoAp        = 0
+#stdCellPinCnt         = 196498
+#instTermValidViaApCnt = 0
+#macroGenAp            = 4988
+#macroValidPlanarAp    = 4988
+#macroValidViaAp       = 3417
+#macroNoAp             = 0
+[INFO DRT-0166] Complete pin access.
+[INFO DRT-0267] cpu time = 00:00:04, elapsed time = 00:00:04, memory = 3702.38 (MB), peak = 3729.32 (MB)
+[INFO DRT-0156] guideIn read 100000 guides.
+[INFO DRT-0156] guideIn read 200000 guides.
+[INFO DRT-0156] guideIn read 300000 guides.
+[INFO DRT-0156] guideIn read 400000 guides.
+
+[INFO DRT-0157] Number of guides:     462715
+
+[INFO DRT-0169] Post process guides.
+[INFO DRT-0176] GCELLGRID X 0 DO 1052 STEP 5700 ;
+[INFO DRT-0177] GCELLGRID Y 0 DO 877 STEP 5700 ;
+[INFO DRT-0026]   Complete 100000 origin guides.
+[INFO DRT-0026]   Complete 200000 origin guides.
+[INFO DRT-0026]   Complete 300000 origin guides.
+[INFO DRT-0026]   Complete 400000 origin guides.
+[INFO DRT-0028]   Complete active.
+[INFO DRT-0028]   Complete Fr_VIA.
+[INFO DRT-0028]   Complete metal1.
+[INFO DRT-0028]   Complete via1.
+[INFO DRT-0028]   Complete metal2.
+[INFO DRT-0028]   Complete via2.
+[INFO DRT-0028]   Complete metal3.
+[INFO DRT-0028]   Complete via3.
+[INFO DRT-0028]   Complete metal4.
+[INFO DRT-0028]   Complete via4.
+[INFO DRT-0028]   Complete metal5.
+[INFO DRT-0028]   Complete via5.
+[INFO DRT-0028]   Complete metal6.
+[INFO DRT-0028]   Complete via6.
+[INFO DRT-0028]   Complete metal7.
+[INFO DRT-0028]   Complete via7.
+[INFO DRT-0028]   Complete metal8.
+[INFO DRT-0028]   Complete via8.
+[INFO DRT-0028]   Complete metal9.
+[INFO DRT-0028]   Complete via9.
+[INFO DRT-0028]   Complete metal10.
+[INFO DRT-0178] Init guide query.
+[INFO DRT-0035]   Complete active (guide).
+[INFO DRT-0035]   Complete Fr_VIA (guide).
+[INFO DRT-0035]   Complete metal1 (guide).
+[INFO DRT-0035]   Complete via1 (guide).
+[INFO DRT-0035]   Complete metal2 (guide).
+[INFO DRT-0035]   Complete via2 (guide).
+[INFO DRT-0035]   Complete metal3 (guide).
+[INFO DRT-0035]   Complete via3 (guide).
+[INFO DRT-0035]   Complete metal4 (guide).
+[INFO DRT-0035]   Complete via4 (guide).
+[INFO DRT-0035]   Complete metal5 (guide).
+[INFO DRT-0035]   Complete via5 (guide).
+[INFO DRT-0035]   Complete metal6 (guide).
+[INFO DRT-0035]   Complete via6 (guide).
+[INFO DRT-0035]   Complete metal7 (guide).
+[INFO DRT-0035]   Complete via7 (guide).
+[INFO DRT-0035]   Complete metal8 (guide).
+[INFO DRT-0035]   Complete via8 (guide).
+[INFO DRT-0035]   Complete metal9 (guide).
+[INFO DRT-0035]   Complete via9 (guide).
+[INFO DRT-0035]   Complete metal10 (guide).
+[INFO DRT-0036] active guide region query size = 0.
+[INFO DRT-0036] FR_VIA guide region query size = 0.
+[INFO DRT-0036] metal1 guide region query size = 160027.
+[INFO DRT-0036] via1 guide region query size = 0.
+[INFO DRT-0036] metal2 guide region query size = 140827.
+[INFO DRT-0036] via2 guide region query size = 0.
+[INFO DRT-0036] metal3 guide region query size = 77905.
+[INFO DRT-0036] via3 guide region query size = 0.
+[INFO DRT-0036] metal4 guide region query size = 7584.
+[INFO DRT-0036] via4 guide region query size = 0.
+[INFO DRT-0036] metal5 guide region query size = 2712.
+[INFO DRT-0036] via5 guide region query size = 0.
+[INFO DRT-0036] metal6 guide region query size = 521.
+[INFO DRT-0036] via6 guide region query size = 0.
+[INFO DRT-0036] metal7 guide region query size = 32.
+[INFO DRT-0036] via7 guide region query size = 0.
+[INFO DRT-0036] metal8 guide region query size = 9.
+[INFO DRT-0036] via8 guide region query size = 0.
+[INFO DRT-0036] metal9 guide region query size = 2.
+[INFO DRT-0036] via9 guide region query size = 0.
+[INFO DRT-0036] metal10 guide region query size = 0.
+[INFO DRT-0179] Init gr pin query.
+[INFO DRT-0267] cpu time = 00:00:06, elapsed time = 00:00:06, memory = 3852.63 (MB), peak = 3852.63 (MB)
+[INFO DRT-0245] skipped writing guide updates to database.
+[INFO DRT-0181] Start track assignment.
+[INFO DRT-0184] Done with 148941 vertical wires in 22 frboxes and 240678 horizontal wires in 18 frboxes.
+[INFO DRT-0186] Done with 35843 vertical wires in 22 frboxes and 51661 horizontal wires in 18 frboxes.
+[INFO DRT-0182] Complete track assignment.
+[INFO DRT-0267] cpu time = 00:00:22, elapsed time = 00:00:22, memory = 4619.51 (MB), peak = 4619.51 (MB)
+[INFO DRT-0187] Start routing data preparation.
+[INFO DRT-0267] cpu time = 00:00:00, elapsed time = 00:00:00, memory = 4619.63 (MB), peak = 4619.63 (MB)
+[INFO DRT-0194] Start detail routing.
+[INFO DRT-0195] Start 0th optimization iteration.
+    Completing 10% with 375 violations.
+    elapsed time = 00:01:50, memory = 4795.58 (MB).
+    Completing 20% with 1263 violations.
+    elapsed time = 00:01:56, memory = 4823.96 (MB).
+    Completing 30% with 1273 violations.
+    elapsed time = 00:02:19, memory = 4823.96 (MB).
+    Completing 40% with 2657 violations.
+    elapsed time = 00:04:04, memory = 4882.40 (MB).
+    Completing 50% with 2665 violations.
+    elapsed time = 00:04:08, memory = 4882.40 (MB).
+    Completing 60% with 3234 violations.
+    elapsed time = 00:06:14, memory = 4913.79 (MB).
+    Completing 70% with 4124 violations.
+    elapsed time = 00:06:21, memory = 4913.91 (MB).
+    Completing 80% with 4149 violations.
+    elapsed time = 00:06:54, memory = 4927.97 (MB).
+    Completing 90% with 5710 violations.
+    elapsed time = 00:08:45, memory = 4946.23 (MB).
+    Completing 100% with 5745 violations.
+    elapsed time = 00:08:49, memory = 4946.23 (MB).
+[INFO DRT-0199]   Number of violations = 10690.
+Viol/Layer      metal1   via1 metal2   via2 metal3 metal4   via4 metal5   via5 metal6 metal7
+Cut Spacing          0      1      0      3      0      0     20      0      3      0      0
+Metal Spacing        0      0    634      0    327      4      0     42      0      0      0
+Recheck             14      0   2720      0   2025     25      0    137      0      9     15
+Short                0     21   3727      9    785     48      3     79      2     37      0
+[INFO DRT-0267] cpu time = 00:08:54, elapsed time = 00:08:55, memory = 4946.23 (MB), peak = 4966.54 (MB)
+Total wire length = 1962089 um.
+Total wire length on LAYER metal1 = 0 um.
+Total wire length on LAYER metal2 = 489593 um.
+Total wire length on LAYER metal3 = 878289 um.
+Total wire length on LAYER metal4 = 286267 um.
+Total wire length on LAYER metal5 = 270377 um.
+Total wire length on LAYER metal6 = 35352 um.
+Total wire length on LAYER metal7 = 1715 um.
+Total wire length on LAYER metal8 = 444 um.
+Total wire length on LAYER metal9 = 48 um.
+Total wire length on LAYER metal10 = 0 um.
+Total number of vias = 402966.
+Up-via summary (total 402966):
+
+-----------------
+ active         0
+ metal1    189289
+ metal2    196933
+ metal3     10979
+ metal4      4822
+ metal5       882
+ metal6        46
+ metal7        13
+ metal8         2
+ metal9         0
+-----------------
+       402966
+
+
+[INFO DRT-0195] Start 1st optimization iteration.

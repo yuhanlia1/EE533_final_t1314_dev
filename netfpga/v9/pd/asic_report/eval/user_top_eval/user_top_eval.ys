@@ -1,0 +1,39 @@
+# Auto-generated hierarchy check for scripts/asic/generate_rsu_eval.py
+# Target platform: nangate45
+# Logic source filelist: pd/asic_report/eval/user_top_eval/user_top_logic_sources.f
+# Memory implementation RTL: pd/asic_report/eval/user_top_eval/user_top_memory_impl.v
+# For mapped synthesis, run: pd/asic_report/eval/user_top_eval/run_yosys_synth.sh
+
+read_verilog -defer pd/asic_report/eval/user_top_eval/user_top_memory_impl.v
+read_verilog -defer src/action_dispatcher.v
+read_verilog -defer src/ann_cpu_gpu_compute_core.v
+read_verilog -defer src/ann_engine_wrapper.v
+read_verilog -defer src/ann_feature_unpack.v
+read_verilog -defer src/ann_task_ingress.v
+read_verilog -defer src/convertible_fifo.v
+read_verilog -defer src/cpu/alu_64_stage1.v
+read_verilog -defer src/cpu/alu_64_stage2.v
+read_verilog -defer src/cpu/arm_processor_top.v
+read_verilog -defer src/cpu/decode_stage1.v
+read_verilog -defer src/cpu/ex_stage1.v
+read_verilog -defer src/cpu/ex_stage2.v
+read_verilog -defer src/cpu/fetch_stage1.v
+read_verilog -defer src/cpu/fetch_stage2.v
+read_verilog -defer src/cpu/mem_register_slice.v
+read_verilog -defer src/cpu/mem_stage.v
+read_verilog -defer src/cpu/wb_stage1.v
+read_verilog -defer src/gpu/bf16_add_sub.v
+read_verilog -defer src/gpu/bf16_mult.v
+read_verilog -defer src/gpu/design_gpu.v
+read_verilog -defer src/packet_action_selector.v
+read_verilog -defer src/tb_necessary/generic_regs_sim_stub.v
+read_verilog -defer src/user_top.v
+
+hierarchy -check -top user_top
+check
+proc
+opt
+tee -o pd/asic_report/eval/user_top_eval/user_top_hierarchy_stat.rpt stat -top user_top
+
+# Default planning target clock: 10.000 ns
+# Eval output root: pd/asic_report/eval/user_top_eval

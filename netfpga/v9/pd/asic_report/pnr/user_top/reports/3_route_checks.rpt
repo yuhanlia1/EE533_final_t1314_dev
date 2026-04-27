@@ -1,0 +1,186 @@
+Startpoint: reset (input port clocked by core_clk)
+Endpoint: ann_engine/compute_core/_5632_
+          (removal check against rising-edge clock core_clk)
+Path Group: asynchronous
+Path Type: min
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock core_clk (rise edge)
+   0.00    0.00   clock network delay (propagated)
+   0.00    0.00 v input external delay
+   0.00    0.00 v reset (in)
+   2.17    2.17 ^ ann_engine/compute_core/_4829_/ZN (INV_X1)
+   0.00    2.17 ^ ann_engine/compute_core/_5632_/RN (DFFR_X1)
+           2.17   data arrival time
+
+   0.00    0.00   clock core_clk (rise edge)
+   0.00    0.00   clock source latency
+   0.00    0.00 ^ clk (in)
+   0.05    0.05 ^ wire903/Z (BUF_X16)
+   0.05    0.11 ^ wire902/Z (BUF_X16)
+   0.08    0.19 ^ clkbuf_regs_0_core_clk/Z (CLKBUF_X3)
+   0.04    0.24 ^ clkbuf_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.29 ^ clkbuf_1_1_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.35 ^ clkbuf_1_1_1_clk_regs/Z (CLKBUF_X3)
+   0.07    0.42 ^ clkbuf_1_1_2_clk_regs/Z (CLKBUF_X3)
+   0.06    0.49 ^ clkbuf_3_6_0_clk_regs/Z (CLKBUF_X3)
+   0.05    0.54 ^ clkbuf_3_6_1_clk_regs/Z (CLKBUF_X3)
+   0.05    0.59 ^ clkbuf_5_26_0_clk_regs/Z (CLKBUF_X3)
+   0.07    0.66 ^ clkbuf_7_104_0_clk_regs/Z (CLKBUF_X3)
+   0.05    0.71 ^ clkbuf_leaf_143_clk_regs/Z (CLKBUF_X3)
+   0.00    0.71 ^ ann_engine/compute_core/_5632_/CK (DFFR_X1)
+   0.00    0.71   clock reconvergence pessimism
+   0.54    1.25   library removal time
+           1.25   data required time
+---------------------------------------------------------
+           1.25   data required time
+          -2.17   data arrival time
+---------------------------------------------------------
+           0.91   slack (MET)
+
+
+Startpoint: reg_data_in[7] (input port clocked by core_clk)
+Endpoint: control_regs/_3760_
+          (rising edge-triggered flip-flop clocked by core_clk)
+Path Group: core_clk
+Path Type: min
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock core_clk (rise edge)
+   0.00    0.00   clock network delay (propagated)
+   0.00    0.00 ^ input external delay
+   0.00    0.00 ^ reg_data_in[7] (in)
+   0.06    0.06 ^ control_regs/_2577_/Z (MUX2_X1)
+   0.00    0.06 ^ control_regs/_3760_/D (DFFR_X1)
+           0.06   data arrival time
+
+   0.00    0.00   clock core_clk (rise edge)
+   0.00    0.00   clock source latency
+   0.00    0.00 ^ clk (in)
+   0.05    0.05 ^ wire903/Z (BUF_X16)
+   0.05    0.11 ^ wire902/Z (BUF_X16)
+   0.08    0.19 ^ clkbuf_regs_0_core_clk/Z (CLKBUF_X3)
+   0.04    0.24 ^ clkbuf_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.29 ^ clkbuf_1_1_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.35 ^ clkbuf_1_1_1_clk_regs/Z (CLKBUF_X3)
+   0.07    0.42 ^ clkbuf_1_1_2_clk_regs/Z (CLKBUF_X3)
+   0.06    0.49 ^ clkbuf_3_6_0_clk_regs/Z (CLKBUF_X3)
+   0.05    0.54 ^ clkbuf_3_6_1_clk_regs/Z (CLKBUF_X3)
+   0.06    0.60 ^ clkbuf_5_27_0_clk_regs/Z (CLKBUF_X3)
+   0.09    0.69 ^ clkbuf_7_110_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.75 ^ clkbuf_leaf_547_clk_regs/Z (CLKBUF_X3)
+   0.00    0.75 ^ control_regs/_3760_/CK (DFFR_X1)
+   0.00    0.75   clock reconvergence pessimism
+   0.01    0.76   library hold time
+           0.76   data required time
+---------------------------------------------------------
+           0.76   data required time
+          -0.06   data arrival time
+---------------------------------------------------------
+          -0.70   slack (VIOLATED)
+
+
+Startpoint: reset (input port clocked by core_clk)
+Endpoint: ann_engine/compute_core/arm_cpu/_373_
+          (recovery check against rising-edge clock core_clk)
+Path Group: asynchronous
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock core_clk (rise edge)
+   0.00    0.00   clock network delay (propagated)
+   0.00    0.00 v input external delay
+   0.00    0.00 v reset (in)
+   4.62    4.62 ^ ann_engine/compute_core/_2888_/ZN (INV_X1)
+  16.11   20.73 v ann_engine/compute_core/_4706_/ZN (NAND3_X1)
+   4.79   25.52 ^ ann_engine/compute_core/arm_cpu/_205_/ZN (INV_X1)
+   0.00   25.52 ^ ann_engine/compute_core/arm_cpu/_373_/RN (DFFR_X1)
+          25.52   data arrival time
+
+  10.00   10.00   clock core_clk (rise edge)
+   0.00   10.00   clock source latency
+   0.00   10.00 ^ clk (in)
+   0.05   10.05 ^ wire903/Z (BUF_X16)
+   0.05   10.11 ^ wire902/Z (BUF_X16)
+   0.08   10.19 ^ clkbuf_regs_0_core_clk/Z (CLKBUF_X3)
+   0.04   10.24 ^ clkbuf_0_clk_regs/Z (CLKBUF_X3)
+   0.06   10.29 ^ clkbuf_1_1_0_clk_regs/Z (CLKBUF_X3)
+   0.06   10.35 ^ clkbuf_1_1_1_clk_regs/Z (CLKBUF_X3)
+   0.07   10.42 ^ clkbuf_1_1_2_clk_regs/Z (CLKBUF_X3)
+   0.07   10.49 ^ clkbuf_3_7_0_clk_regs/Z (CLKBUF_X3)
+   0.05   10.54 ^ clkbuf_3_7_1_clk_regs/Z (CLKBUF_X3)
+   0.05   10.59 ^ clkbuf_5_29_0_clk_regs/Z (CLKBUF_X3)
+   0.06   10.65 ^ clkbuf_7_117_0_clk_regs/Z (CLKBUF_X3)
+   0.05   10.69 ^ clkbuf_leaf_940_clk_regs/Z (CLKBUF_X3)
+   0.00   10.69 ^ ann_engine/compute_core/arm_cpu/_373_/CK (DFFR_X1)
+   0.00   10.69   clock reconvergence pessimism
+  -0.19   10.50   library recovery time
+          10.50   data required time
+---------------------------------------------------------
+          10.50   data required time
+         -25.52   data arrival time
+---------------------------------------------------------
+         -15.01   slack (VIOLATED)
+
+
+Startpoint: ann_engine/compute_core/_5760_
+            (rising edge-triggered flip-flop clocked by core_clk)
+Endpoint: ann_engine/compute_core/gpu_core/u_ex/_22380_
+          (rising edge-triggered flip-flop clocked by core_clk)
+Path Group: core_clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock core_clk (rise edge)
+   0.00    0.00   clock source latency
+   0.00    0.00 ^ clk (in)
+   0.05    0.05 ^ wire903/Z (BUF_X16)
+   0.05    0.11 ^ wire902/Z (BUF_X16)
+   0.08    0.19 ^ clkbuf_regs_0_core_clk/Z (CLKBUF_X3)
+   0.04    0.24 ^ clkbuf_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.29 ^ clkbuf_1_0_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.35 ^ clkbuf_1_0_1_clk_regs/Z (CLKBUF_X3)
+   0.07    0.43 ^ clkbuf_1_0_2_clk_regs/Z (CLKBUF_X3)
+   0.06    0.49 ^ clkbuf_3_1_0_clk_regs/Z (CLKBUF_X3)
+   0.05    0.54 ^ clkbuf_3_1_1_clk_regs/Z (CLKBUF_X3)
+   0.06    0.60 ^ clkbuf_5_4_0_clk_regs/Z (CLKBUF_X3)
+   0.06    0.67 ^ clkbuf_7_17_0_clk_regs/Z (CLKBUF_X3)
+   0.04    0.71 ^ clkbuf_leaf_517_clk_regs/Z (CLKBUF_X3)
+   0.00    0.71 ^ ann_engine/compute_core/_5760_/CK (DFFS_X1)
+   7.72    8.43 ^ ann_engine/compute_core/_5760_/Q (DFFS_X1)
+  34.58   43.01 v ann_engine/compute_core/gpu_core/u_ex/_11825_/ZN (INV_X1)
+   6.25   49.27 ^ ann_engine/compute_core/gpu_core/u_ex/_21042_/ZN (OAI21_X1)
+  -0.21   49.06 v ann_engine/compute_core/gpu_core/u_ex/_21043_/ZN (AOI21_X1)
+   0.00   49.06 v ann_engine/compute_core/gpu_core/u_ex/_22380_/D (DFF_X1)
+          49.06   data arrival time
+
+  10.00   10.00   clock core_clk (rise edge)
+   0.00   10.00   clock source latency
+   0.00   10.00 ^ clk (in)
+   0.05   10.05 ^ wire903/Z (BUF_X16)
+   0.05   10.11 ^ wire902/Z (BUF_X16)
+   0.08   10.19 ^ clkbuf_regs_0_core_clk/Z (CLKBUF_X3)
+   0.04   10.24 ^ clkbuf_0_clk_regs/Z (CLKBUF_X3)
+   0.06   10.29 ^ clkbuf_1_1_0_clk_regs/Z (CLKBUF_X3)
+   0.06   10.35 ^ clkbuf_1_1_1_clk_regs/Z (CLKBUF_X3)
+   0.07   10.42 ^ clkbuf_1_1_2_clk_regs/Z (CLKBUF_X3)
+   0.06   10.49 ^ clkbuf_3_5_0_clk_regs/Z (CLKBUF_X3)
+   0.06   10.55 ^ clkbuf_3_5_1_clk_regs/Z (CLKBUF_X3)
+   0.06   10.61 ^ clkbuf_5_23_0_clk_regs/Z (CLKBUF_X3)
+   0.07   10.68 ^ clkbuf_7_92_0_clk_regs/Z (CLKBUF_X3)
+   0.05   10.74 ^ clkbuf_leaf_243_clk_regs/Z (CLKBUF_X3)
+   0.00   10.74 ^ ann_engine/compute_core/gpu_core/u_ex/_22380_/CK (DFF_X1)
+   0.00   10.74   clock reconvergence pessimism
+  -0.22   10.52   library setup time
+          10.52   data required time
+---------------------------------------------------------
+          10.52   data required time
+         -49.06   data arrival time
+---------------------------------------------------------
+         -38.54   slack (VIOLATED)
+
+

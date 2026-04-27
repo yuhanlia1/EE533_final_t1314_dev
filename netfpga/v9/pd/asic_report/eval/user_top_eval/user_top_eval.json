@@ -1,0 +1,640 @@
+{
+  "design_name": "user_top",
+  "top_module": "user_top",
+  "evaluation_scope": "user_module_layer",
+  "platform": "nangate45",
+  "platform_label": "Nangate45 teaching library",
+  "flow_status": "postroute_complete_smoke_power_ready",
+  "artifact_root": "pd/asic_report",
+  "included_modules": [
+    "action_dispatcher",
+    "alu_64_stage1",
+    "alu_64_stage2",
+    "ann_cpu_gpu_compute_core",
+    "ann_engine_wrapper",
+    "ann_feature_unpack",
+    "ann_task_ingress",
+    "arm_64_top",
+    "bf16_add_sub",
+    "bf16_mult",
+    "convertible_fifo",
+    "decode_stage1",
+    "ex_stage1",
+    "ex_stage2",
+    "fetch_stage1",
+    "fetch_stage2",
+    "fifo_bram",
+    "generic_regs",
+    "gpu_control",
+    "gpu_ex_mm_reg",
+    "gpu_ex_stage",
+    "gpu_id_ex_reg",
+    "gpu_id_stage",
+    "gpu_if_id_reg",
+    "gpu_if_stage",
+    "gpu_imem",
+    "gpu_mm_stage",
+    "gpu_mm_wb_reg",
+    "gpu_pc",
+    "gpu_shared_dmem",
+    "gpu_top_fifo_if",
+    "gpu_wb_stage",
+    "mem_RF",
+    "mem_data",
+    "mem_inst",
+    "mem_register_slice",
+    "mem_stage",
+    "packet_action_selector",
+    "user_top",
+    "wb_stage1"
+  ],
+  "excluded_modules": [
+    "NetFPGA board shell",
+    "reference_core / DMA / MAC / SRAM controllers / DCM / IOB resources",
+    "user_data_path outer fabric"
+  ],
+  "missing_modules": {},
+  "source_manifest": [
+    "src/action_dispatcher.v",
+    "src/ann_cpu_gpu_compute_core.v",
+    "src/ann_engine_wrapper.v",
+    "src/ann_feature_unpack.v",
+    "src/ann_task_ingress.v",
+    "src/convertible_fifo.v",
+    "src/cpu/alu_64_stage1.v",
+    "src/cpu/alu_64_stage2.v",
+    "src/cpu/arm_processor_top.v",
+    "src/cpu/decode_stage1.v",
+    "src/cpu/ex_stage1.v",
+    "src/cpu/ex_stage2.v",
+    "src/cpu/fetch_stage1.v",
+    "src/cpu/fetch_stage2.v",
+    "src/cpu/mem_RF.v",
+    "src/cpu/mem_data.v",
+    "src/cpu/mem_inst.v",
+    "src/cpu/mem_register_slice.v",
+    "src/cpu/mem_stage.v",
+    "src/cpu/wb_stage1.v",
+    "src/fifo_bram.v",
+    "src/gpu/bf16_add_sub.v",
+    "src/gpu/bf16_mult.v",
+    "src/gpu/design_gpu.v",
+    "src/gpu/gpu_imem.v",
+    "src/gpu/gpu_shared_dmem.v",
+    "src/packet_action_selector.v",
+    "src/tb_necessary/generic_regs_sim_stub.v",
+    "src/user_top.v"
+  ],
+  "memory_implementation": [
+    {
+      "instance_path": "user_top/ingress_fifo/u_bram",
+      "module_name": "fifo_bram",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_fifo_bram_256x72_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep dual-port FIFO storage as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/egress_fifo/u_bram",
+      "module_name": "fifo_bram",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_fifo_bram_256x72_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep dual-port FIFO storage as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/ingress/packet_buf",
+      "module_name": "fifo_bram",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_fifo_bram_256x72_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep dual-port FIFO storage as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/u_shared_dmem",
+      "module_name": "gpu_shared_dmem",
+      "depth": 16384,
+      "width": 64,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_gpu_shared_dmem_16384x64_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep the large dual-port shared DMEM as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/IF1/I_MEM",
+      "module_name": "mem_inst",
+      "depth": 512,
+      "width": 32,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "single_macro_zero_extended_addr",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_1024x32",
+          "count": 1
+        }
+      ],
+      "notes": "Map 512x32 instruction memory into a single 1024x32 fakeram with zero-extended address bits."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/ID1/REG_FILE",
+      "module_name": "mem_RF",
+      "depth": 64,
+      "width": 64,
+      "ports": "1w_2r",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_mem_rf_64x64_1w2r",
+          "count": 1
+        }
+      ],
+      "notes": "Keep the 1w2r register file as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/MEM/D_MEM",
+      "module_name": "mem_data",
+      "depth": 256,
+      "width": 64,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "width_split_2x256x32",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_256x32",
+          "count": 2
+        }
+      ],
+      "notes": "Map 256x64 data memory into two parallel 256x32 fakerams."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/MEM/CTRL_MEM",
+      "module_name": "mem_data",
+      "depth": 256,
+      "width": 8,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "single_macro_padded_256x16",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_256x16",
+          "count": 1
+        }
+      ],
+      "notes": "Map 256x8 control memory into a 256x16 fakeram and use only the low byte."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/gpu_core/u_if/u_imem",
+      "module_name": "gpu_imem",
+      "depth": 4096,
+      "width": 32,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "banked_4x1024x32",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_1024x32",
+          "count": 4
+        }
+      ],
+      "notes": "Split 4096x32 GPU IMEM across four 1024x32 fakerams, banked by addr[11:10]."
+    }
+  ],
+  "fakeram_instances": [
+    {
+      "cell_name": "fakeram45_1024x32",
+      "total_instances": 5,
+      "instance_paths": [
+        "user_top/ann_engine/compute_core/arm_cpu/IF1/I_MEM",
+        "user_top/ann_engine/compute_core/gpu_core/u_if/u_imem"
+      ]
+    },
+    {
+      "cell_name": "fakeram45_256x32",
+      "total_instances": 2,
+      "instance_paths": [
+        "user_top/ann_engine/compute_core/arm_cpu/MEM/D_MEM"
+      ]
+    },
+    {
+      "cell_name": "fakeram45_256x16",
+      "total_instances": 1,
+      "instance_paths": [
+        "user_top/ann_engine/compute_core/arm_cpu/MEM/CTRL_MEM"
+      ]
+    }
+  ],
+  "placeholder_macros": [
+    {
+      "cell_name": "placeholder_fifo_bram_256x72_dp",
+      "total_instances": 3,
+      "instance_paths": [
+        "user_top/ingress_fifo/u_bram",
+        "user_top/egress_fifo/u_bram",
+        "user_top/ann_engine/ingress/packet_buf"
+      ]
+    },
+    {
+      "cell_name": "placeholder_gpu_shared_dmem_16384x64_dp",
+      "total_instances": 1,
+      "instance_paths": [
+        "user_top/ann_engine/compute_core/u_shared_dmem"
+      ]
+    },
+    {
+      "cell_name": "placeholder_mem_rf_64x64_1w2r",
+      "total_instances": 1,
+      "instance_paths": [
+        "user_top/ann_engine/compute_core/arm_cpu/ID1/REG_FILE"
+      ]
+    }
+  ],
+  "next_stage_paths": {
+    "eval_dir": "pd/asic_report/eval/user_top_eval",
+    "pnr_dir": "pd/asic_report/pnr/user_top",
+    "sim_dir": "pd/asic_report/sim/user_top"
+  },
+  "clock_constraints": [
+    {
+      "name": "core_clk",
+      "target_ns": 10.0,
+      "stub_sdc": "pd/asic_report/eval/user_top_eval/user_top_eval.sdc"
+    }
+  ],
+  "memory_summary": [
+    {
+      "instance_path": "user_top/ingress_fifo/u_bram",
+      "module_name": "fifo_bram",
+      "group": "protocol_flow",
+      "kind": "fifo",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "bits_total": 18432
+    },
+    {
+      "instance_path": "user_top/egress_fifo/u_bram",
+      "module_name": "fifo_bram",
+      "group": "protocol_flow",
+      "kind": "fifo",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "bits_total": 18432
+    },
+    {
+      "instance_path": "user_top/ann_engine/ingress/packet_buf",
+      "module_name": "fifo_bram",
+      "group": "ann_wrapper",
+      "kind": "fifo",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "bits_total": 18432
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/u_shared_dmem",
+      "module_name": "gpu_shared_dmem",
+      "group": "compute_core",
+      "kind": "shared_dmem",
+      "depth": 16384,
+      "width": 64,
+      "ports": "dual_port_rw",
+      "bits_total": 1048576
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/IF1/I_MEM",
+      "module_name": "mem_inst",
+      "group": "compute_core",
+      "kind": "instruction_memory",
+      "depth": 512,
+      "width": 32,
+      "ports": "single_port_rw",
+      "bits_total": 16384
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/ID1/REG_FILE",
+      "module_name": "mem_RF",
+      "group": "compute_core",
+      "kind": "register_file",
+      "depth": 64,
+      "width": 64,
+      "ports": "1w_2r",
+      "bits_total": 4096
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/MEM/D_MEM",
+      "module_name": "mem_data",
+      "group": "compute_core",
+      "kind": "data_memory",
+      "depth": 256,
+      "width": 64,
+      "ports": "single_port_rw",
+      "bits_total": 16384
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/MEM/CTRL_MEM",
+      "module_name": "mem_data",
+      "group": "compute_core",
+      "kind": "data_memory",
+      "depth": 256,
+      "width": 8,
+      "ports": "single_port_rw",
+      "bits_total": 2048
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/gpu_core/u_if/u_imem",
+      "module_name": "gpu_imem",
+      "group": "compute_core",
+      "kind": "instruction_memory",
+      "depth": 4096,
+      "width": 32,
+      "ports": "single_port_rw",
+      "bits_total": 131072
+    }
+  ],
+  "memory_bits_total": 1273856,
+  "timing_summary": {
+    "target_ns": 10.0,
+    "placement_wns_ns": -57.37,
+    "placement_tns_ns": -133879.56,
+    "cts_wns_ns": -57.28,
+    "cts_tns_ns": -133058.33,
+    "route_wns_ns": -38.54,
+    "route_tns_ns": -38987.47,
+    "fmax_est_mhz": null,
+    "critical_path_from": null,
+    "critical_path_to": null,
+    "status": "postroute_complete"
+  },
+  "area_summary": {
+    "logic_area_um2": 85840.062,
+    "seq_area_um2": 36948.73,
+    "stdcell_area_um2": 86305.56,
+    "macro_area_um2": 885716.84,
+    "total_area_um2": 972022.41,
+    "core_area_um2": 6958312.088,
+    "placement_design_area_um2": 978318.0,
+    "utilization_pct": 14.0,
+    "status": "macro_plus_logic_available",
+    "by_hierarchy": [
+      {
+        "group": "control_plane",
+        "label": "Control Plane",
+        "instance_count": 1,
+        "unique_modules": [
+          "generic_regs"
+        ],
+        "memory_instance_count": 0,
+        "memory_bits_total": 0,
+        "logic_area_est": null,
+        "seq_area_est": null
+      },
+      {
+        "group": "protocol_flow",
+        "label": "Protocol / Flow",
+        "instance_count": 6,
+        "unique_modules": [
+          "action_dispatcher",
+          "convertible_fifo",
+          "fifo_bram",
+          "packet_action_selector"
+        ],
+        "memory_instance_count": 2,
+        "memory_bits_total": 36864,
+        "logic_area_est": null,
+        "seq_area_est": null
+      },
+      {
+        "group": "ann_wrapper",
+        "label": "ANN Wrapper",
+        "instance_count": 4,
+        "unique_modules": [
+          "ann_engine_wrapper",
+          "ann_feature_unpack",
+          "ann_task_ingress",
+          "fifo_bram"
+        ],
+        "memory_instance_count": 1,
+        "memory_bits_total": 18432,
+        "logic_area_est": null,
+        "seq_area_est": null
+      },
+      {
+        "group": "compute_core",
+        "label": "Compute Core",
+        "instance_count": 33,
+        "unique_modules": [
+          "alu_64_stage1",
+          "alu_64_stage2",
+          "ann_cpu_gpu_compute_core",
+          "arm_64_top",
+          "bf16_add_sub",
+          "bf16_mult",
+          "decode_stage1",
+          "ex_stage1",
+          "ex_stage2",
+          "fetch_stage1",
+          "fetch_stage2",
+          "gpu_control",
+          "gpu_ex_mm_reg",
+          "gpu_ex_stage",
+          "gpu_id_ex_reg",
+          "gpu_id_stage",
+          "gpu_if_id_reg",
+          "gpu_if_stage",
+          "gpu_imem",
+          "gpu_mm_stage",
+          "gpu_mm_wb_reg",
+          "gpu_pc",
+          "gpu_shared_dmem",
+          "gpu_top_fifo_if",
+          "gpu_wb_stage",
+          "mem_RF",
+          "mem_data",
+          "mem_inst",
+          "mem_register_slice",
+          "mem_stage",
+          "wb_stage1"
+        ],
+        "memory_instance_count": 6,
+        "memory_bits_total": 1218560,
+        "logic_area_est": null,
+        "seq_area_est": null
+      },
+      {
+        "group": "other",
+        "label": "Other",
+        "instance_count": 1,
+        "unique_modules": [
+          "user_top"
+        ],
+        "memory_instance_count": 0,
+        "memory_bits_total": 0,
+        "logic_area_est": null,
+        "seq_area_est": null
+      }
+    ]
+  },
+  "power_summary": {
+    "status": "smoke_power_ready",
+    "post_route_spef": "pd/asic_report/pnr/user_top/results/user_top_postroute.spef",
+    "report_path": "pd/asic_report/pnr/user_top/reports/4_postroute_power.rpt",
+    "activity_hook_env": "ASIC_POWER_ACTIVITY_TCL",
+    "smoke_total_power_w": 0.0203,
+    "notes": [
+      "Post-route power uses OpenROAD/OpenSTA report_power.",
+      "RCX SPEF is extracted from the post-route DEF using Nangate45 rcx_patterns.rules.",
+      "OpenSTA reports SPEF name-mismatch warnings around placeholder macro connectivity; treat the current number as demo-grade smoke power.",
+      "Provide switching activity through ASIC_POWER_ACTIVITY_TCL for workload-driven dynamic power."
+    ]
+  },
+  "fpga_baseline": {
+    "sources": [
+      "pd/fpga_report/nf2_top.srp",
+      "pd/fpga_report/nf2_top_par.twr"
+    ],
+    "device": "2vp50ff1152-7",
+    "slices_used": 20330,
+    "slices_total": 23616,
+    "slice_ff_used": 16769,
+    "lut_used": 30669,
+    "brams_used": 108,
+    "mult18x18_used": 11,
+    "core_clk_period_ns": 9.679,
+    "core_clk_fmax_mhz": 103.315,
+    "implemented_min_period_ns": 13.345,
+    "implemented_fmax_mhz": 74.934,
+    "notes": [
+      "These are legacy NetFPGA Virtex-2 Pro FPGA baselines, not ASIC results.",
+      "The ASIC parameter pack uses them only as comparison anchors."
+    ]
+  },
+  "tool_availability": {
+    "yosys": "/home/reili/codex/third_party/OpenROAD-flow-scripts/tools/install/yosys/bin/yosys",
+    "openroad": "/home/reili/codex/third_party/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/openroad",
+    "sta": "/home/reili/codex/third_party/OpenROAD-flow-scripts/tools/install/OpenROAD/bin/sta"
+  },
+  "platform_readiness": {
+    "status": "ready_for_synth_and_pnr",
+    "platform_root": "pd/asic_flow/nangate45",
+    "required_env": {
+      "ASIC_LIBERTY": "Path to the Nangate45 liberty file used by Yosys/OpenROAD.",
+      "ASIC_TECH_LEF": "Path to the Nangate45 technology LEF.",
+      "ASIC_STD_CELL_LEF": "Path to the Nangate45 standard-cell LEF."
+    },
+    "optional_env": {
+      "ASIC_PLATFORM_ROOT": "Optional Nangate45 platform root used to auto-derive liberty/LEF and fakeram collateral.",
+      "ASIC_SITE": "OpenROAD site name. Defaults to the common Nangate45 site.",
+      "ASIC_DIE_AREA": "Explicit die area rectangle. Default: 0 0 3000 2500.",
+      "ASIC_CORE_AREA": "Explicit core area rectangle. Default: 50 50 2950 2450.",
+      "ASIC_PLACE_DENSITY": "Target placement density. Default: 0.55.",
+      "ASIC_PLATFORM_CONFIG": "Optional shell fragment sourced by run wrappers before validation.",
+      "YOSYS_BIN": "Optional Yosys binary override.",
+      "OPENROAD_BIN": "Optional OpenROAD binary override."
+    },
+    "resolved_inputs": {
+      "ASIC_LIBERTY": "/home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lib/NangateOpenCellLibrary_typical.lib",
+      "ASIC_TECH_LEF": "/home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/NangateOpenCellLibrary.tech.lef",
+      "ASIC_STD_CELL_LEF": "/home/reili/codex/third_party/OpenROAD-flow-scripts/flow/platforms/nangate45/lef/NangateOpenCellLibrary.macro.mod.lef"
+    },
+    "missing_inputs": [],
+    "missing_tools": []
+  },
+  "artifact_contract": {
+    "rtl_filelist": "pd/asic_report/eval/user_top_eval/user_top_logic_sources.f",
+    "memory_impl_rtl": "pd/asic_report/eval/user_top_eval/user_top_memory_impl.v",
+    "placeholder_macro_libs": [
+      "pd/asic_report/eval/user_top_eval/generated_macros/lib/placeholder_fifo_bram_256x72_dp.lib",
+      "pd/asic_report/eval/user_top_eval/generated_macros/lib/placeholder_gpu_shared_dmem_16384x64_dp.lib",
+      "pd/asic_report/eval/user_top_eval/generated_macros/lib/placeholder_mem_rf_64x64_1w2r.lib"
+    ],
+    "placeholder_macro_lefs": [
+      "pd/asic_report/eval/user_top_eval/generated_macros/lef/placeholder_fifo_bram_256x72_dp.lef",
+      "pd/asic_report/eval/user_top_eval/generated_macros/lef/placeholder_gpu_shared_dmem_16384x64_dp.lef",
+      "pd/asic_report/eval/user_top_eval/generated_macros/lef/placeholder_mem_rf_64x64_1w2r.lef"
+    ],
+    "macro_placement_tcl": "pd/asic_report/pnr/user_top/macro_placement.tcl",
+    "synthesized_netlist": "pd/asic_report/eval/user_top_eval/user_top_synth.v",
+    "synthesized_json": "pd/asic_report/eval/user_top_eval/user_top_synth.json",
+    "synth_stat_report": "pd/asic_report/eval/user_top_eval/user_top_synth_stat.rpt",
+    "synth_check_report": "pd/asic_report/eval/user_top_eval/user_top_synth_check.rpt",
+    "post_route_netlist": "pd/asic_report/pnr/user_top/results/user_top_postroute.v",
+    "post_route_def": "pd/asic_report/pnr/user_top/results/user_top_postroute.def",
+    "post_route_sdf": "pd/asic_report/pnr/user_top/results/user_top_postroute.sdf",
+    "post_route_spef": "pd/asic_report/pnr/user_top/results/user_top_postroute.spef",
+    "post_route_power_report": "pd/asic_report/pnr/user_top/reports/4_postroute_power.rpt"
+  },
+  "post_route_sim": {
+    "default_mode": "gate_level_sdf",
+    "required_inputs": [
+      "post_route_netlist",
+      "post_route_sdf",
+      "testbench_entry"
+    ],
+    "expected_outputs": [
+      "sim_log",
+      "pass_fail_summary",
+      "optional_waveform"
+    ],
+    "sim_root": "pd/asic_report/sim/user_top",
+    "post_route_netlist": "pd/asic_report/pnr/user_top/results/user_top_postroute.v",
+    "post_route_sdf": "pd/asic_report/pnr/user_top/results/user_top_postroute.sdf"
+  },
+  "generated_artifacts": {
+    "yosys_script": "pd/asic_report/eval/user_top_eval/user_top_eval.ys",
+    "yosys_wrapper": "pd/asic_report/eval/user_top_eval/run_yosys_synth.sh",
+    "openroad_skeleton": "pd/asic_report/pnr/user_top/openroad_flow.tcl",
+    "openroad_wrapper": "pd/asic_report/pnr/user_top/run_openroad.sh",
+    "power_estimation_tcl": "pd/asic_report/pnr/user_top/power_estimation.tcl",
+    "power_wrapper": "pd/asic_report/pnr/user_top/run_power_estimate.sh",
+    "pnr_readme": "pd/asic_report/pnr/user_top/README.md",
+    "sim_template": "pd/asic_report/sim/user_top/run_gatelevel_sdf_template.sh",
+    "sim_readme": "pd/asic_report/sim/user_top/README.md",
+    "sdc_stub": "pd/asic_report/eval/user_top_eval/user_top_eval.sdc",
+    "rtl_filelist": "pd/asic_report/eval/user_top_eval/user_top_logic_sources.f",
+    "memory_impl_rtl": "pd/asic_report/eval/user_top_eval/user_top_memory_impl.v",
+    "macro_placement_tcl": "pd/asic_report/pnr/user_top/macro_placement.tcl",
+    "flow_manifest": "pd/asic_report/eval/user_top_eval/flow_manifest.json",
+    "yosys_run": null
+  },
+  "assumption_notes": [
+    "The RSU ASIC pack treats user_top as the primary evaluation boundary.",
+    "This flow is pinned to a Nangate45 teaching library baseline, not a signoff PDK.",
+    "Small single-port memories are mapped through ASIC-only fakeram wrappers; complex memories stay as placeholder macros.",
+    "user_data_path and NetFPGA board-facing modules remain out of the main RSU ASIC result.",
+    "generic_regs is included through the local behavioral stub to keep user_top hierarchy closed.",
+    "FPGA baselines come from pd/fpga_report."
+  ]
+}

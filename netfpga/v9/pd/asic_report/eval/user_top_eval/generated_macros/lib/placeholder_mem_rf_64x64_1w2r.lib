@@ -1,0 +1,137 @@
+library(placeholder_mem_rf_64x64_1w2r) {
+  technology (cmos);
+  delay_model : table_lookup;
+  time_unit : "1ns";
+  voltage_unit : "1V";
+  current_unit : "1uA";
+  leakage_power_unit : "1nw";
+  capacitive_load_unit (1,ff);
+  nom_process : 1;
+  nom_temperature : 25.0;
+  nom_voltage : 1.1;
+  operating_conditions(tt_1p1_25) {
+    process : 1;
+    temperature : 25.0;
+    voltage : 1.1;
+    tree_type : balanced_tree;
+  }
+  default_operating_conditions : tt_1p1_25;
+  type (placeholder_mem_rf_64x64_1w2r_waddr_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 6;
+    bit_from : 5;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_mem_rf_64x64_1w2r_wdata_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_mem_rf_64x64_1w2r_r0addr_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 6;
+    bit_from : 5;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_mem_rf_64x64_1w2r_r1addr_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 6;
+    bit_from : 5;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_mem_rf_64x64_1w2r_r0data_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_mem_rf_64x64_1w2r_r1data_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  cell(placeholder_mem_rf_64x64_1w2r) {
+    area : 12000.000;
+    interface_timing : true;
+    pg_pin(VDD) {
+      voltage_name : "VDD";
+      pg_type : primary_power;
+    }
+    pg_pin(VSS) {
+      voltage_name : "VSS";
+      pg_type : primary_ground;
+    }
+    pin(clk) {
+      direction : input;
+      capacitance : 25.000;
+      clock : true;
+    }
+    pin(we) {
+      direction : input;
+      capacitance : 5.000;
+      clock : false;
+    }
+    bus(waddr) {
+      bus_type : placeholder_mem_rf_64x64_1w2r_waddr_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(wdata) {
+      bus_type : placeholder_mem_rf_64x64_1w2r_wdata_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(r0addr) {
+      bus_type : placeholder_mem_rf_64x64_1w2r_r0addr_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(r1addr) {
+      bus_type : placeholder_mem_rf_64x64_1w2r_r1addr_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(r0data) {
+      bus_type : placeholder_mem_rf_64x64_1w2r_r0data_TYPE;
+      direction : output;
+      max_capacitance : 500.000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+        timing_sense : non_unate;
+        cell_rise(scalar) { values ("0.500"); }
+        cell_fall(scalar) { values ("0.500"); }
+        rise_transition(scalar) { values ("0.050"); }
+        fall_transition(scalar) { values ("0.050"); }
+      }
+    }
+    bus(r1data) {
+      bus_type : placeholder_mem_rf_64x64_1w2r_r1data_TYPE;
+      direction : output;
+      max_capacitance : 500.000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+        timing_sense : non_unate;
+        cell_rise(scalar) { values ("0.500"); }
+        cell_fall(scalar) { values ("0.500"); }
+        rise_transition(scalar) { values ("0.050"); }
+        fall_transition(scalar) { values ("0.050"); }
+      }
+    }
+  }
+}

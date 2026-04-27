@@ -1,0 +1,308 @@
+{
+  "top_module": "user_top",
+  "platform": "nangate45",
+  "artifact_root": "pd/asic_report",
+  "eval_dir": "pd/asic_report/eval/user_top_eval",
+  "pnr_dir": "pd/asic_report/pnr/user_top",
+  "sim_dir": "pd/asic_report/sim/user_top",
+  "instance_paths": [
+    "user_top",
+    "user_top/control_regs",
+    "user_top/ingress_fifo",
+    "user_top/ingress_fifo/u_bram",
+    "user_top/selector",
+    "user_top/dispatcher",
+    "user_top/egress_fifo",
+    "user_top/egress_fifo/u_bram",
+    "user_top/ann_engine",
+    "user_top/ann_engine/ingress",
+    "user_top/ann_engine/ingress/packet_buf",
+    "user_top/ann_engine/unpack",
+    "user_top/ann_engine/compute_core",
+    "user_top/ann_engine/compute_core/u_shared_dmem",
+    "user_top/ann_engine/compute_core/arm_cpu",
+    "user_top/ann_engine/compute_core/arm_cpu/IF1",
+    "user_top/ann_engine/compute_core/arm_cpu/IF1/I_MEM",
+    "user_top/ann_engine/compute_core/arm_cpu/IF2",
+    "user_top/ann_engine/compute_core/arm_cpu/ID1",
+    "user_top/ann_engine/compute_core/arm_cpu/ID1/REG_FILE",
+    "user_top/ann_engine/compute_core/arm_cpu/EX1",
+    "user_top/ann_engine/compute_core/arm_cpu/EX1/alu",
+    "user_top/ann_engine/compute_core/arm_cpu/EX2",
+    "user_top/ann_engine/compute_core/arm_cpu/EX2/alu",
+    "user_top/ann_engine/compute_core/arm_cpu/MEM",
+    "user_top/ann_engine/compute_core/arm_cpu/MEM/D_MEM",
+    "user_top/ann_engine/compute_core/arm_cpu/MEM/CTRL_MEM",
+    "user_top/ann_engine/compute_core/arm_cpu/WB1",
+    "user_top/ann_engine/compute_core/arm_cpu/rs_in",
+    "user_top/ann_engine/compute_core/arm_cpu/rs_out",
+    "user_top/ann_engine/compute_core/gpu_core",
+    "user_top/ann_engine/compute_core/gpu_core/u_ctrl",
+    "user_top/ann_engine/compute_core/gpu_core/u_if",
+    "user_top/ann_engine/compute_core/gpu_core/u_if/u_pc",
+    "user_top/ann_engine/compute_core/gpu_core/u_if/u_imem",
+    "user_top/ann_engine/compute_core/gpu_core/u_ifid",
+    "user_top/ann_engine/compute_core/gpu_core/u_id",
+    "user_top/ann_engine/compute_core/gpu_core/u_idex",
+    "user_top/ann_engine/compute_core/gpu_core/u_ex",
+    "user_top/ann_engine/compute_core/gpu_core/u_ex/u_bf16_mult",
+    "user_top/ann_engine/compute_core/gpu_core/u_ex/u_bf16_add_sub",
+    "user_top/ann_engine/compute_core/gpu_core/u_exmm",
+    "user_top/ann_engine/compute_core/gpu_core/u_mm",
+    "user_top/ann_engine/compute_core/gpu_core/u_mmwbr",
+    "user_top/ann_engine/compute_core/gpu_core/u_wb"
+  ],
+  "included_modules": [
+    "action_dispatcher",
+    "alu_64_stage1",
+    "alu_64_stage2",
+    "ann_cpu_gpu_compute_core",
+    "ann_engine_wrapper",
+    "ann_feature_unpack",
+    "ann_task_ingress",
+    "arm_64_top",
+    "bf16_add_sub",
+    "bf16_mult",
+    "convertible_fifo",
+    "decode_stage1",
+    "ex_stage1",
+    "ex_stage2",
+    "fetch_stage1",
+    "fetch_stage2",
+    "fifo_bram",
+    "generic_regs",
+    "gpu_control",
+    "gpu_ex_mm_reg",
+    "gpu_ex_stage",
+    "gpu_id_ex_reg",
+    "gpu_id_stage",
+    "gpu_if_id_reg",
+    "gpu_if_stage",
+    "gpu_imem",
+    "gpu_mm_stage",
+    "gpu_mm_wb_reg",
+    "gpu_pc",
+    "gpu_shared_dmem",
+    "gpu_top_fifo_if",
+    "gpu_wb_stage",
+    "mem_RF",
+    "mem_data",
+    "mem_inst",
+    "mem_register_slice",
+    "mem_stage",
+    "packet_action_selector",
+    "user_top",
+    "wb_stage1"
+  ],
+  "source_manifest": [
+    "src/action_dispatcher.v",
+    "src/ann_cpu_gpu_compute_core.v",
+    "src/ann_engine_wrapper.v",
+    "src/ann_feature_unpack.v",
+    "src/ann_task_ingress.v",
+    "src/convertible_fifo.v",
+    "src/cpu/alu_64_stage1.v",
+    "src/cpu/alu_64_stage2.v",
+    "src/cpu/arm_processor_top.v",
+    "src/cpu/decode_stage1.v",
+    "src/cpu/ex_stage1.v",
+    "src/cpu/ex_stage2.v",
+    "src/cpu/fetch_stage1.v",
+    "src/cpu/fetch_stage2.v",
+    "src/cpu/mem_RF.v",
+    "src/cpu/mem_data.v",
+    "src/cpu/mem_inst.v",
+    "src/cpu/mem_register_slice.v",
+    "src/cpu/mem_stage.v",
+    "src/cpu/wb_stage1.v",
+    "src/fifo_bram.v",
+    "src/gpu/bf16_add_sub.v",
+    "src/gpu/bf16_mult.v",
+    "src/gpu/design_gpu.v",
+    "src/gpu/gpu_imem.v",
+    "src/gpu/gpu_shared_dmem.v",
+    "src/packet_action_selector.v",
+    "src/tb_necessary/generic_regs_sim_stub.v",
+    "src/user_top.v"
+  ],
+  "logic_source_manifest": [
+    "src/action_dispatcher.v",
+    "src/ann_cpu_gpu_compute_core.v",
+    "src/ann_engine_wrapper.v",
+    "src/ann_feature_unpack.v",
+    "src/ann_task_ingress.v",
+    "src/convertible_fifo.v",
+    "src/cpu/alu_64_stage1.v",
+    "src/cpu/alu_64_stage2.v",
+    "src/cpu/arm_processor_top.v",
+    "src/cpu/decode_stage1.v",
+    "src/cpu/ex_stage1.v",
+    "src/cpu/ex_stage2.v",
+    "src/cpu/fetch_stage1.v",
+    "src/cpu/fetch_stage2.v",
+    "src/cpu/mem_register_slice.v",
+    "src/cpu/mem_stage.v",
+    "src/cpu/wb_stage1.v",
+    "src/gpu/bf16_add_sub.v",
+    "src/gpu/bf16_mult.v",
+    "src/gpu/design_gpu.v",
+    "src/packet_action_selector.v",
+    "src/tb_necessary/generic_regs_sim_stub.v",
+    "src/user_top.v"
+  ],
+  "memory_modules": [
+    "fifo_bram",
+    "gpu_imem",
+    "gpu_shared_dmem",
+    "mem_RF",
+    "mem_data",
+    "mem_inst"
+  ],
+  "memory_implementation": [
+    {
+      "instance_path": "user_top/ingress_fifo/u_bram",
+      "module_name": "fifo_bram",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_fifo_bram_256x72_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep dual-port FIFO storage as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/egress_fifo/u_bram",
+      "module_name": "fifo_bram",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_fifo_bram_256x72_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep dual-port FIFO storage as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/ingress/packet_buf",
+      "module_name": "fifo_bram",
+      "depth": 256,
+      "width": 72,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_fifo_bram_256x72_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep dual-port FIFO storage as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/u_shared_dmem",
+      "module_name": "gpu_shared_dmem",
+      "depth": 16384,
+      "width": 64,
+      "ports": "dual_port_rw",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_gpu_shared_dmem_16384x64_dp",
+          "count": 1
+        }
+      ],
+      "notes": "Keep the large dual-port shared DMEM as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/IF1/I_MEM",
+      "module_name": "mem_inst",
+      "depth": 512,
+      "width": 32,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "single_macro_zero_extended_addr",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_1024x32",
+          "count": 1
+        }
+      ],
+      "notes": "Map 512x32 instruction memory into a single 1024x32 fakeram with zero-extended address bits."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/ID1/REG_FILE",
+      "module_name": "mem_RF",
+      "depth": 64,
+      "width": 64,
+      "ports": "1w_2r",
+      "implementation": "placeholder_macro",
+      "wrapper_strategy": "direct_placeholder_wrapper",
+      "target_cells": [
+        {
+          "cell_name": "placeholder_mem_rf_64x64_1w2r",
+          "count": 1
+        }
+      ],
+      "notes": "Keep the 1w2r register file as a macro placeholder in the first routed baseline."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/MEM/D_MEM",
+      "module_name": "mem_data",
+      "depth": 256,
+      "width": 64,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "width_split_2x256x32",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_256x32",
+          "count": 2
+        }
+      ],
+      "notes": "Map 256x64 data memory into two parallel 256x32 fakerams."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/arm_cpu/MEM/CTRL_MEM",
+      "module_name": "mem_data",
+      "depth": 256,
+      "width": 8,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "single_macro_padded_256x16",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_256x16",
+          "count": 1
+        }
+      ],
+      "notes": "Map 256x8 control memory into a 256x16 fakeram and use only the low byte."
+    },
+    {
+      "instance_path": "user_top/ann_engine/compute_core/gpu_core/u_if/u_imem",
+      "module_name": "gpu_imem",
+      "depth": 4096,
+      "width": 32,
+      "ports": "single_port_rw",
+      "implementation": "fakeram_wrapper",
+      "wrapper_strategy": "banked_4x1024x32",
+      "target_cells": [
+        {
+          "cell_name": "fakeram45_1024x32",
+          "count": 4
+        }
+      ],
+      "notes": "Split 4096x32 GPU IMEM across four 1024x32 fakerams, banked by addr[11:10]."
+    }
+  ],
+  "missing_modules": {}
+}

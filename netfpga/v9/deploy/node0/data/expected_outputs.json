@@ -1,0 +1,36 @@
+[
+  {
+    "name": "sample_class0",
+    "logits_s16": [
+      7,
+      3
+    ],
+    "logits_u16": [
+      "0x0007",
+      "0x0003"
+    ],
+    "predicted_class": 0,
+    "predicted_score_s16": 7,
+    "wire_result_data_0_u16": "0x0007",
+    "wire_result_data_1_u16": "0x0003",
+    "result_mode": "legacy_logits",
+    "predicted_label": "class0"
+  },
+  {
+    "name": "sample_class1",
+    "logits_s16": [
+      -3,
+      5
+    ],
+    "logits_u16": [
+      "0xfffd",
+      "0x0005"
+    ],
+    "predicted_class": 1,
+    "predicted_score_s16": 5,
+    "wire_result_data_0_u16": "0xfffd",
+    "wire_result_data_1_u16": "0x0005",
+    "result_mode": "legacy_logits",
+    "predicted_label": "class1"
+  }
+]

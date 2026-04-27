@@ -1,0 +1,45 @@
+{
+  "baseline_name": "rsu_ptq_demo_candidate_2026-04-23",
+  "intended_use": "rtl_smoke_and_course_demo_only",
+  "notes": [
+    "This baseline is frozen for RTL smoke, board workflow preparation, and course demonstration.",
+    "It is not the final algorithm-accuracy target and should not be presented as float-equivalent hardware accuracy.",
+    "The current quantized model still drops minority-class fidelity after the second hidden stage."
+  ],
+  "model_artifacts": {
+    "manifest": "dataset/export/rsu_ann_model_int16.json",
+    "report": "dataset/export/rsu_ann_model_int16.report.json",
+    "training_summary": "dataset/models/mlp_5s_output/summary.json"
+  },
+  "float_model": {
+    "val_accuracy": 0.9166666666666666,
+    "val_macro_f1": 0.84375
+  },
+  "ptq_export": {
+    "float_vs_quantized_full_dataset_class_agreement": 0.680672268907563,
+    "quantized_vs_true_accuracy": 0.7478991596638656,
+    "quantized_vs_true_macro_f1": 0.38394736842105265,
+    "channel_scale_mode": "layer_1_output_per_channel",
+    "selected_scale_factors": [
+      0.5,
+      0.25,
+      0.75,
+      1.0
+    ]
+  },
+  "limitations": {
+    "minority_classes_missing_after_quantization": [
+      "Free-flow",
+      "Incident-risk"
+    ],
+    "recommended_use": [
+      "bundle loading validation",
+      "offload/bypass smoke",
+      "course presentation path"
+    ],
+    "not_recommended_for": [
+      "final algorithm accuracy claims",
+      "float-equivalence verification"
+    ]
+  }
+}

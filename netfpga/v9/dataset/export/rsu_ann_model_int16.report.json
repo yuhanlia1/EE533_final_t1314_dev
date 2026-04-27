@@ -1,0 +1,1678 @@
+{
+  "source_model_dir": "/home/reili/ee533/network_protocol/v8/dataset/models/mlp_5s_output",
+  "input_contract": "software_standardized_features_quantized_to_int16",
+  "num_calibration_rows": 119,
+  "num_full_dataset_rows": 119,
+  "num_selected_tests": 8,
+  "feature_columns": [
+    "win_vehicle_count",
+    "win_speed_mean",
+    "win_speed_std",
+    "win_speed_p10",
+    "win_speed_p50",
+    "win_speed_p90",
+    "win_speed_min",
+    "win_low_speed_ratio",
+    "win_near_stop_ratio",
+    "win_stop_vehicle_count",
+    "win_acc_mean",
+    "win_acc_std",
+    "win_acc_min",
+    "win_hard_brake_ratio",
+    "win_speed_drop_ratio",
+    "win_time_headway_mean",
+    "win_time_headway_p10",
+    "win_short_headway_ratio",
+    "win_space_headway_mean",
+    "win_space_headway_p10"
+  ],
+  "labels": [
+    "Free-flow",
+    "Slow",
+    "Congested",
+    "Incident-risk"
+  ],
+  "scaler_class": "StandardScaler",
+  "scaler_sklearn_version": "1.3.2",
+  "scaler_mean": [
+    82.57894736842105,
+    32.751686951988624,
+    7.3383208561884725,
+    23.069627898931504,
+    33.12187448677264,
+    41.606868984824736,
+    12.972315739330492,
+    0.31214753473177553,
+    0.09351737577664225,
+    4.589473684210526,
+    0.13111075127595348,
+    1.1305573303448526,
+    -10.925368248788933,
+    0.6431911826133728,
+    0.16850883260761437,
+    154.47448769870556,
+    1.8405366383100812,
+    0.026811416280504905,
+    68.94527599937038,
+    40.13454162196109
+  ],
+  "scaler_scale": [
+    56.49715017449407,
+    13.305517291344572,
+    3.448687396752111,
+    12.393659523644505,
+    14.00049507591572,
+    15.074088821604773,
+    11.893945074605925,
+    0.36722975086620974,
+    0.2153465314186264,
+    11.103811329394114,
+    0.6347377940548294,
+    0.3744428277065824,
+    1.3086511757391805,
+    0.19550263400171652,
+    0.16625036807684573,
+    493.2203198639093,
+    3.188089356311061,
+    0.04537130019135862,
+    24.90773988590935,
+    12.885888230561127
+  ],
+  "input_scale": 116.64254131568373,
+  "activation_scales": [
+    218.49064488871997,
+    373.85230389196715,
+    676.306037987482
+  ],
+  "per_channel_activation_scales": {
+    "layer_1_output": [
+      732.2545623328859,
+      293.84312485313404,
+      376.6968950778273,
+      412.9534700053231,
+      258.3039768962008,
+      394.17592484112424,
+      342.4649770155144,
+      297.82677149881437,
+      367.5331457385788,
+      340.5145349635527,
+      371.00771270610704,
+      6288.176910605699,
+      339.787729666923,
+      899.114687251046,
+      533.7331588196314,
+      386.0046567404903
+    ]
+  },
+  "base_scales": [
+    233.28508263136746,
+    873.9625795548799,
+    688.8106050565356,
+    676.306037987482
+  ],
+  "selected_scale_factors": [
+    0.5,
+    0.25,
+    0.75,
+    1.0
+  ],
+  "scale_factor_candidates": [
+    1.0,
+    0.75,
+    0.5,
+    0.25
+  ],
+  "scale_search_combination_count": 272,
+  "channel_scale_mode": "layer_1_output_per_channel",
+  "scalar_reference_scales": [
+    116.64254131568373,
+    218.49064488871997,
+    344.4053025282678,
+    507.22952849061153
+  ],
+  "float_vs_quantized_test_class_agreement": 0.5,
+  "float_vs_quantized_full_dataset_class_agreement": 0.680672268907563,
+  "float_prediction_histogram": {
+    "Free-flow": 12,
+    "Slow": 59,
+    "Congested": 33,
+    "Incident-risk": 15
+  },
+  "quantized_prediction_histogram": {
+    "Free-flow": 0,
+    "Slow": 87,
+    "Congested": 32,
+    "Incident-risk": 0
+  },
+  "float_vs_true_accuracy": 0.865546218487395,
+  "quantized_vs_true_accuracy": 0.7478991596638656,
+  "float_vs_true_macro_f1": 0.7466751556310129,
+  "quantized_vs_true_macro_f1": 0.38394736842105265,
+  "float_vs_true_confusion_matrix": [
+    [
+      6,
+      0,
+      0,
+      0
+    ],
+    [
+      6,
+      59,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      33,
+      10
+    ],
+    [
+      0,
+      0,
+      0,
+      5
+    ]
+  ],
+  "quantized_vs_true_confusion_matrix": [
+    [
+      0,
+      6,
+      0,
+      0
+    ],
+    [
+      0,
+      62,
+      3,
+      0
+    ],
+    [
+      0,
+      16,
+      27,
+      0
+    ],
+    [
+      0,
+      3,
+      2,
+      0
+    ]
+  ],
+  "float_vs_quantized_confusion_matrix": [
+    [
+      0,
+      12,
+      0,
+      0
+    ],
+    [
+      0,
+      56,
+      3,
+      0
+    ],
+    [
+      0,
+      8,
+      25,
+      0
+    ],
+    [
+      0,
+      11,
+      4,
+      0
+    ]
+  ],
+  "float_logit_margin_stats": {
+    "mean": 1.1651874444794508,
+    "min": 0.01884219089994832,
+    "p10": 0.2223443141251933,
+    "p50": 1.1952546092678866,
+    "p90": 1.958054557539542
+  },
+  "quantized_logit_margin_stats": {
+    "mean": 0.3884174632122896,
+    "min": 0.007393102706695853,
+    "p10": 0.0739310270669585,
+    "p50": 0.27945928231310313,
+    "p90": 1.04863768791774
+  },
+  "per_class_logit_stats": [
+    {
+      "class_index": 0,
+      "label": "Free-flow",
+      "float_mean": -0.4568345462955286,
+      "float_min": -4.310352555538818,
+      "float_max": 6.0564297373252405,
+      "quantized_mean": 0.09625943977944998,
+      "quantized_min": -0.02809379028544423,
+      "quantized_max": 0.5470896002954929
+    },
+    {
+      "class_index": 1,
+      "label": "Slow",
+      "float_mean": 0.4230947429194054,
+      "float_min": -5.255396382924357,
+      "float_max": 2.5598525448387455,
+      "quantized_mean": 0.3786759631752315,
+      "quantized_min": 0.25432273311033726,
+      "quantized_max": 0.8295061236912744
+    },
+    {
+      "class_index": 2,
+      "label": "Congested",
+      "float_mean": 0.3532741940797369,
+      "float_min": -4.194215521248354,
+      "float_max": 4.4188475475828355,
+      "quantized_mean": 0.24192220117540877,
+      "quantized_min": -0.6136275246557557,
+      "quantized_max": 2.3968438975107946
+    },
+    {
+      "class_index": 3,
+      "label": "Incident-risk",
+      "float_mean": -0.39540520575983673,
+      "float_min": -4.527464571647509,
+      "float_max": 3.7029581896576036,
+      "quantized_mean": 0.18039170604337887,
+      "quantized_min": 0.18039170604337876,
+      "quantized_max": 0.18039170604337876
+    }
+  ],
+  "layer_diagnostics": [
+    {
+      "layer_index": 0,
+      "in_dim": 20,
+      "out_dim": 32,
+      "activation": "relu",
+      "input_scale": 116.64254131568373,
+      "input_scale_mode": "scalar",
+      "output_scale": 218.49064488871997,
+      "output_scale_mode": "scalar",
+      "input_scale_detail": 116.64254131568373,
+      "output_scale_detail": 218.49064488871997,
+      "float_input_min": -3.2899361479074782,
+      "float_input_max": 8.778958246705425,
+      "float_output_min": 0.0,
+      "float_output_max": 4.686699517599648,
+      "quantized_output_min": 0,
+      "quantized_output_max": 1747,
+      "quantized_output_nonzero_ratio": 0.5845588235294118,
+      "product_wrap_count": 0,
+      "accumulate_wrap_count": 0,
+      "bias_wrap_count": 0
+    },
+    {
+      "layer_index": 1,
+      "in_dim": 32,
+      "out_dim": 16,
+      "activation": "relu",
+      "input_scale": 218.49064488871997,
+      "input_scale_mode": "scalar",
+      "output_scale": 373.85230389196715,
+      "output_scale_mode": "per_channel",
+      "input_scale_detail": 218.49064488871997,
+      "output_scale_detail": [
+        732.2545623328859,
+        293.84312485313404,
+        376.6968950778273,
+        412.9534700053231,
+        258.3039768962008,
+        394.17592484112424,
+        342.4649770155144,
+        297.82677149881437,
+        367.5331457385788,
+        340.5145349635527,
+        371.00771270610704,
+        6288.176910605699,
+        339.787729666923,
+        899.114687251046,
+        533.7331588196314,
+        386.0046567404903
+      ],
+      "float_input_min": 0.0,
+      "float_input_max": 4.686699517599648,
+      "float_output_min": 0.0,
+      "float_output_max": 5.946482196893314,
+      "quantized_output_min": 0,
+      "quantized_output_max": 2597,
+      "quantized_output_nonzero_ratio": 0.5966386554621849,
+      "product_wrap_count": 0,
+      "accumulate_wrap_count": 0,
+      "bias_wrap_count": 0
+    },
+    {
+      "layer_index": 2,
+      "in_dim": 16,
+      "out_dim": 4,
+      "activation": "none",
+      "input_scale": 373.85230389196715,
+      "input_scale_mode": "per_channel",
+      "output_scale": 676.306037987482,
+      "output_scale_mode": "scalar",
+      "input_scale_detail": [
+        732.2545623328859,
+        293.84312485313404,
+        376.6968950778273,
+        412.9534700053231,
+        258.3039768962008,
+        394.17592484112424,
+        342.4649770155144,
+        297.82677149881437,
+        367.5331457385788,
+        340.5145349635527,
+        371.00771270610704,
+        6288.176910605699,
+        339.787729666923,
+        899.114687251046,
+        533.7331588196314,
+        386.0046567404903
+      ],
+      "output_scale_detail": 676.306037987482,
+      "float_input_min": 0.0,
+      "float_input_max": 5.946482196893314,
+      "float_output_min": -5.255396382924357,
+      "float_output_max": 6.0564297373252405,
+      "quantized_output_min": -415,
+      "quantized_output_max": 1621,
+      "quantized_output_nonzero_ratio": 1.0,
+      "product_wrap_count": 0,
+      "accumulate_wrap_count": 0,
+      "bias_wrap_count": 0
+    }
+  ],
+  "quantized_prefix_ablation": [
+    {
+      "name": "input_only",
+      "quantized_prefix_layers": 0,
+      "float_vs_quantized_agreement": 1.0,
+      "quantized_vs_true_accuracy": 0.865546218487395,
+      "quantized_vs_true_macro_f1": 0.7466751556310129,
+      "prediction_histogram": {
+        "Free-flow": 12,
+        "Slow": 59,
+        "Congested": 33,
+        "Incident-risk": 15
+      }
+    },
+    {
+      "name": "first_1_layers",
+      "quantized_prefix_layers": 1,
+      "float_vs_quantized_agreement": 0.8571428571428571,
+      "quantized_vs_true_accuracy": 0.8907563025210085,
+      "quantized_vs_true_macro_f1": 0.7624348721676966,
+      "prediction_histogram": {
+        "Free-flow": 8,
+        "Slow": 66,
+        "Congested": 38,
+        "Incident-risk": 7
+      }
+    },
+    {
+      "name": "first_2_layers",
+      "quantized_prefix_layers": 2,
+      "float_vs_quantized_agreement": 0.5966386554621849,
+      "quantized_vs_true_accuracy": 0.6470588235294118,
+      "quantized_vs_true_macro_f1": 0.2980443974630021,
+      "prediction_histogram": {
+        "Free-flow": 0,
+        "Slow": 107,
+        "Congested": 12,
+        "Incident-risk": 0
+      }
+    },
+    {
+      "name": "first_3_layers",
+      "quantized_prefix_layers": 3,
+      "float_vs_quantized_agreement": 0.680672268907563,
+      "quantized_vs_true_accuracy": 0.7478991596638656,
+      "quantized_vs_true_macro_f1": 0.38394736842105265,
+      "prediction_histogram": {
+        "Free-flow": 0,
+        "Slow": 87,
+        "Congested": 32,
+        "Incident-risk": 0
+      }
+    }
+  ],
+  "selected_tests": [
+    {
+      "name": "window_id_20",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -0.842147740575786,
+        1.4969444870593875,
+        1.4960659418518396,
+        0.8414859503676639,
+        1.7307190812719575,
+        1.5456860137293882,
+        -0.651786762130789,
+        -0.7722035192731566,
+        -0.4342646020838275,
+        -0.41332417744357997,
+        1.395889271203225,
+        -0.32455928275027895,
+        -0.2098584906104411,
+        0.21750664409681505,
+        -1.0135847189807405,
+        -0.3080378857340952,
+        -0.2992816534648112,
+        2.963964024088664,
+        1.958455148130565,
+        0.5564117620343327
+      ],
+      "quantized_input": [
+        -98,
+        175,
+        175,
+        98,
+        202,
+        180,
+        -76,
+        -90,
+        -51,
+        -48,
+        163,
+        -38,
+        -24,
+        25,
+        -118,
+        -36,
+        -35,
+        346,
+        228,
+        65
+      ]
+    },
+    {
+      "name": "window_id_0",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -1.249247920478019,
+        0.42472566429281267,
+        -0.7861245539129394,
+        0.7376518644460504,
+        0.4164830024947044,
+        0.18918700110075434,
+        1.3736135171410482,
+        -0.8500061174114896,
+        -0.4342646020838275,
+        -0.41332417744357997,
+        -1.3277484932840644,
+        -1.1722718388518585,
+        -0.2098584906104411,
+        0.12007768612111205,
+        -1.0135847189807405,
+        -0.3098615408767339,
+        -0.21669350650004104,
+        -0.5909333910957963,
+        -0.2661444474649643,
+        0.27322857281541413
+      ],
+      "quantized_input": [
+        -146,
+        50,
+        -92,
+        86,
+        49,
+        22,
+        160,
+        -99,
+        -51,
+        -48,
+        -155,
+        -137,
+        -24,
+        14,
+        -118,
+        -36,
+        -25,
+        -69,
+        -31,
+        32
+      ]
+    },
+    {
+      "name": "window_id_172",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -1.4439480065182173,
+        -1.9183049832188503,
+        -2.1278590988268533,
+        -1.2782327157697506,
+        -1.8495222860811042,
+        -2.280683268089368,
+        -0.487837771794048,
+        1.87308480221371,
+        -0.4342646020838275,
+        -0.41332417744357997,
+        -0.25938295280255996,
+        -3.019305610069717,
+        7.951216077107053,
+        -3.2899361479074782,
+        -1.0135847189807405,
+        -0.3131957088494014,
+        -0.5773165155068823,
+        -0.5909333910957963,
+        -2.768026176408469,
+        -3.114611961849478
+      ],
+      "quantized_input": [
+        -168,
+        -224,
+        -248,
+        -149,
+        -216,
+        -266,
+        -57,
+        218,
+        -51,
+        -48,
+        -30,
+        -352,
+        927,
+        -384,
+        -118,
+        -37,
+        -67,
+        -69,
+        -323,
+        -363
+      ]
+    },
+    {
+      "name": "window_id_175",
+      "label_id": 3,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -1.3908479830527085,
+        -2.2972849377260522,
+        -1.624297717116374,
+        -1.8356021372111846,
+        -2.2098414542680738,
+        -2.4913430462817203,
+        -1.0906655157696106,
+        1.87308480221371,
+        4.209413628590962,
+        -0.05308750902945064,
+        -1.0852344799836133,
+        -1.5287577395515652,
+        -0.2098584906104411,
+        -0.732425848605782,
+        1.993927419391702,
+        4.308917125699166,
+        3.592233548008841,
+        -0.5909333910957963,
+        -1.4826204303195698,
+        -1.1719556447256188
+      ],
+      "quantized_input": [
+        -162,
+        -268,
+        -189,
+        -214,
+        -258,
+        -291,
+        -127,
+        218,
+        491,
+        -6,
+        -127,
+        -178,
+        -24,
+        -85,
+        233,
+        503,
+        419,
+        -69,
+        -173,
+        -137
+      ]
+    },
+    {
+      "name": "window_id_1",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -1.0545478344378205,
+        0.42559465323619117,
+        -0.8508624828208663,
+        0.74251285919914,
+        0.397980740173628,
+        0.1347935953050899,
+        0.9607984405105728,
+        -0.8500061174114896,
+        -0.4342646020838275,
+        -0.41332417744357997,
+        -0.45069482282057627,
+        0.05964486068801489,
+        -0.2098584906104411,
+        1.380300156862223,
+        -0.2290163428514813,
+        -0.30969855861796086,
+        -0.2317153255938968,
+        0.6335313197492713,
+        -0.15231356835005644,
+        0.05513381320235927
+      ],
+      "quantized_input": [
+        -123,
+        50,
+        -99,
+        87,
+        46,
+        16,
+        112,
+        -99,
+        -51,
+        -48,
+        -53,
+        7,
+        -24,
+        161,
+        -27,
+        -36,
+        -27,
+        74,
+        -18,
+        6
+      ]
+    },
+    {
+      "name": "window_id_2",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -0.7359476936447688,
+        0.5442106405559154,
+        -1.0810570256206382,
+        0.9961522583796187,
+        0.47436353712884954,
+        0.16031021156908284,
+        1.2071422975569162,
+        -0.8500061174114896,
+        -0.4342646020838275,
+        -0.41332417744357997,
+        -0.27808124717189375,
+        0.190236371351428,
+        -0.2098584906104411,
+        0.7022749022810302,
+        -0.28004515554729675,
+        -0.3094778497295871,
+        -0.22320832845047264,
+        0.03879131616585622,
+        0.11287008369951004,
+        0.37370583494628934
+      ],
+      "quantized_input": [
+        -86,
+        63,
+        -126,
+        116,
+        55,
+        19,
+        141,
+        -99,
+        -51,
+        -48,
+        -32,
+        22,
+        -24,
+        82,
+        -33,
+        -36,
+        -26,
+        5,
+        13,
+        44
+      ]
+    },
+    {
+      "name": "window_id_3",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -0.48814758413906184,
+        0.5394565743536384,
+        -0.9328520330622296,
+        0.9276797316423406,
+        0.48544892785327737,
+        0.2726459815808006,
+        1.1230659045916382,
+        -0.8500061174114896,
+        -0.4342646020838275,
+        -0.41332417744357997,
+        -0.38470216218783426,
+        0.49394651756865693,
+        -0.2098584906104411,
+        1.081081554313998,
+        0.2987842173865379,
+        -0.3094509049962043,
+        -0.17784840854559342,
+        -0.5909333910957963,
+        0.17570358828674362,
+        0.4173182740590464
+      ],
+      "quantized_input": [
+        -57,
+        63,
+        -109,
+        108,
+        57,
+        32,
+        131,
+        -99,
+        -51,
+        -48,
+        -45,
+        58,
+        -24,
+        126,
+        35,
+        -36,
+        -21,
+        -69,
+        20,
+        49
+      ]
+    },
+    {
+      "name": "window_id_4",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "standardized_input": [
+        -0.2403474746333549,
+        0.5271912441039934,
+        -0.5897919747989914,
+        0.8046737568344833,
+        0.4822062773675599,
+        0.34657156491218094,
+        -1.0906655157696106,
+        -0.8500061174114896,
+        -0.36696491632774003,
+        -0.3232650103400476,
+        -0.03420687078845439,
+        0.05554337131862533,
+        -0.2098584906104411,
+        0.935515558149546,
+        -0.14184209875508502,
+        -0.30271847832863763,
+        -0.1633708685558557,
+        -0.5909333910957963,
+        0.35243949448073725,
+        0.631726783294816
+      ],
+      "quantized_input": [
+        -28,
+        61,
+        -69,
+        94,
+        56,
+        40,
+        -127,
+        -99,
+        -43,
+        -38,
+        -4,
+        6,
+        -24,
+        109,
+        -17,
+        -35,
+        -19,
+        -69,
+        41,
+        74
+      ]
+    }
+  ],
+  "full_dataset_rows": [
+    {
+      "name": "window_id_0",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_1",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_2",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_3",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_4",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_5",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_6",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_7",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_8",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_9",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_10",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_11",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_12",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_13",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_14",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_15",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_16",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_17",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_18",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_19",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_20",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_21",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_22",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_23",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_24",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_25",
+      "label_id": 0,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_172",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_173",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_174",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_175",
+      "label_id": 3,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_176",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_177",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_178",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_179",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_180",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_181",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_182",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_183",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_184",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_185",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_186",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_187",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_188",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_189",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_190",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_191",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_192",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_193",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_194",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_195",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_196",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_197",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_198",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_199",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_200",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_201",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_202",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_203",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_204",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_205",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_206",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_207",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_208",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_209",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_210",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_211",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_212",
+      "label_id": 3,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_213",
+      "label_id": 3,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_214",
+      "label_id": 3,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_215",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_216",
+      "label_id": 3,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_217",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_355",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_356",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_357",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_358",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_359",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_360",
+      "label_id": 2,
+      "float_predicted_class": 3,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_361",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_362",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_363",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_364",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_365",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_366",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_367",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_368",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_369",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_370",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_371",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_372",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_373",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_374",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_375",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 2,
+      "match": false
+    },
+    {
+      "name": "window_id_376",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_377",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_378",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_379",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_380",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_381",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_382",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_383",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_384",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_385",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_386",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_387",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_388",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_389",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_390",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_391",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_392",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_393",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_394",
+      "label_id": 2,
+      "float_predicted_class": 2,
+      "quantized_predicted_class": 2,
+      "match": true
+    },
+    {
+      "name": "window_id_395",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_396",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_397",
+      "label_id": 1,
+      "float_predicted_class": 1,
+      "quantized_predicted_class": 1,
+      "match": true
+    },
+    {
+      "name": "window_id_398",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_399",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_400",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    },
+    {
+      "name": "window_id_401",
+      "label_id": 1,
+      "float_predicted_class": 0,
+      "quantized_predicted_class": 1,
+      "match": false
+    }
+  ]
+}

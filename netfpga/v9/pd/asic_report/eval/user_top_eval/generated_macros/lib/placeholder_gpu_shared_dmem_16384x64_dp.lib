@@ -1,0 +1,178 @@
+library(placeholder_gpu_shared_dmem_16384x64_dp) {
+  technology (cmos);
+  delay_model : table_lookup;
+  time_unit : "1ns";
+  voltage_unit : "1V";
+  current_unit : "1uA";
+  leakage_power_unit : "1nw";
+  capacitive_load_unit (1,ff);
+  nom_process : 1;
+  nom_temperature : 25.0;
+  nom_voltage : 1.1;
+  operating_conditions(tt_1p1_25) {
+    process : 1;
+    temperature : 25.0;
+    voltage : 1.1;
+    tree_type : balanced_tree;
+  }
+  default_operating_conditions : tt_1p1_25;
+  type (placeholder_gpu_shared_dmem_16384x64_dp_a_addr_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 14;
+    bit_from : 13;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_gpu_shared_dmem_16384x64_dp_a_wdata_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_gpu_shared_dmem_16384x64_dp_b_addr_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 14;
+    bit_from : 13;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_gpu_shared_dmem_16384x64_dp_b_wdata_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_gpu_shared_dmem_16384x64_dp_a_rdata_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  type (placeholder_gpu_shared_dmem_16384x64_dp_b_rdata_TYPE) {
+    base_type : array;
+    data_type : bit;
+    bit_width : 64;
+    bit_from : 63;
+    bit_to : 0;
+    downto : true;
+  }
+  cell(placeholder_gpu_shared_dmem_16384x64_dp) {
+    area : 728000.000;
+    interface_timing : true;
+    pg_pin(VDD) {
+      voltage_name : "VDD";
+      pg_type : primary_power;
+    }
+    pg_pin(VSS) {
+      voltage_name : "VSS";
+      pg_type : primary_ground;
+    }
+    pin(clk) {
+      direction : input;
+      capacitance : 25.000;
+      clock : true;
+    }
+    pin(a_en) {
+      direction : input;
+      capacitance : 5.000;
+      clock : false;
+    }
+    pin(a_we) {
+      direction : input;
+      capacitance : 5.000;
+      clock : false;
+    }
+    bus(a_addr) {
+      bus_type : placeholder_gpu_shared_dmem_16384x64_dp_a_addr_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(a_wdata) {
+      bus_type : placeholder_gpu_shared_dmem_16384x64_dp_a_wdata_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    pin(b_en) {
+      direction : input;
+      capacitance : 5.000;
+      clock : false;
+    }
+    pin(b_we) {
+      direction : input;
+      capacitance : 5.000;
+      clock : false;
+    }
+    bus(b_addr) {
+      bus_type : placeholder_gpu_shared_dmem_16384x64_dp_b_addr_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(b_wdata) {
+      bus_type : placeholder_gpu_shared_dmem_16384x64_dp_b_wdata_TYPE;
+      direction : input;
+      capacitance : 5.000;
+    }
+    bus(a_rdata) {
+      bus_type : placeholder_gpu_shared_dmem_16384x64_dp_a_rdata_TYPE;
+      direction : output;
+      max_capacitance : 500.000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+        timing_sense : non_unate;
+        cell_rise(scalar) { values ("0.500"); }
+        cell_fall(scalar) { values ("0.500"); }
+        rise_transition(scalar) { values ("0.050"); }
+        fall_transition(scalar) { values ("0.050"); }
+      }
+    }
+    pin(a_rvalid) {
+      direction : output;
+      max_capacitance : 500.000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+        timing_sense : non_unate;
+        cell_rise(scalar) { values ("0.500"); }
+        cell_fall(scalar) { values ("0.500"); }
+        rise_transition(scalar) { values ("0.050"); }
+        fall_transition(scalar) { values ("0.050"); }
+      }
+    }
+    bus(b_rdata) {
+      bus_type : placeholder_gpu_shared_dmem_16384x64_dp_b_rdata_TYPE;
+      direction : output;
+      max_capacitance : 500.000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+        timing_sense : non_unate;
+        cell_rise(scalar) { values ("0.500"); }
+        cell_fall(scalar) { values ("0.500"); }
+        rise_transition(scalar) { values ("0.050"); }
+        fall_transition(scalar) { values ("0.050"); }
+      }
+    }
+    pin(b_rvalid) {
+      direction : output;
+      max_capacitance : 500.000;
+      timing() {
+        related_pin : "clk";
+        timing_type : rising_edge;
+        timing_sense : non_unate;
+        cell_rise(scalar) { values ("0.500"); }
+        cell_fall(scalar) { values ("0.500"); }
+        rise_transition(scalar) { values ("0.050"); }
+        fall_transition(scalar) { values ("0.050"); }
+      }
+    }
+  }
+}

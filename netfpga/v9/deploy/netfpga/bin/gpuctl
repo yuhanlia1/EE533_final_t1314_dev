@@ -1,0 +1,157 @@
+#!/usr/bin/env python3
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PYTHON_ROOT = SCRIPT_DIR.parent / "python"
+if str(PYTHON_ROOT) not in sys.path:
+    sys.path.insert(0, str(PYTHON_ROOT))
+
+from gpu_toolchain.bundle import (  # noqa: E402
+    build_program,
+    ensure_out_dir,
+    inspect_target,
+    load_bundle,
+    load_params,
+    load_program,
+    package_bundle,
+    template_mlp,
+)
+
+
+def _print_build_result(result) -> None:
+    print(f"mode={result.mode}")
+    print(f"out_dir={result.out_dir}")
+    print(f"source={result.source_path}")
+    print(f"processed={result.processed_path}")
+    print(f"imem={result.imem_path}")
+    print(f"instruction_words={result.instruction_words}")
+    print(f"param_words={result.param_words}")
+    if result.params_path:
+        print(f"params={result.params_path}")
+    print(f"meta_present={1 if result.meta else 0}")
+    if result.meta_path:
+        print(f"meta={result.meta_path}")
+    print(f"report={result.report_path}")
+
+
+def _print_template_result(result) -> None:
+    print(f"mode={result.mode}")
+    print(f"out_dir={result.out_dir}")
+    print(f"program={result.program_path}")
+    print(f"params={result.params_path}")
+    print(f"meta={result.meta_path}")
+    print(f"report={result.report_path}")
+    print(f"in_dim={result.in_dim}")
+    print(f"out_dim={result.out_dim}")
+    print(f"work_size={result.work_size}")
+    print(f"relu={1 if result.relu else 0}")
+
+
+def build_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "gpuctl_build_")
+    result = build_program(args.source, str(out_dir))
+    _print_build_result(result)
+    return 0
+
+
+def package_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "gpuctl_package_")
+    result = package_bundle(args.bundle_dir, str(out_dir))
+    _print_build_result(result)
+    return 0
+
+
+def inspect_cmd(args: argparse.Namespace) -> int:
+    result = inspect_target(args.target)
+    _print_build_result(result)
+    return 0
+
+
+def load_program_cmd(args: argparse.Namespace) -> int:
+    load_program(args.image, annctl_path=args.annctl, base_addr=args.base)
+    return 0
+
+
+def load_params_cmd(args: argparse.Namespace) -> int:
+    load_params(args.params, annctl_path=args.annctl)
+    return 0
+
+
+def load_bundle_cmd(args: argparse.Namespace) -> int:
+    result = load_bundle(args.target, annctl_path=args.annctl, out_dir=args.out_dir)
+    _print_build_result(result)
+    return 0
+
+
+def template_mlp_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "gpuctl_template_")
+    result = template_mlp(str(out_dir), args.in_dim, args.out_dim, work_size=args.work_size, relu=not args.no_relu)
+    _print_template_result(result)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Build and load GPU programs for the NetFPGA v5 user_top design."
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    build_parser_ = subparsers.add_parser("build", help="build a single GPU assembly source")
+    build_parser_.add_argument("source")
+    build_parser_.add_argument("--out-dir")
+    build_parser_.set_defaults(func=build_cmd)
+
+    package_parser_ = subparsers.add_parser("package", help="build a GPU bundle directory")
+    package_parser_.add_argument("bundle_dir")
+    package_parser_.add_argument("--out-dir")
+    package_parser_.set_defaults(func=package_cmd)
+
+    inspect_parser_ = subparsers.add_parser("inspect", help="inspect a GPU source or bundle")
+    inspect_parser_.add_argument("target")
+    inspect_parser_.set_defaults(func=inspect_cmd)
+
+    load_program_parser = subparsers.add_parser("load-program", help="load a compiled GPU IMEM image through annctl")
+    load_program_parser.add_argument("image")
+    load_program_parser.add_argument("--base")
+    load_program_parser.add_argument("--annctl")
+    load_program_parser.set_defaults(func=load_program_cmd)
+
+    load_params_parser = subparsers.add_parser("load-params", help="load a compiled GPU parameter image through annctl")
+    load_params_parser.add_argument("params")
+    load_params_parser.add_argument("--annctl")
+    load_params_parser.set_defaults(func=load_params_cmd)
+
+    load_bundle_parser = subparsers.add_parser("load-bundle", help="build/package a GPU bundle if needed, then load it")
+    load_bundle_parser.add_argument("target")
+    load_bundle_parser.add_argument("--out-dir")
+    load_bundle_parser.add_argument("--annctl")
+    load_bundle_parser.set_defaults(func=load_bundle_cmd)
+
+    template_parser = subparsers.add_parser("template", help="generate source-level GPU templates")
+    template_subparsers = template_parser.add_subparsers(dest="template_kind", required=True)
+
+    template_mlp_parser = template_subparsers.add_parser("mlp", help="generate a one-layer MLP GPU bundle template")
+    template_mlp_parser.add_argument("--out-dir")
+    template_mlp_parser.add_argument("--in-dim", type=int, default=4)
+    template_mlp_parser.add_argument("--out-dim", type=int, default=2)
+    template_mlp_parser.add_argument("--work-size", type=int, default=2)
+    template_mlp_parser.add_argument("--no-relu", action="store_true")
+    template_mlp_parser.set_defaults(func=template_mlp_cmd)
+
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

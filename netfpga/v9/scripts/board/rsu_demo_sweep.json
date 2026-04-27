@@ -1,0 +1,38 @@
+{
+  "model": "dataset/export/rsu_ann_model_int16.json",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "ssh_mode": "sshpass",
+  "netfpga_host": "netfpga@nf3.usc.edu",
+  "sender_host": "node3@nf4.usc.edu",
+  "receiver_host": "node3@nf1.usc.edu",
+  "sender_iface": "port0",
+  "receiver_iface": "port2",
+  "pre_capture_delay_seconds": 0.5,
+  "continue_on_error": true,
+  "experiments": [
+    {
+      "name": "batch4",
+      "batch_size": 4,
+      "batch_time_window_seconds": 2.0,
+      "request_id_base": "0x1234",
+      "replay_repeat": 1,
+      "inter_run_pause_seconds": 0.5
+    },
+    {
+      "name": "batch5",
+      "batch_size": 5,
+      "batch_time_window_seconds": 2.0,
+      "request_id_base": "0x1334",
+      "replay_repeat": 1,
+      "inter_run_pause_seconds": 0.5
+    },
+    {
+      "name": "batch6",
+      "batch_size": 6,
+      "batch_time_window_seconds": 2.5,
+      "request_id_base": "0x1434",
+      "replay_repeat": 1,
+      "inter_run_pause_seconds": 0.5
+    }
+  ]
+}

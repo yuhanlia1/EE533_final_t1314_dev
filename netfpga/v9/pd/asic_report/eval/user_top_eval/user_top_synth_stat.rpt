@@ -1,0 +1,1498 @@
+
+40. Printing statistics.
+
+=== $paramod$669a376bbd113d2af5b01ee5bdda4ff69a645cfb\ann_cpu_gpu_compute_core ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     2811        - wires
+     5257        - wire bits
+      128        - public wires
+     2444        - public wire bits
+       35        - ports
+      818        - port bits
+     3085  5.4E+03 cells
+      333  354.312   AND2_X1
+       13    17.29   AND3_X1
+        6    9.576   AND4_X1
+       18    23.94   AOI211_X1
+       99  105.336   AOI21_X1
+       13   20.748   AOI221_X1
+        3    6.384   AOI222_X1
+      136   180.88   AOI22_X1
+      519  2761.08   DFFR_X1
+       11    58.52   DFFS_X1
+      783  416.556   INV_X1
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+      217  404.054   MUX2_X1
+      223  177.954   NAND2_X1
+       44   46.816   NAND3_X1
+       21    27.93   NAND4_X1
+       73   58.254   NOR2_X1
+       24   25.536   NOR3_X1
+       29    38.57   NOR4_X1
+       18    23.94   OAI211_X1
+      250      266   OAI21_X1
+        6    9.576   OAI221_X1
+        7   14.896   OAI222_X1
+       63    83.79   OAI22_X1
+       16   17.024   OR2_X1
+        2     2.66   OR3_X1
+        4    6.384   OR4_X1
+       92  146.832   XNOR2_X1
+       60    95.76   XOR2_X1
+        3        - submodules
+        1        -   $paramod$44a83ff4d0a9c179cc067f2a8eed5e6c3f63b269\gpu_shared_dmem
+        1        -   $paramod$68c682da32fb1d4de2301479e96b19315cf62891\gpu_top_fifo_if
+        1        -   arm_64_top
+
+   Area for cell type \placeholder_gpu_shared_dmem_16384x64_dp is unknown!
+   Area for cell type \fakeram45_256x16 is unknown!
+   Area for cell type \fakeram45_256x32 is unknown!
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$669a376bbd113d2af5b01ee5bdda4ff69a645cfb\ann_cpu_gpu_compute_core': 5401.662000
+     of which used for sequential elements: 2819.600000 (52.20%)
+
+=== $paramod$43d2f0f20fbf75a962f3ded7f9eb1f01eeed8c00\generic_regs ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1912        - wires
+     3110        - wire bits
+       20        - public wires
+     1218        - public wire bits
+       18        - ports
+      894        - port bits
+     1925 3.33E+03 cells
+       17   18.088   AND2_X1
+        1     1.33   AND3_X1
+       18    23.94   AOI211_X1
+       87   92.568   AOI21_X1
+       59   94.164   AOI221_X1
+       32   68.096   AOI222_X1
+       24    31.92   AOI22_X1
+      320   1702.4   DFFR_X1
+      379  201.628   INV_X1
+      103  191.786   MUX2_X1
+      299  238.602   NAND2_X1
+       72   76.608   NAND3_X1
+        3     3.99   NAND4_X1
+       25    19.95   NOR2_X1
+       11   11.704   NOR3_X1
+        1     1.33   NOR4_X1
+       52    69.16   OAI211_X1
+      320   340.48   OAI21_X1
+       45    71.82   OAI221_X1
+        7   14.896   OAI222_X1
+        3     3.99   OAI22_X1
+       42   44.688   OR2_X1
+        1     1.33   OR3_X1
+        2    3.192   OR4_X1
+        2    3.192   XNOR2_X1
+
+   Chip area for module '$paramod$43d2f0f20fbf75a962f3ded7f9eb1f01eeed8c00\generic_regs': 3330.852000
+     of which used for sequential elements: 1702.400000 (51.11%)
+
+=== $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\packet_action_selector ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     2133        - wires
+     2794        - wire bits
+       31        - public wires
+      671        - public wire bits
+       11        - ports
+      152        - port bits
+     2189 4.71E+03 cells
+        2    2.128   AND2_X1
+        3     3.99   AND3_X1
+        3    4.788   AND4_X1
+        4     5.32   AOI211_X1
+       85    90.44   AOI21_X1
+        4    8.512   AOI222_X1
+      209   277.97   AOI22_X1
+      519  2761.08   DFFR_X1
+      531  282.492   INV_X1
+        1    0.532   LOGIC0_X1
+      516  960.792   MUX2_X1
+       89   71.022   NAND2_X1
+       76   80.864   NAND3_X1
+        6     7.98   NAND4_X1
+       12    9.576   NOR2_X1
+       19   20.216   NOR3_X1
+       17    22.61   NOR4_X1
+        2     2.66   OAI211_X1
+       77   81.928   OAI21_X1
+        1    1.596   OAI221_X1
+        1     1.33   OAI22_X1
+        3    3.192   OR2_X1
+        4     5.32   OR3_X1
+        2    3.192   OR4_X1
+        2    3.192   XNOR2_X1
+        1    1.596   XOR2_X1
+
+   Chip area for module '$paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\packet_action_selector': 4714.318000
+     of which used for sequential elements: 2761.080000 (58.57%)
+
+=== $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\action_dispatcher ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      276        - wires
+      594        - wire bits
+       22        - public wires
+      322        - public wire bits
+       19        - ports
+      300        - port bits
+      402  489.174 cells
+       76   80.864   AND2_X1
+        5     6.65   AND3_X1
+        4    6.384   AND4_X1
+        8    10.64   AOI211_X1
+       12   12.768   AOI21_X1
+        1    1.596   AOI221_X1
+       73    97.09   AOI22_X1
+       22   117.04   DFFR_X1
+      115    61.18   INV_X1
+        2    3.724   MUX2_X1
+       17   13.566   NAND2_X1
+        9    9.576   NAND3_X1
+        2     2.66   NAND4_X1
+       14   11.172   NOR2_X1
+        3    3.192   NOR3_X1
+        7     9.31   NOR4_X1
+        1     1.33   OAI211_X1
+        7    7.448   OAI21_X1
+        2    3.192   OAI221_X1
+        8    10.64   OAI22_X1
+        1    1.862   OAI33_X1
+        6    6.384   OR2_X1
+        1     1.33   OR3_X1
+        5     7.98   XNOR2_X1
+        1    1.596   XOR2_X1
+
+   Chip area for module '$paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\action_dispatcher': 489.174000
+     of which used for sequential elements: 117.040000 (23.93%)
+
+=== $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\convertible_fifo ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      417        - wires
+      928        - wire bits
+       22        - public wires
+      478        - public wire bits
+       10        - ports
+      150        - port bits
+      418  854.126 cells
+       82   87.248   AND2_X1
+        1     1.33   AND3_X1
+        1     1.33   AOI211_X1
+       15    15.96   AOI21_X1
+        3    4.788   AOI221_X1
+       22    29.26   AOI22_X1
+      103  465.766   DFF_X1
+       18    9.576   INV_X1
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+       72  134.064   MUX2_X1
+        9    7.182   NAND2_X1
+        3    3.192   NAND3_X1
+        1     1.33   NAND4_X1
+       39   31.122   NOR2_X1
+        9    9.576   NOR3_X1
+        4     5.32   NOR4_X1
+        5     6.65   OAI211_X1
+        7    7.448   OAI21_X1
+        1    1.596   OAI221_X1
+        4     5.32   OAI22_X1
+        4    4.256   OR2_X1
+        1    1.596   OR4_X1
+        8   12.768   XNOR2_X1
+        4    6.384   XOR2_X1
+        1        - submodules
+        1        -   $paramod$9bac457b63bc1ce3e69eaa487d879c0886aa5713\fifo_bram
+
+   Area for cell type \placeholder_fifo_bram_256x72_dp is unknown!
+
+   Chip area for module '$paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\convertible_fifo': 854.126000
+     of which used for sequential elements: 465.766000 (54.53%)
+
+=== $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\ann_engine_wrapper ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      475        - wires
+     1889        - wire bits
+       83        - public wires
+     1483        - public wire bits
+       37        - ports
+      703        - port bits
+      473   641.06 cells
+       11   11.704   AND2_X1
+        4     5.32   AND3_X1
+        2    3.192   AND4_X1
+        3     3.99   AOI211_X1
+       21   22.344   AOI21_X1
+        2    3.192   AOI221_X1
+       16    21.28   AOI22_X1
+       35    186.2   DFFR_X1
+       60    31.92   INV_X1
+       18   33.516   MUX2_X1
+       62   49.476   NAND2_X1
+        6    6.384   NAND3_X1
+        3     3.99   NAND4_X1
+       56   44.688   NOR2_X1
+       26   27.664   NOR3_X1
+        7     9.31   NOR4_X1
+        1     1.33   OAI211_X1
+       85    90.44   OAI21_X1
+       33   52.668   OAI221_X1
+        4    4.256   OR2_X1
+        2     2.66   OR3_X1
+        1    1.596   OR4_X1
+       11   17.556   XNOR2_X1
+        4    6.384   XOR2_X1
+        3        - submodules
+        1        -   $paramod$04c1357efc5056b9e606d50f1e56b2d0fa15fb1c\ann_feature_unpack
+        1        -   $paramod$669a376bbd113d2af5b01ee5bdda4ff69a645cfb\ann_cpu_gpu_compute_core
+        1        -   $paramod$8f02373aa1c24c6598370c5fe14e7d407c891391\ann_task_ingress
+
+   Area for cell type \placeholder_fifo_bram_256x72_dp is unknown!
+   Area for cell type \placeholder_gpu_shared_dmem_16384x64_dp is unknown!
+   Area for cell type \fakeram45_256x16 is unknown!
+   Area for cell type \fakeram45_256x32 is unknown!
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\ann_engine_wrapper': 641.060000
+     of which used for sequential elements: 186.200000 (29.05%)
+
+=== user_top ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1873        - wires
+     3804        - wire bits
+       93        - public wires
+     1869        - public wire bits
+       22        - ports
+      270        - port bits
+     1780  3859.66 cells
+       47   50.008   AND2_X1
+       25    33.25   AND3_X1
+       26   41.496   AND4_X1
+        2     2.66   AOI211_X1
+       81   86.184   AOI21_X1
+       53    70.49   AOI22_X1
+      536  2851.52   DFFR_X1
+      635   337.82   INV_X1
+        1    0.532   LOGIC0_X1
+        1    1.862   MUX2_X1
+       22   17.556   NAND2_X1
+       28   29.792   NAND3_X1
+       26    34.58   NAND4_X1
+      116   92.568   NOR2_X1
+       65    69.16   NOR3_X1
+       10     13.3   NOR4_X1
+       82   87.248   OAI21_X1
+       14   26.068   OAI33_X1
+        4    4.256   OR2_X1
+        1     1.33   OR3_X1
+        3    4.788   XNOR2_X1
+        2    3.192   XOR2_X1
+        6        - submodules
+        1        -   $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\action_dispatcher
+        1        -   $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\packet_action_selector
+        1        -   $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\ann_engine_wrapper
+        2        -   $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\convertible_fifo
+        1        -   $paramod$43d2f0f20fbf75a962f3ded7f9eb1f01eeed8c00\generic_regs
+
+   Area for cell type \placeholder_fifo_bram_256x72_dp is unknown!
+   Area for cell type \placeholder_gpu_shared_dmem_16384x64_dp is unknown!
+   Area for cell type \fakeram45_256x16 is unknown!
+   Area for cell type \fakeram45_256x32 is unknown!
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '\user_top': 3859.660000
+     of which used for sequential elements: 2851.520000 (73.88%)
+
+=== $paramod\gpu_pc\PC_W=s32'00000000000000000000000000010000 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      154        - wires
+      214        - wire bits
+       10        - public wires
+       55        - public wire bits
+       10        - ports
+       55        - port bits
+      144   207.48 cells
+        1    1.064   AND2_X1
+        4    6.384   AND4_X1
+       11    14.63   AOI211_X1
+       25     26.6   AOI21_X1
+       12   19.152   AOI221_X1
+       16   72.352   DFF_X1
+       30    15.96   INV_X1
+        6    4.788   NAND2_X1
+        4    4.256   NAND3_X1
+        5     3.99   NOR2_X1
+        3    3.192   NOR3_X1
+       13   13.832   OAI21_X1
+        2    2.128   OR2_X1
+       11   17.556   XNOR2_X1
+        1    1.596   XOR2_X1
+
+   Chip area for module '$paramod\gpu_pc\PC_W=s32'00000000000000000000000000010000': 207.480000
+     of which used for sequential elements: 72.352000 (34.87%)
+
+=== $paramod$79a8e8dd46bbae3e63bd7c0820b336831c5dbc68\gpu_imem ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       92        - wires
+      311        - wire bits
+       13        - public wires
+      232        - public wire bits
+        5        - ports
+       78        - port bits
+      115  140.448 cells
+        6    6.384   AND2_X1
+       32   68.096   AOI222_X1
+        2    9.044   DFF_X1
+       33   17.556   INV_X1
+        5     3.99   NOR2_X1
+       32   34.048   OAI21_X1
+        1     1.33   OR3_X1
+        4        -   fakeram45_1024x32
+
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$79a8e8dd46bbae3e63bd7c0820b336831c5dbc68\gpu_imem': 140.448000
+     of which used for sequential elements: 9.044000 (6.44%)
+
+=== bf16_mult ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      377        - wires
+      461        - wire bits
+       13        - public wires
+       97        - public wire bits
+        4        - ports
+       49        - port bits
+      380   449.54 cells
+       16   17.024   AND2_X1
+       11    14.63   AND3_X1
+        5     7.98   AND4_X1
+        1     1.33   AOI211_X1
+       29   30.856   AOI21_X1
+        1    1.596   AOI221_X1
+        8    10.64   AOI22_X1
+       21   11.172   INV_X1
+        7   13.034   MUX2_X1
+       61   48.678   NAND2_X1
+        8    8.512   NAND3_X1
+        4     5.32   NAND4_X1
+       29   23.142   NOR2_X1
+        8    8.512   NOR3_X1
+        1     1.33   NOR4_X1
+       30    31.92   OAI21_X1
+        2     2.66   OAI22_X1
+        2    3.724   OAI33_X1
+       12   12.768   OR2_X1
+       12    15.96   OR3_X1
+        1    1.596   OR4_X1
+       66  105.336   XNOR2_X1
+       45    71.82   XOR2_X1
+
+   Chip area for module '\bf16_mult': 449.540000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== bf16_add_sub ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       48        - wires
+      144        - wire bits
+       14        - public wires
+      110        - public wire bits
+        5        - ports
+       55        - port bits
+       49   59.052 cells
+        6    6.384   AND2_X1
+        2     2.66   AND3_X1
+        3    3.192   AOI21_X1
+        2    1.064   INV_X1
+        6    4.788   NAND2_X1
+        2    2.128   NAND3_X1
+        1     1.33   NAND4_X1
+        3    2.394   NOR2_X1
+        1    1.064   NOR3_X1
+        1     1.33   OAI211_X1
+        3    3.192   OAI21_X1
+        3     3.99   OR3_X1
+       11   17.556   XNOR2_X1
+        5     7.98   XOR2_X1
+
+   Chip area for module '\bf16_add_sub': 59.052000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$1285c1740f954ea74f58bd88e5bc92df4339bc55\mem_inst ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        9        - wires
+      119        - wire bits
+        7        - public wires
+      117        - public wire bits
+        5        - ports
+       75        - port bits
+        3    1.064 cells
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+        1        -   fakeram45_1024x32
+
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$1285c1740f954ea74f58bd88e5bc92df4339bc55\mem_inst': 1.064000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$2d72d0162583815a048bf437a8014b4978bef4e8\mem_RF ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        8        - wires
+      212        - wire bits
+        8        - public wires
+      212        - public wire bits
+        8        - ports
+      212        - port bits
+        1        - cells
+        1        -   placeholder_mem_rf_64x64_1w2r
+
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+
+=== alu_64_stage1 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1247        - wires
+     1473        - wire bits
+       11        - public wires
+      237        - public wire bits
+        9        - ports
+      233        - port bits
+     1337 1.67E+03 cells
+       56   59.584   AND2_X1
+       10     13.3   AND3_X1
+        1    1.596   AND4_X1
+       21    27.93   AOI211_X1
+       73   77.672   AOI21_X1
+       28   44.688   AOI221_X1
+        1    2.128   AOI222_X1
+      137   182.21   AOI22_X1
+       99   52.668   INV_X1
+      227  422.674   MUX2_X1
+      126  100.548   NAND2_X1
+       35    37.24   NAND3_X1
+        6     7.98   NAND4_X1
+       86   68.628   NOR2_X1
+       22   23.408   NOR3_X1
+        9    11.97   NOR4_X1
+       48    63.84   OAI211_X1
+      125      133   OAI21_X1
+        8   12.768   OAI221_X1
+        1    2.128   OAI222_X1
+       33    43.89   OAI22_X1
+        6   11.172   OAI33_X1
+       27   28.728   OR2_X1
+        8    10.64   OR3_X1
+        1    1.596   OR4_X1
+       89  142.044   XNOR2_X1
+       54   86.184   XOR2_X1
+
+   Chip area for module '\alu_64_stage1': 1670.214000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== alu_64_stage2 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      789        - wires
+     1076        - wire bits
+       14        - public wires
+      301        - public wire bits
+       13        - ports
+      298        - port bits
+      840   861.84 cells
+       45    47.88   AND2_X1
+       14    18.62   AND3_X1
+        1    1.596   AND4_X1
+       15    19.95   AOI211_X1
+       53   56.392   AOI21_X1
+        1    1.596   AOI221_X1
+       68    90.44   AOI22_X1
+      156   82.992   INV_X1
+       94   75.012   NAND2_X1
+       23   24.472   NAND3_X1
+        2     2.66   NAND4_X1
+       78   62.244   NOR2_X1
+       25     26.6   NOR3_X1
+        7     9.31   NOR4_X1
+       12    15.96   OAI211_X1
+       77   81.928   OAI21_X1
+        2    3.192   OAI221_X1
+       25    33.25   OAI22_X1
+        1    1.862   OAI33_X1
+       28   29.792   OR2_X1
+       16    21.28   OR3_X1
+        2    3.192   OR4_X1
+       57   90.972   XNOR2_X1
+       38   60.648   XOR2_X1
+
+   Chip area for module '\alu_64_stage2': 861.840000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$5f2d20329bcb22d754b6a1ab58f5f89a7d6cac73\mem_data ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        8        - wires
+      203        - wire bits
+        7        - public wires
+      202        - public wire bits
+        5        - ports
+      138        - port bits
+        3    0.532 cells
+        1    0.532   LOGIC1_X1
+        2        -   fakeram45_256x32
+
+   Area for cell type \fakeram45_256x32 is unknown!
+
+   Chip area for module '$paramod$5f2d20329bcb22d754b6a1ab58f5f89a7d6cac73\mem_data': 0.532000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$6f28073fd36741a80742540673499977eeea97ea\mem_data ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+        9        - wires
+       60        - wire bits
+        7        - public wires
+       58        - public wire bits
+        5        - ports
+       26        - port bits
+        3    1.064 cells
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+        1        -   fakeram45_256x16
+
+   Area for cell type \fakeram45_256x16 is unknown!
+
+   Chip area for module '$paramod$6f28073fd36741a80742540673499977eeea97ea\mem_data': 1.064000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$fddb39ee1f25af7888da573b1d04563e85a07f45\gpu_control ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     5282        - wires
+     5911        - wire bits
+       33        - public wires
+      662        - public wire bits
+       29        - ports
+      565        - port bits
+     5249 7.83E+03 cells
+      192  204.288   AND2_X1
+       87   115.71   AND3_X1
+       32   51.072   AND4_X1
+       73    97.09   AOI211_X1
+      384  408.576   AOI21_X1
+       31   49.476   AOI221_X1
+       56  119.168   AOI222_X1
+      557   740.81   AOI22_X1
+      575  2600.15   DFF_X1
+      174   92.568   INV_X1
+       18   33.516   MUX2_X1
+      652  520.296   NAND2_X1
+      114  121.296   NAND3_X1
+       12    15.96   NAND4_X1
+      894  713.412   NOR2_X1
+       65    69.16   NOR3_X1
+       11    14.63   NOR4_X1
+       15    19.95   OAI211_X1
+      302  321.328   OAI21_X1
+        1    1.596   OAI221_X1
+        1    2.128   OAI222_X1
+       10     13.3   OAI22_X1
+        3    5.586   OAI33_X1
+      111  118.104   OR2_X1
+       90    119.7   OR3_X1
+        1    1.596   OR4_X1
+      424  676.704   XNOR2_X1
+      364  580.944   XOR2_X1
+
+   Chip area for module '$paramod$fddb39ee1f25af7888da573b1d04563e85a07f45\gpu_control': 7828.114000
+     of which used for sequential elements: 2600.150000 (33.22%)
+
+=== $paramod$f306278a51e322a8c310d28c4bf2816dee84424f\gpu_if_stage ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      166        - wires
+      398        - wire bits
+       23        - public wires
+      255        - public wire bits
+       14        - ports
+      136        - port bits
+      188  351.652 cells
+       33    43.89   AOI211_X1
+       34  153.748   DFF_X1
+       35    18.62   INV_X1
+       44   81.928   MUX2_X1
+        1    1.064   NAND3_X1
+        1    0.798   NOR2_X1
+        1    1.064   NOR3_X1
+       32    42.56   NOR4_X1
+        2    2.128   OAI21_X1
+        3    3.192   OR2_X1
+        2     2.66   OR3_X1
+        2        - submodules
+        1        -   $paramod$79a8e8dd46bbae3e63bd7c0820b336831c5dbc68\gpu_imem
+        1        -   $paramod\gpu_pc\PC_W=s32'00000000000000000000000000010000
+
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$f306278a51e322a8c310d28c4bf2816dee84424f\gpu_if_stage': 351.652000
+     of which used for sequential elements: 153.748000 (43.72%)
+
+=== $paramod\gpu_if_id_reg\PC_W=s32'00000000000000000000000000010000 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      205        - wires
+      297        - wire bits
+        9        - public wires
+      101        - public wire bits
+        9        - ports
+      101        - port bits
+      196  351.918 cells
+       49    65.17   AOI211_X1
+       49  221.578   DFF_X1
+       49   26.068   INV_X1
+       49   39.102   NOR2_X1
+
+   Chip area for module '$paramod\gpu_if_id_reg\PC_W=s32'00000000000000000000000000010000': 351.918000
+     of which used for sequential elements: 221.578000 (62.96%)
+
+=== $paramod\gpu_id_stage\PC_W=s32'00000000000000000000000000010000 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     7709        - wires
+     9954        - wire bits
+       84        - public wires
+     2298        - public wire bits
+       38        - ports
+     1047        - port bits
+     8090 1.29E+04 cells
+       15    15.96   AND2_X1
+       12    15.96   AND3_X1
+        3    4.788   AND4_X1
+      344   457.52   AOI211_X1
+      404  429.856   AOI21_X1
+        9   14.364   AOI221_X1
+       14   29.792   AOI222_X1
+      541   719.53   AOI22_X1
+     1058 4.78E+03   DFF_X1
+     1255   667.66   INV_X1
+        1    0.532   LOGIC0_X1
+     1152 2.15E+03   MUX2_X1
+      850    678.3   NAND2_X1
+       14   14.896   NAND3_X1
+       18    23.94   NAND4_X1
+      302  240.996   NOR2_X1
+       26   27.664   NOR3_X1
+       13    17.29   NOR4_X1
+      833  1107.89   OAI211_X1
+      633  673.512   OAI21_X1
+        4    6.384   OAI221_X1
+      531   706.23   OAI22_X1
+        9    9.576   OR2_X1
+        4     5.32   OR3_X1
+       27   43.092   XNOR2_X1
+       18   28.728   XOR2_X1
+
+   Chip area for module '$paramod\gpu_id_stage\PC_W=s32'00000000000000000000000000010000': 12869.080000
+     of which used for sequential elements: 4784.276000 (37.18%)
+
+=== $paramod\gpu_id_ex_reg\PC_W=s32'00000000000000000000000000010000 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     2176        - wires
+     3216        - wire bits
+       35        - public wires
+     1075        - public wire bits
+       35        - ports
+     1075        - port bits
+     2141 4.13E+03 cells
+        1    1.064   AND2_X1
+      534   710.22   AOI211_X1
+      535  2419.27   DFF_X1
+      534  284.088   INV_X1
+        1    1.862   MUX2_X1
+        1    1.064   NOR3_X1
+      534   710.22   NOR4_X1
+        1     1.33   OR3_X1
+
+   Chip area for module '$paramod\gpu_id_ex_reg\PC_W=s32'00000000000000000000000000010000': 4129.118000
+     of which used for sequential elements: 2419.270000 (58.59%)
+
+=== $paramod$fe6d0e00f69ec288219f41912daf8e8160413f0e\gpu_ex_stage ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+    11457        - wires
+    16390        - wire bits
+      220        - public wires
+     5123        - public wire bits
+       32        - ports
+      848        - port bits
+    11431 1.49E+04 cells
+      335   356.44   AND2_X1
+      130    172.9   AND3_X1
+       50     79.8   AND4_X1
+      606   805.98   AOI211_X1
+     1328 1.41E+03   AOI21_X1
+       77  122.892   AOI221_X1
+       41   87.248   AOI222_X1
+      179   238.07   AOI22_X1
+      653 2.95E+03   DFF_X1
+      826  439.432   INV_X1
+        1    0.532   LOGIC0_X1
+       24   44.688   MUX2_X1
+     1485  1185.03   NAND2_X1
+      280   297.92   NAND3_X1
+       22    29.26   NAND4_X1
+     1320  1053.36   NOR2_X1
+      233  247.912   NOR3_X1
+        7     9.31   NOR4_X1
+       77   102.41   OAI211_X1
+     1001 1.07E+03   OAI21_X1
+       16   25.536   OAI221_X1
+       51    67.83   OAI22_X1
+       12   22.344   OAI33_X1
+      307  326.648   OR2_X1
+      130    172.9   OR3_X1
+     1272 2.03E+03   XNOR2_X1
+      968 1.54E+03   XOR2_X1
+        2        - submodules
+        1        -   bf16_add_sub
+        1        -   bf16_mult
+
+   Chip area for module '$paramod$fe6d0e00f69ec288219f41912daf8e8160413f0e\gpu_ex_stage': 14894.404000
+     of which used for sequential elements: 2952.866000 (19.83%)
+
+=== $paramod\gpu_ex_mm_reg\DMEM_AW=s32'00000000000000000000000000001110 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1249        - wires
+     1841        - wire bits
+       24        - public wires
+      616        - public wire bits
+       24        - ports
+      616        - port bits
+     1225  2198.49 cells
+      306   406.98   AOI211_X1
+      306 1.38E+03   DFF_X1
+      306  162.792   INV_X1
+        1    0.798   NAND2_X1
+      306  244.188   NOR2_X1
+
+   Chip area for module '$paramod\gpu_ex_mm_reg\DMEM_AW=s32'00000000000000000000000000001110': 2198.490000
+     of which used for sequential elements: 1383.732000 (62.94%)
+
+=== $paramod\gpu_mm_stage\DMEM_AW=s32'00000000000000000000000000001110 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       49        - wires
+      893        - wire bits
+       38        - public wires
+      882        - public wire bits
+       35        - ports
+      879        - port bits
+       18   19.418 cells
+        4    4.256   AOI21_X1
+        1    4.522   DFF_X1
+        4    2.128   INV_X1
+        3    2.394   NAND2_X1
+        1    1.064   NAND3_X1
+        3    2.394   NOR2_X1
+        1    1.064   OAI21_X1
+        1    1.596   OAI221_X1
+
+   Chip area for module '$paramod\gpu_mm_stage\DMEM_AW=s32'00000000000000000000000000001110': 19.418000
+     of which used for sequential elements: 4.522000 (23.29%)
+
+=== gpu_mm_wb_reg ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      468        - wires
+     1008        - wire bits
+       18        - public wires
+      558        - public wire bits
+       18        - ports
+      558        - port bits
+      450    877.8 cells
+      150    678.3   DFF_X1
+      150     79.8   INV_X1
+      150    119.7   NOR2_X1
+
+   Chip area for module '\gpu_mm_wb_reg': 877.800000
+     of which used for sequential elements: 678.300000 (77.27%)
+
+=== gpu_wb_stage ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       30        - wires
+      428        - wire bits
+       24        - public wires
+      422        - public wire bits
+       15        - ports
+      413        - port bits
+      136  246.316 cells
+        3    1.596   INV_X1
+      128  238.336   MUX2_X1
+        2    2.128   NOR3_X1
+        1     1.33   NOR4_X1
+        1     1.33   OR3_X1
+        1    1.596   OR4_X1
+
+   Chip area for module '\gpu_wb_stage': 246.316000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage1 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      519        - wires
+      814        - wire bits
+       24        - public wires
+      163        - public wire bits
+       15        - ports
+      103        - port bits
+      513  709.156 cells
+        6    6.384   AND2_X1
+       11    14.63   AND3_X1
+        6    9.576   AND4_X1
+       13    17.29   AOI211_X1
+       47   50.008   AOI21_X1
+        7   11.172   AOI221_X1
+       39    51.87   AOI22_X1
+       42   223.44   DFFR_X1
+      103   54.796   INV_X1
+        1    0.532   LOGIC0_X1
+        4    7.448   MUX2_X1
+       24   19.152   NAND2_X1
+       20    21.28   NAND3_X1
+        3     3.99   NAND4_X1
+       32   25.536   NOR2_X1
+       14   14.896   NOR3_X1
+        8    10.64   NOR4_X1
+       13    17.29   OAI211_X1
+       38   40.432   OAI21_X1
+       10    15.96   OAI221_X1
+       43    57.19   OAI22_X1
+       15    15.96   OR2_X1
+       10     13.3   OR3_X1
+        1    1.596   OR4_X1
+        1    1.596   XNOR2_X1
+        2    3.192   XOR2_X1
+        1        - submodules
+        1        -   $paramod$1285c1740f954ea74f58bd88e5bc92df4339bc55\mem_inst
+
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage1': 709.156000
+     of which used for sequential elements: 223.440000 (31.51%)
+
+=== $paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage2 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       54        - wires
+      152        - wire bits
+       14        - public wires
+      103        - public wire bits
+       11        - ports
+       91        - port bits
+       81   121.03 cells
+       32   34.048   AND2_X1
+       12    63.84   DFFR_X1
+       24   12.768   INV_X1
+       13   10.374   NOR2_X1
+
+   Chip area for module '$paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage2': 121.030000
+     of which used for sequential elements: 63.840000 (52.75%)
+
+=== $paramod$68f2e715687b7c9752cebe1034244efdb7342d0e\decode_stage1 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      326        - wires
+     1040        - wire bits
+       56        - public wires
+      770        - public wire bits
+       32        - ports
+      442        - port bits
+      503  846.944 cells
+       11   11.704   AND2_X1
+        1     1.33   AND3_X1
+        3    3.192   AOI21_X1
+       43    57.19   AOI22_X1
+       43   228.76   DFFR_X1
+      104   55.328   INV_X1
+        1    0.532   LOGIC0_X1
+      212  394.744   MUX2_X1
+       15    11.97   NAND2_X1
+        2    2.128   NAND3_X1
+        2     2.66   NAND4_X1
+       16   12.768   NOR2_X1
+        7    7.448   NOR3_X1
+        5     6.65   NOR4_X1
+       10     13.3   OAI211_X1
+       12   12.768   OAI21_X1
+        1    1.862   OAI33_X1
+        1    1.064   OR2_X1
+        3     3.99   OR3_X1
+        4    6.384   OR4_X1
+        7   11.172   XOR2_X1
+        1        - submodules
+        1        -   $paramod$2d72d0162583815a048bf437a8014b4978bef4e8\mem_RF
+
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+
+   Chip area for module '$paramod$68f2e715687b7c9752cebe1034244efdb7342d0e\decode_stage1': 846.944000
+     of which used for sequential elements: 228.760000 (27.01%)
+
+=== $paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage1 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1435        - wires
+     2355        - wire bits
+       59        - public wires
+      979        - public wire bits
+       41        - ports
+      602        - port bits
+     1504  2344.79 cells
+       64    85.12   AOI211_X1
+      249  1324.68   DFFR_X1
+      563  299.516   INV_X1
+       64  119.168   MUX2_X1
+      250    199.5   NAND2_X1
+       65    51.87   NOR2_X1
+      249  264.936   OAI21_X1
+        1        - submodules
+        1        -   alu_64_stage1
+
+   Chip area for module '$paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage1': 2344.790000
+     of which used for sequential elements: 1324.680000 (56.49%)
+
+=== $paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage2 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1541        - wires
+     2556        - wire bits
+       59        - public wires
+     1043        - public wire bits
+       34        - ports
+      503        - port bits
+     1492 2.79E+03 cells
+        1    1.064   AND2_X1
+        3     3.99   AND3_X1
+        7    7.448   AOI21_X1
+      339   450.87   AOI22_X1
+      345   1835.4   DFFR_X1
+      685   364.42   INV_X1
+        1    0.532   LOGIC0_X1
+        4    7.448   MUX2_X1
+       21   16.758   NAND2_X1
+        7    7.448   NAND3_X1
+        4     5.32   NAND4_X1
+       17   13.566   NOR2_X1
+        4    4.256   NOR3_X1
+       16    21.28   NOR4_X1
+       13   13.832   OAI21_X1
+        1    1.064   OR2_X1
+        2     2.66   OR3_X1
+        1    1.596   OR4_X1
+       13   20.748   XNOR2_X1
+        8   12.768   XOR2_X1
+        1        - submodules
+        1        -   alu_64_stage2
+
+   Chip area for module '$paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage2': 2792.468000
+     of which used for sequential elements: 1835.400000 (65.73%)
+
+=== $paramod$b3dd92f1874a664f14b2ac4ba7808ef299556ffb\mem_stage ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1485        - wires
+     2551        - wire bits
+       77        - public wires
+      981        - public wire bits
+       48        - ports
+      623        - port bits
+     1662   2620.1 cells
+      124  131.936   AND2_X1
+       11    14.63   AND3_X1
+        4    6.384   AND4_X1
+        8    10.64   AOI211_X1
+       94  100.016   AOI21_X1
+        1    1.596   AOI221_X1
+       67    89.11   AOI22_X1
+      258  1372.56   DFFR_X1
+      661  351.652   INV_X1
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+       42   78.204   MUX2_X1
+       23   18.354   NAND2_X1
+       78   82.992   NAND3_X1
+        1     1.33   NAND4_X1
+       33   26.334   NOR2_X1
+       20    21.28   NOR3_X1
+        8    10.64   NOR4_X1
+        4     5.32   OAI211_X1
+       19   20.216   OAI21_X1
+        2    3.192   OAI221_X1
+      169   224.77   OAI22_X1
+        5     5.32   OR2_X1
+        8    10.64   OR3_X1
+        1    1.596   OR4_X1
+       13   20.748   XNOR2_X1
+        6    9.576   XOR2_X1
+        2        - submodules
+        1        -   $paramod$5f2d20329bcb22d754b6a1ab58f5f89a7d6cac73\mem_data
+        1        -   $paramod$6f28073fd36741a80742540673499977eeea97ea\mem_data
+
+   Area for cell type \fakeram45_256x16 is unknown!
+   Area for cell type \fakeram45_256x32 is unknown!
+
+   Chip area for module '$paramod$b3dd92f1874a664f14b2ac4ba7808ef299556ffb\mem_stage': 2620.100000
+     of which used for sequential elements: 1372.560000 (52.39%)
+
+=== $paramod$18f7b1c276524034e7f5eaaa5af66545ab684ccf\wb_stage1 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      563        - wires
+      863        - wire bits
+       25        - public wires
+      325        - public wire bits
+       17        - ports
+      233        - port bits
+      602  972.496 cells
+       57   60.648   AND2_X1
+       92   489.44   DFFR_X1
+      185    98.42   INV_X1
+       80   148.96   MUX2_X1
+       93   74.214   NAND2_X1
+        1    0.798   NOR2_X1
+       92   97.888   OAI21_X1
+        2    2.128   OR2_X1
+
+   Chip area for module '$paramod$18f7b1c276524034e7f5eaaa5af66545ab684ccf\wb_stage1': 972.496000
+     of which used for sequential elements: 489.440000 (50.33%)
+
+=== $paramod$0583c2c56e1c2e69e17bcd1c75fbcee224bcf3af\mem_register_slice ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      542        - wires
+      826        - wire bits
+       16        - public wires
+      298        - public wire bits
+       10        - ports
+      150        - port bits
+      600 1.29E+03 cells
+       72    95.76   AOI22_X1
+      148   787.36   DFFR_X1
+      221  117.572   INV_X1
+      146  271.852   MUX2_X1
+        2    1.596   NAND2_X1
+        3     3.99   OAI211_X1
+        2    2.128   OAI21_X1
+        4    6.384   XNOR2_X1
+        2    3.192   XOR2_X1
+
+   Chip area for module '$paramod$0583c2c56e1c2e69e17bcd1c75fbcee224bcf3af\mem_register_slice': 1289.834000
+     of which used for sequential elements: 787.360000 (61.04%)
+
+=== $paramod$44a83ff4d0a9c179cc067f2a8eed5e6c3f63b269\gpu_shared_dmem ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       13        - wires
+      291        - wire bits
+       13        - public wires
+      291        - public wire bits
+       13        - ports
+      291        - port bits
+        1        - cells
+        1        -   placeholder_gpu_shared_dmem_16384x64_dp
+
+   Area for cell type \placeholder_gpu_shared_dmem_16384x64_dp is unknown!
+
+=== arm_64_top ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      300        - wires
+     1841        - wire bits
+      106        - public wires
+     1647        - public wire bits
+       24        - ports
+      419        - port bits
+      194  562.856 cells
+       96   510.72   DFFR_X1
+       96   51.072   INV_X1
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+        9        - submodules
+        2        -   $paramod$0583c2c56e1c2e69e17bcd1c75fbcee224bcf3af\mem_register_slice
+        1        -   $paramod$18f7b1c276524034e7f5eaaa5af66545ab684ccf\wb_stage1
+        1        -   $paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage1
+        1        -   $paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage2
+        1        -   $paramod$68f2e715687b7c9752cebe1034244efdb7342d0e\decode_stage1
+        1        -   $paramod$b3dd92f1874a664f14b2ac4ba7808ef299556ffb\mem_stage
+        1        -   $paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage1
+        1        -   $paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage2
+
+   Area for cell type \fakeram45_256x16 is unknown!
+   Area for cell type \fakeram45_256x32 is unknown!
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '\arm_64_top': 562.856000
+     of which used for sequential elements: 510.720000 (90.74%)
+
+=== $paramod$68c682da32fb1d4de2301479e96b19315cf62891\gpu_top_fifo_if ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      219        - wires
+     3511        - wire bits
+      139        - public wires
+     3431        - public wire bits
+       26        - ports
+      434        - port bits
+       83  104.538 cells
+        1    1.064   AND2_X1
+        1     1.33   AND3_X1
+        1     1.33   AOI211_X1
+        3    4.788   AOI221_X1
+        3     3.99   AOI22_X1
+        4    2.128   INV_X1
+        1    0.532   LOGIC0_X1
+        6    4.788   NAND2_X1
+        5     5.32   NAND3_X1
+        5     6.65   NAND4_X1
+        1    0.798   NOR2_X1
+       18   19.152   NOR3_X1
+        1     1.33   OAI211_X1
+        2    2.128   OAI21_X1
+        1     1.33   OR3_X1
+        3    4.788   OR4_X1
+       27   43.092   XOR2_X1
+       10        - submodules
+        1        -   $paramod$f306278a51e322a8c310d28c4bf2816dee84424f\gpu_if_stage
+        1        -   $paramod$fddb39ee1f25af7888da573b1d04563e85a07f45\gpu_control
+        1        -   $paramod$fe6d0e00f69ec288219f41912daf8e8160413f0e\gpu_ex_stage
+        1        -   $paramod\gpu_ex_mm_reg\DMEM_AW=s32'00000000000000000000000000001110
+        1        -   $paramod\gpu_id_ex_reg\PC_W=s32'00000000000000000000000000010000
+        1        -   $paramod\gpu_id_stage\PC_W=s32'00000000000000000000000000010000
+        1        -   $paramod\gpu_if_id_reg\PC_W=s32'00000000000000000000000000010000
+        1        -   $paramod\gpu_mm_stage\DMEM_AW=s32'00000000000000000000000000001110
+        1        -   gpu_mm_wb_reg
+        1        -   gpu_wb_stage
+
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for module '$paramod$68c682da32fb1d4de2301479e96b19315cf62891\gpu_top_fifo_if': 104.538000
+     of which used for sequential elements: 0.000000 (0.00%)
+
+=== $paramod$9bac457b63bc1ce3e69eaa487d879c0886aa5713\fifo_bram ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       10        - wires
+      308        - wire bits
+       10        - public wires
+      308        - public wire bits
+       10        - ports
+      308        - port bits
+        1        - cells
+        1        -   placeholder_fifo_bram_256x72_dp
+
+   Area for cell type \placeholder_fifo_bram_256x72_dp is unknown!
+
+=== $paramod$8f02373aa1c24c6598370c5fe14e7d407c891391\ann_task_ingress ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+      579        - wires
+     1290        - wire bits
+       32        - public wires
+      683        - public wire bits
+       20        - ports
+      406        - port bits
+      637 1.15E+03 cells
+       82   87.248   AND2_X1
+        4     5.32   AND3_X1
+       11   17.556   AND4_X1
+        4     5.32   AOI211_X1
+       26   27.664   AOI21_X1
+       13    17.29   AOI22_X1
+      113   601.16   DFFR_X1
+      155    82.46   INV_X1
+        1    0.532   LOGIC0_X1
+        1    0.532   LOGIC1_X1
+       80   148.96   MUX2_X1
+       24   19.152   NAND2_X1
+        9    9.576   NAND3_X1
+        3     3.99   NAND4_X1
+       27   21.546   NOR2_X1
+       11   11.704   NOR3_X1
+       12    15.96   NOR4_X1
+        2     2.66   OAI211_X1
+       22   23.408   OAI21_X1
+        1    1.596   OAI221_X1
+       11    14.63   OAI22_X1
+        1    1.862   OAI33_X1
+        6    6.384   OR2_X1
+        1     1.33   OR3_X1
+        2    3.192   OR4_X1
+       10    15.96   XNOR2_X1
+        5     7.98   XOR2_X1
+        1        - submodules
+        1        -   $paramod$9bac457b63bc1ce3e69eaa487d879c0886aa5713\fifo_bram
+
+   Area for cell type \placeholder_fifo_bram_256x72_dp is unknown!
+
+   Chip area for module '$paramod$8f02373aa1c24c6598370c5fe14e7d407c891391\ann_task_ingress': 1154.972000
+     of which used for sequential elements: 601.160000 (52.05%)
+
+=== $paramod$04c1357efc5056b9e606d50f1e56b2d0fa15fb1c\ann_feature_unpack ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     2139        - wires
+     2940        - wire bits
+       36        - public wires
+      762        - public wire bits
+       21        - ports
+      308        - port bits
+     2146 3.73E+03 cells
+       34   36.176   AND2_X1
+       11    14.63   AND3_X1
+        7   11.172   AND4_X1
+       15    19.95   AOI211_X1
+       81   86.184   AOI21_X1
+       23   36.708   AOI221_X1
+       64  136.192   AOI222_X1
+      122   162.26   AOI22_X1
+      390   2074.8   DFFR_X1
+      745   396.34   INV_X1
+        1    0.532   LOGIC1_X1
+       46   85.652   MUX2_X1
+       59   47.082   NAND2_X1
+      101  107.464   NAND3_X1
+       20     26.6   NAND4_X1
+       79   63.042   NOR2_X1
+       30    31.92   NOR3_X1
+       23    30.59   NOR4_X1
+       12    15.96   OAI211_X1
+      156  165.984   OAI21_X1
+        4    6.384   OAI221_X1
+        1    2.128   OAI222_X1
+       57    75.81   OAI22_X1
+       11   11.704   OR2_X1
+       11    14.63   OR3_X1
+        4    6.384   OR4_X1
+       25     39.9   XNOR2_X1
+       14   22.344   XOR2_X1
+
+   Chip area for module '$paramod$04c1357efc5056b9e606d50f1e56b2d0fa15fb1c\ann_feature_unpack': 3728.522000
+     of which used for sequential elements: 2074.800000 (55.65%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+    53310 8.58E+04 user_top
+      402  489.174 $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\action_dispatcher
+     2189 4.71E+03 $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\packet_action_selector
+      473   641.06 $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\ann_engine_wrapper
+     2146 3.73E+03   $paramod$04c1357efc5056b9e606d50f1e56b2d0fa15fb1c\ann_feature_unpack
+     3085  5.4E+03   $paramod$669a376bbd113d2af5b01ee5bdda4ff69a645cfb\ann_cpu_gpu_compute_core
+        1        -     $paramod$44a83ff4d0a9c179cc067f2a8eed5e6c3f63b269\gpu_shared_dmem
+       83  104.538     $paramod$68c682da32fb1d4de2301479e96b19315cf62891\gpu_top_fifo_if
+      188  351.652       $paramod$f306278a51e322a8c310d28c4bf2816dee84424f\gpu_if_stage
+      115  140.448         $paramod$79a8e8dd46bbae3e63bd7c0820b336831c5dbc68\gpu_imem
+      144   207.48         $paramod\gpu_pc\PC_W=s32'00000000000000000000000000010000
+     5249 7.83E+03       $paramod$fddb39ee1f25af7888da573b1d04563e85a07f45\gpu_control
+    11431 1.49E+04       $paramod$fe6d0e00f69ec288219f41912daf8e8160413f0e\gpu_ex_stage
+       49   59.052         bf16_add_sub
+      380   449.54         bf16_mult
+     1225  2198.49       $paramod\gpu_ex_mm_reg\DMEM_AW=s32'00000000000000000000000000001110
+     2141 4.13E+03       $paramod\gpu_id_ex_reg\PC_W=s32'00000000000000000000000000010000
+     8090 1.29E+04       $paramod\gpu_id_stage\PC_W=s32'00000000000000000000000000010000
+      196  351.918       $paramod\gpu_if_id_reg\PC_W=s32'00000000000000000000000000010000
+       18   19.418       $paramod\gpu_mm_stage\DMEM_AW=s32'00000000000000000000000000001110
+      450    877.8       gpu_mm_wb_reg
+      136  246.316       gpu_wb_stage
+      194  562.856     arm_64_top
+      600 1.29E+03       $paramod$0583c2c56e1c2e69e17bcd1c75fbcee224bcf3af\mem_register_slice
+      602  972.496       $paramod$18f7b1c276524034e7f5eaaa5af66545ab684ccf\wb_stage1
+      513  709.156       $paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage1
+        3    1.064         $paramod$1285c1740f954ea74f58bd88e5bc92df4339bc55\mem_inst
+       81   121.03       $paramod$4fef198d0fd814e7a9a6fa9c1d05df465ac93394\fetch_stage2
+      503  846.944       $paramod$68f2e715687b7c9752cebe1034244efdb7342d0e\decode_stage1
+        1        -         $paramod$2d72d0162583815a048bf437a8014b4978bef4e8\mem_RF
+     1662   2620.1       $paramod$b3dd92f1874a664f14b2ac4ba7808ef299556ffb\mem_stage
+        3    0.532         $paramod$5f2d20329bcb22d754b6a1ab58f5f89a7d6cac73\mem_data
+        3    1.064         $paramod$6f28073fd36741a80742540673499977eeea97ea\mem_data
+     1504  2344.79       $paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage1
+     1337 1.67E+03         alu_64_stage1
+     1492 2.79E+03       $paramod$c430b011909ab7f4ff923799c454ad2832ba7968\ex_stage2
+      840   861.84         alu_64_stage2
+      637 1.15E+03   $paramod$8f02373aa1c24c6598370c5fe14e7d407c891391\ann_task_ingress
+        1        -     $paramod$9bac457b63bc1ce3e69eaa487d879c0886aa5713\fifo_bram
+      418  854.126 $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\convertible_fifo
+        1        -   $paramod$9bac457b63bc1ce3e69eaa487d879c0886aa5713\fifo_bram
+     1925 3.33E+03 $paramod$43d2f0f20fbf75a962f3ded7f9eb1f01eeed8c00\generic_regs
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+    52133        - wires
+    86693        - wire bits
+     1735        - public wires
+    35274        - public wire bits
+      832        - ports
+    16573        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+    53310 8.58E+04 cells
+     1671 1.78E+03   AND2_X1
+      361   480.13   AND3_X1
+      165   263.34   AND4_X1
+     2153  2863.49   AOI211_X1
+     2976 3.17E+03   AOI21_X1
+      274  437.304   AOI221_X1
+      247  525.616   AOI222_X1
+     2815  3743.95   AOI22_X1
+     3887 2.07E+04   DFFR_X1
+       11    58.52   DFFS_X1
+     3585 1.62E+04   DFF_X1
+     9983 5.31E+03   INV_X1
+       16    8.512   LOGIC0_X1
+       10     5.32   LOGIC1_X1
+     3426 6.38E+03   MUX2_X1
+     4533 3.62E+03   NAND2_X1
+      945  1005.48   NAND3_X1
+      166   220.78   NAND4_X1
+     3889  3.1E+03   NOR2_X1
+      657  699.048   NOR3_X1
+      766  1018.78   NOR4_X1
+     1118  1486.94   OAI211_X1
+     3661  3.9E+03   OAI21_X1
+      138  220.248   OAI221_X1
+       17   36.176   OAI222_X1
+     1015  1349.95   OAI22_X1
+       41   76.342   OAI33_X1
+      623  662.872   OR2_X1
+      315   418.95   OR3_X1
+       33   52.668   OR4_X1
+     2158 3.44E+03   XNOR2_X1
+     1642 2.62E+03   XOR2_X1
+        5        -   fakeram45_1024x32
+        1        -   fakeram45_256x16
+        2        -   fakeram45_256x32
+        3        -   placeholder_fifo_bram_256x72_dp
+        1        -   placeholder_gpu_shared_dmem_16384x64_dp
+        1        -   placeholder_mem_rf_64x64_1w2r
+        6  8.2E+04 submodules
+        1  489.174   $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\action_dispatcher
+        1 4.71E+03   $paramod$14025abf6446acacd336ea2dd7466fafd741c8a1\packet_action_selector
+        1 7.17E+04   $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\ann_engine_wrapper
+        2 1.71E+03   $paramod$40d4f07cc4903043208ab7c52f8a11ff673037b2\convertible_fifo
+        1 3.33E+03   $paramod$43d2f0f20fbf75a962f3ded7f9eb1f01eeed8c00\generic_regs
+
+   Area for cell type \placeholder_fifo_bram_256x72_dp is unknown!
+   Area for cell type \placeholder_gpu_shared_dmem_16384x64_dp is unknown!
+   Area for cell type \fakeram45_256x16 is unknown!
+   Area for cell type \fakeram45_256x32 is unknown!
+   Area for cell type \placeholder_mem_rf_64x64_1w2r is unknown!
+   Area for cell type \fakeram45_1024x32 is unknown!
+
+   Chip area for top module '\user_top': 85840.062000
+     of which used for sequential elements: 36948.730000 (43.04%)
+
