@@ -1,0 +1,17 @@
+mode=model
+source=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/dataset/export/rsu_ann_model_int16.json
+input_dim=20
+output_dim=4
+result_mode=compact_class_score
+result_base=0x00000b6c
+layer_count=3
+test_count=8
+manifest=model_manifest.json
+cpu_source=cpu_runtime.s
+cpu_image=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_init_board/bundle/cpu_build/image.txt
+gpu_program=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_init_board/bundle/gpu_bundle/program.gpus
+gpu_params=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_init_board/bundle/gpu_build/compiled_gpu_params.txt
+wire_result_semantics=binary models keep legacy logits; multi-class models use class_id+score
+layer0=in:20 out:32 src:A+0x00 dst:D+0x00 act=relu weight_off=0x00 bias_off=0x00
+layer1=in:32 out:16 src:D+0x00 dst:A+0x320 act=relu weight_off=0x280 bias_off=0x20
+layer2=in:16 out:4 src:A+0x320 dst:D+0x76c act=none weight_off=0x480 bias_off=0x30

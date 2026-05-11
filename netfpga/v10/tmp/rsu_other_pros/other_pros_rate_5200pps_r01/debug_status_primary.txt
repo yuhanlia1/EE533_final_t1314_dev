@@ -1,0 +1,13 @@
+offload_accept_count   = 10420
+frame_hold_count       = 10420
+compute_start_count    = 10420
+compute_done_count     = 10420
+result_emit_count      = 10420
+last_parse_request_id  = 0x589f
+last_compute_request_id = 0x589f
+last_emit_request_id   = 0x589f
+flags_raw              = 0x00000000
+ingress_overflow_seen  = 0
+parse_nonfatal_seen    = 0
+parse_fatal_seen       = 0
+emit_stall_seen        = 0

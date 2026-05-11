@@ -27,6 +27,7 @@ DEFAULT_SEND_DURATION_SECONDS = 2.0
 DEFAULT_DRAIN_TIMEOUT_SECONDS = 1.0
 DEFAULT_RATE_ACCURACY_TOLERANCE_RATIO = 0.20
 DEFAULT_RATE_CHUNK_TARGET_SECONDS = 0.25
+DEFAULT_ALLOW_FALLBACK = False
 DEFAULT_TERM_WIDTH = 100
 TERM_WIDTH_CAP = 100
 RATE_STATE_JSON = "other_pros_rate_state.json"
@@ -180,6 +181,7 @@ def _rate_experiment(rate_pps: int, defaults: dict, rate_index: int):
         "rate_generation_mode": board_metrics.RATE_GENERATION_MODE_AUTO,
         "rate_accuracy_tolerance_ratio": float(defaults["rate_accuracy_tolerance_ratio"]),
         "rate_chunk_target_seconds": float(defaults["rate_chunk_target_seconds"]),
+        "allow_fallback": bool(defaults.get("allow_fallback", DEFAULT_ALLOW_FALLBACK)),
     }
 
 
@@ -243,6 +245,7 @@ def _base_summary(run_dir: Path, state: dict):
         "drain_timeout_seconds": state.get("default_drain_timeout_seconds"),
         "rate_accuracy_tolerance_ratio": state.get("default_rate_accuracy_tolerance_ratio"),
         "rate_chunk_target_seconds": state.get("default_rate_chunk_target_seconds"),
+        "allow_fallback": bool(state.get("default_allow_fallback", DEFAULT_ALLOW_FALLBACK)),
         "result_count": 0,
         "max_zero_loss_pps": None,
         "first_overload_pps": None,
@@ -264,6 +267,7 @@ def _render_summary_markdown(summary: dict) -> str:
         "- rate_points_req_per_sec: `%s`" % summary.get("rate_points_req_per_sec"),
         "- send_duration_seconds: `%s`" % summary.get("send_duration_seconds"),
         "- drain_timeout_seconds: `%s`" % summary.get("drain_timeout_seconds"),
+        "- allow_fallback: `%s`" % summary.get("allow_fallback"),
         "- max_zero_loss_pps: `%s`" % summary.get("max_zero_loss_pps"),
         "- first_overload_pps: `%s`" % summary.get("first_overload_pps"),
         "- threshold_complete: `%s`" % summary.get("threshold_complete"),
@@ -297,7 +301,7 @@ def _write_summary(run_dir: Path, summary: dict):
     _write_text(_summary_md_path(run_dir), _render_summary_markdown(summary))
 
 
-def _print_scan_header(run_dir: Path, rates):
+def _print_scan_header(run_dir: Path, rates, allow_fallback: bool):
     width = _term_width()
     _print_separator("=", width=width)
     print("RSU Other Pros Demo")
@@ -306,6 +310,7 @@ def _print_scan_header(run_dir: Path, rates):
     _print_kv("Method", "Rate Scan", key_width=18)
     _print_kv("Run Dir", run_dir, key_width=18)
     _print_kv("Rates", ",".join(str(rate) for rate in rates), key_width=18)
+    _print_kv("Fallback", "enabled" if allow_fallback else "disabled", key_width=18)
     _print_separator("-", width=width)
 
 
@@ -432,11 +437,7 @@ class OtherProsRateRunner(board_metrics.MetricsRunner):
             result["rate_generation_mode_attempted"].append(board_metrics.RATE_GENERATION_MODE_PACED)
 
             fallback_attempt = None
-            if (
-                str(experiment.get("rate_generation_mode", board_metrics.RATE_GENERATION_MODE_AUTO))
-                == board_metrics.RATE_GENERATION_MODE_AUTO
-                and not primary_attempt.get("measurement_valid")
-            ):
+            if bool(experiment.get("allow_fallback", DEFAULT_ALLOW_FALLBACK)) and not primary_attempt.get("measurement_valid"):
                 self._log(handle, "rate primary invalid; rerunning bringup for chunked fallback")
                 self._run_remote_script(
                     handle,
@@ -551,6 +552,7 @@ def init_command(args: argparse.Namespace) -> int:
         "default_drain_timeout_seconds": drain_timeout_seconds,
         "default_rate_accuracy_tolerance_ratio": float(defaults["default_rate_accuracy_tolerance_ratio"]),
         "default_rate_chunk_target_seconds": float(defaults["default_rate_chunk_target_seconds"]),
+        "default_allow_fallback": bool(args.allow_fallback),
     }
     _write_json(_state_path(run_dir), state)
     summary = _base_summary(run_dir, state)
@@ -586,6 +588,11 @@ def scan_command(args: argparse.Namespace) -> int:
         ),
         "rate_accuracy_tolerance_ratio": float(state["default_rate_accuracy_tolerance_ratio"]),
         "rate_chunk_target_seconds": float(state["default_rate_chunk_target_seconds"]),
+        "allow_fallback": (
+            bool(args.allow_fallback)
+            if args.allow_fallback is not None
+            else bool(state.get("default_allow_fallback", DEFAULT_ALLOW_FALLBACK))
+        ),
     }
     runner = OtherProsRateRunner(output_dir=run_dir, config_path=config_path, defaults=runner_defaults, password=password)
 
@@ -600,7 +607,7 @@ def scan_command(args: argparse.Namespace) -> int:
         if step_log_path.exists() and args.force:
             step_log_path.unlink()
 
-    _print_scan_header(run_dir, rates)
+    _print_scan_header(run_dir, rates, scan_defaults["allow_fallback"])
     rate_results = []
     for rate_index, rate in enumerate(rates):
         experiment = _rate_experiment(rate, scan_defaults, rate_index)
@@ -616,6 +623,7 @@ def scan_command(args: argparse.Namespace) -> int:
         "drain_timeout_seconds": scan_defaults["drain_timeout_seconds"],
         "rate_accuracy_tolerance_ratio": scan_defaults["rate_accuracy_tolerance_ratio"],
         "rate_chunk_target_seconds": scan_defaults["rate_chunk_target_seconds"],
+        "allow_fallback": scan_defaults["allow_fallback"],
         "result_count": len(rate_results),
         "rate_results": rate_results,
         **analysis,
@@ -636,6 +644,12 @@ def build_parser() -> argparse.ArgumentParser:
     init_parser.add_argument("--rates", help="Comma-separated pps list to store as the default live scan ladder.")
     init_parser.add_argument("--send-duration-seconds", type=float)
     init_parser.add_argument("--drain-timeout-seconds", type=float)
+    init_parser.add_argument(
+        "--allow-fallback",
+        action="store_true",
+        default=False,
+        help="Allow chunked replay fallback with re-bringup when paced rate control is invalid.",
+    )
     init_parser.add_argument("--force", action="store_true", default=False)
     init_parser.set_defaults(func=init_command)
 
@@ -645,6 +659,21 @@ def build_parser() -> argparse.ArgumentParser:
     scan_parser.add_argument("--rates", help="Comma-separated pps list to override the stored live scan ladder.")
     scan_parser.add_argument("--send-duration-seconds", type=float)
     scan_parser.add_argument("--drain-timeout-seconds", type=float)
+    scan_parser.add_argument(
+        "--allow-fallback",
+        dest="allow_fallback",
+        action="store_const",
+        const=True,
+        default=None,
+        help="Allow chunked replay fallback with re-bringup when paced rate control is invalid.",
+    )
+    scan_parser.add_argument(
+        "--no-fallback",
+        dest="allow_fallback",
+        action="store_const",
+        const=False,
+        help="Disable chunked replay fallback and keep scan to a single paced attempt.",
+    )
     scan_parser.add_argument("--force", action="store_true", default=False)
     scan_parser.set_defaults(func=scan_command)
 

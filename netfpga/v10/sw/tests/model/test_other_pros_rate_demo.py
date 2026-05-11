@@ -36,6 +36,7 @@ class OtherProsRateDemoTests(unittest.TestCase):
                 "drain_timeout_seconds": 1.0,
                 "rate_accuracy_tolerance_ratio": 0.2,
                 "rate_chunk_target_seconds": 0.25,
+                "allow_fallback": False,
             },
             2,
         )
@@ -43,6 +44,7 @@ class OtherProsRateDemoTests(unittest.TestCase):
         self.assertEqual(experiment["expected_count"], 800)
         self.assertEqual(experiment["prepare_limit"], 800)
         self.assertEqual(experiment["request_id_base"], "0x3200")
+        self.assertFalse(experiment["allow_fallback"])
 
     def test_analyze_rate_results_finds_zero_loss_and_first_overload(self) -> None:
         analysis = other_pros_rate_demo._analyze_rate_results(
@@ -67,6 +69,7 @@ class OtherProsRateDemoTests(unittest.TestCase):
                 "rate_points_req_per_sec": [10, 50, 2400],
                 "send_duration_seconds": 2.0,
                 "drain_timeout_seconds": 1.0,
+                "allow_fallback": False,
                 "max_zero_loss_pps": 2000.0,
                 "first_overload_pps": 2400.0,
                 "threshold_complete": True,
@@ -88,6 +91,7 @@ class OtherProsRateDemoTests(unittest.TestCase):
 
         self.assertIn("max_zero_loss_pps", rendered)
         self.assertIn("first_overload_pps", rendered)
+        self.assertIn("allow_fallback", rendered)
         self.assertIn("| 2400.0 | FAIL | no | 3 | 3 | 555.000 | chunked_replay_fallback |", rendered)
 
     def test_print_scan_footer_has_clean_summary_lines(self) -> None:
@@ -120,6 +124,7 @@ class OtherProsRateDemoTests(unittest.TestCase):
                 "default_drain_timeout_seconds": 1.0,
                 "default_rate_accuracy_tolerance_ratio": 0.2,
                 "default_rate_chunk_target_seconds": 0.25,
+                "default_allow_fallback": False,
             }
             summary = other_pros_rate_demo._base_summary(run_dir, state)
             other_pros_rate_demo._write_summary(run_dir, summary)
@@ -127,6 +132,23 @@ class OtherProsRateDemoTests(unittest.TestCase):
 
         self.assertEqual(loaded["rate_points_req_per_sec"], [10, 25, 50])
         self.assertEqual(loaded["overall_verdict"], "pending")
+        self.assertFalse(loaded["allow_fallback"])
+
+    def test_scan_parser_defaults_to_state_fallback_choice(self) -> None:
+        args = other_pros_rate_demo.build_parser().parse_args(["scan", "--run-dir", "/tmp/demo"])
+        self.assertIsNone(args.allow_fallback)
+
+    def test_scan_parser_accepts_allow_fallback(self) -> None:
+        args = other_pros_rate_demo.build_parser().parse_args(
+            ["scan", "--run-dir", "/tmp/demo", "--allow-fallback"]
+        )
+        self.assertTrue(args.allow_fallback)
+
+    def test_scan_parser_accepts_no_fallback(self) -> None:
+        args = other_pros_rate_demo.build_parser().parse_args(
+            ["scan", "--run-dir", "/tmp/demo", "--no-fallback"]
+        )
+        self.assertFalse(args.allow_fallback)
 
 
 if __name__ == "__main__":

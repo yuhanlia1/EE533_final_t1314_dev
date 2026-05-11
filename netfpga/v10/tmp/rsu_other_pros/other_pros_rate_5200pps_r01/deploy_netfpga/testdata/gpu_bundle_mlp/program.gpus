@@ -1,0 +1,26 @@
+.entry:
+  loadi r6, 0
+  load r0, A, 0
+  load r1, B, 0
+  tensor_mac r6, r0, r1
+  load r0, A, 2
+  load r1, B, 2
+  tensor_mac r6, r0, r1
+  load r2, C, 0
+  add r6, r6, r2
+  relu r6, r6
+  store A, r6, 16
+
+  loadi r6, 0
+  load r0, A, 0
+  load r1, B, 4
+  tensor_mac r6, r0, r1
+  load r0, A, 2
+  load r1, B, 6
+  tensor_mac r6, r0, r1
+  load r2, C, 2
+  add r6, r6, r2
+  relu r6, r6
+  store A, r6, 18
+  halt
+

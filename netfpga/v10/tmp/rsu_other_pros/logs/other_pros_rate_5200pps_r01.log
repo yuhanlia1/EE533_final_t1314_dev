@@ -1,0 +1,97 @@
+[2026-05-11T15:17:23] run_name=other_pros_rate_5200pps_r01
+[2026-05-11T15:17:23] mode=rate_scan
+[2026-05-11T15:17:23] LOCAL  /usr/bin/python3 /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/scripts/board/boardctl.py prepare --model /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/dataset/export/rsu_ann_model_int16.json --out-dir /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01 --run-name other_pros_rate_5200pps_r01 --limit 10400 --sample-pool-mode repeat --force --bitfile nw_proc4_2_moreobserve.bit --netfpga-host netfpga@nf9.usc.edu --sender-host node4@nf5.usc.edu --receiver-host node4@nf7.usc.edu --sender-iface port0 --receiver-iface port2 --request-id-base 0x3000 --batch-time-window-seconds 1.0
+run_dir=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01
+manifest=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/manifest.json
+bundle_dir=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/bundle
+pcap_dir=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/pcaps
+selected_samples=10400
+source_test_vector_count=8
+prepared_sample_count=10400
+sample_pool_mode=repeat
+result_mode=compact_class_score
+[2026-05-11T15:17:24] LOCAL  /usr/bin/python3 /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/scripts/board/boardctl.py bringup /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/manifest.json
+generated /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/local_stage_netfpga.sh
+generated /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf3_bringup.sh
+[2026-05-11T15:17:24] LOCAL  /usr/bin/python3 /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/scripts/board/boardctl.py capture /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/manifest.json
+generated capture workflow scripts under /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands
+[2026-05-11T15:17:24] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 netfpga@nf9.usc.edu 'mkdir -p /home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_netfpga /home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_results'
+[2026-05-11T15:17:24] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -r /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/deploy_netfpga/. netfpga@nf9.usc.edu:/home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_netfpga/
+[2026-05-11T15:17:25] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -r /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/bundle netfpga@nf9.usc.edu:/home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_netfpga/bundle
+[2026-05-11T15:17:26] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node4@nf5.usc.edu 'mkdir -p $HOME/v8/other_pros_rate_5200pps_r01_sender/pcaps $HOME/v8/other_pros_rate_5200pps_r01_sender/captures'
+[2026-05-11T15:17:26] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -r /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/pcaps/. 'node4@nf5.usc.edu:~/v8/other_pros_rate_5200pps_r01_sender/pcaps/'
+[2026-05-11T15:17:28] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node4@nf7.usc.edu 'mkdir -p $HOME/v8/other_pros_rate_5200pps_r01_receiver/captures'
+[2026-05-11T15:17:28] ASYNC  sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node4@nf7.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+set -euo pipefail
+mkdir -p "$HOME/v8/other_pros_rate_5200pps_r01_receiver/captures"
+rm -f "$HOME/v8/other_pros_rate_5200pps_r01_receiver/captures/offload_rate_receiver.cap"
+sudo /usr/sbin/tcpdump -i port2 -nn -U '"'"'"'"'"'"'"'"'udp and src host 10.0.16.3 and dst host 10.0.18.3'"'"'"'"'"'"'"'"' -w "$HOME/v8/other_pros_rate_5200pps_r01_receiver/captures/offload_rate_receiver.cap"
+'"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf1_capture_offload_rate_primary.sh
+[2026-05-11T15:17:28] ASYNC  sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node4@nf5.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+set -euo pipefail
+mkdir -p "$HOME/v8/other_pros_rate_5200pps_r01_sender/captures"
+rm -f "$HOME/v8/other_pros_rate_5200pps_r01_sender/captures/offload_rate_sender.cap"
+sudo /usr/sbin/tcpdump -i port0 -nn -U -c 10400 '"'"'"'"'"'"'"'"'udp and src host 10.0.16.3 and dst host 10.0.18.3'"'"'"'"'"'"'"'"' -w "$HOME/v8/other_pros_rate_5200pps_r01_sender/captures/offload_rate_sender.cap"
+'"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf4_capture_offload_rate_sender_primary.sh
+tcpdump: listening on port2, link-type EN10MB (Ethernet), capture size 96 bytes
+tcpdump: listening on port0, link-type EN10MB (Ethernet), capture size 96 bytes
+[2026-05-11T15:17:29] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node4@nf5.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+set -euo pipefail
+sudo /usr/bin/tcpreplay -i port0 "$HOME/v8/other_pros_rate_5200pps_r01_sender/pcaps/offload_rate_paced.pcap"
+'"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf4_replay_offload_rate_primary.sh
+10400 packets captured
+10400 packets received by filter
+0 packets dropped by kernel
+Actual: 10400 packets (936000 bytes) sent in 2.00 seconds.
+Rated: 451100.0 Bps, 3.60 Mbps, 5012.95 pps
+Connection to nf5.usc.edu closed.
+Flows: 1 flows, 0.48 fps, 10400 flow packets, 0 non-flow
+Statistics for network device: port0
+	Successful packets:        10400
+	Failed packets:            0
+	Truncated packets:         0
+	Retried packets (ENOBUFS): 0
+	Retried packets (EAGAIN):  0
+Connection to nf5.usc.edu closed.
+[2026-05-11T15:17:33] ASYNC  /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf1_capture_offload_rate_primary.sh timed out; sending SIGINT
+[2026-05-11T15:17:33] ASYNC  /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf1_capture_offload_rate_primary.sh exited rc=-2 after SIGINT
+[2026-05-11T15:17:33] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 netfpga@nf9.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+set -euo pipefail
+RUN_ROOT="/home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_netfpga"
+RESULT_ROOT="/home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_results"
+mkdir -p "$RESULT_ROOT"
+cd "$RUN_ROOT"
+perl bin/annctl engine debug-status > "$RESULT_ROOT/debug_status_post.txt"
+cat "$RESULT_ROOT/debug_status_post.txt"
+'"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/commands/nf3_debug_snapshot.sh
+Found net device: nf2c0
+offload_accept_count   = 10420
+frame_hold_count       = 10420
+compute_start_count    = 10420
+compute_done_count     = 10420
+result_emit_count      = 10420
+last_parse_request_id  = 0x589f
+last_compute_request_id = 0x589f
+last_emit_request_id   = 0x589f
+flags_raw              = 0x00000000
+ingress_overflow_seen  = 0
+parse_nonfatal_seen    = 0
+parse_fatal_seen       = 0
+emit_stall_seen        = 0
+Found net device: nf2c0
+Found net device: nf2c0
+Found net device: nf2c0
+Found net device: nf2c0
+Found net device: nf2c0
+Found net device: nf2c0
+Found net device: nf2c0
+Found net device: nf2c0
+[2026-05-11T15:17:34] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node4@nf5.usc.edu 'if [ -f $HOME/v8/other_pros_rate_5200pps_r01_sender/captures/offload_rate_sender.cap ]; then bytes=$(wc -c < $HOME/v8/other_pros_rate_5200pps_r01_sender/captures/offload_rate_sender.cap); printf '"'"'exists=1\nsize_bytes=%s\n'"'"' "$bytes"; else printf '"'"'exists=0\n'"'"'; fi'
+exists=1
+size_bytes=1102424
+[2026-05-11T15:17:35] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 'node4@nf5.usc.edu:~/v8/other_pros_rate_5200pps_r01_sender/captures/offload_rate_sender.cap' /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/captures/offload_rate_sender_primary.cap
+[2026-05-11T15:17:35] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node4@nf7.usc.edu 'if [ -f $HOME/v8/other_pros_rate_5200pps_r01_receiver/captures/offload_rate_receiver.cap ]; then bytes=$(wc -c < $HOME/v8/other_pros_rate_5200pps_r01_receiver/captures/offload_rate_receiver.cap); printf '"'"'exists=1\nsize_bytes=%s\n'"'"' "$bytes"; else printf '"'"'exists=0\n'"'"'; fi'
+exists=1
+size_bytes=1102424
+[2026-05-11T15:17:35] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 'node4@nf7.usc.edu:~/v8/other_pros_rate_5200pps_r01_receiver/captures/offload_rate_receiver.cap' /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/captures/offload_rate_receiver_primary.cap
+[2026-05-11T15:17:36] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 netfpga@nf9.usc.edu:/home/netfpga/scripts/v8/other_pros_rate_5200pps_r01_results/debug_status_post.txt /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_5200pps_r01/debug_status_primary.txt

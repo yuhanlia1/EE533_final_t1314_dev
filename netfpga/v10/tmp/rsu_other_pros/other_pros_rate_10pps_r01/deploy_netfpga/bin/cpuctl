@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PYTHON_ROOT = SCRIPT_DIR.parent / "python"
+if str(PYTHON_ROOT) not in sys.path:
+    sys.path.insert(0, str(PYTHON_ROOT))
+
+from cpu_toolchain.toolchain import (  # noqa: E402
+    build_single,
+    ensure_out_dir,
+    inspect_target,
+    load_image,
+    package_directory,
+)
+
+
+def _print_result(result) -> None:
+    print(f"mode={result.mode}")
+    print(f"out_dir={result.out_dir}")
+    print(f"image={result.image_path}")
+    print(f"total_words={result.total_words}")
+    for thread in result.threads:
+        print(
+            f"thread{thread.thread_id}: "
+            f"source={thread.source_path} "
+            f"auto_stub={1 if thread.auto_stub else 0} "
+            f"original_words={thread.schedule.original_words} "
+            f"inserted_nops={thread.schedule.inserted_nops} "
+            f"final_words={len(thread.compiled_words)} "
+            f"base=0x{thread.base_addr:08x}"
+        )
+
+
+def build_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "cpuctl_build_")
+    result = build_single(args.source, str(out_dir))
+    _print_result(result)
+    return 0
+
+
+def package_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "cpuctl_package_")
+    result = package_directory(args.package_dir, str(out_dir))
+    _print_result(result)
+    return 0
+
+
+def load_cmd(args: argparse.Namespace) -> int:
+    load_image(args.image, args.base, args.annctl)
+    return 0
+
+
+def build_load_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "cpuctl_build_load_")
+    result = build_single(args.source, str(out_dir))
+    _print_result(result)
+    load_image(str(result.image_path), args.base, args.annctl)
+    return 0
+
+
+def package_load_cmd(args: argparse.Namespace) -> int:
+    out_dir = ensure_out_dir(args.out_dir, "cpuctl_package_load_")
+    result = package_directory(args.package_dir, str(out_dir))
+    _print_result(result)
+    load_image(str(result.image_path), args.base, args.annctl)
+    return 0
+
+
+def inspect_cmd(args: argparse.Namespace) -> int:
+    result = inspect_target(args.target)
+    _print_result(result)
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Build and load CPU programs for the NetFPGA v5 user_top design."
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    build_parser_ = subparsers.add_parser("build", help="build a single-thread ARM assembly source")
+    build_parser_.add_argument("source")
+    build_parser_.add_argument("--out-dir")
+    build_parser_.set_defaults(func=build_cmd)
+
+    package_parser_ = subparsers.add_parser("package", help="build a 4-thread package directory")
+    package_parser_.add_argument("package_dir")
+    package_parser_.add_argument("--out-dir")
+    package_parser_.set_defaults(func=package_cmd)
+
+    load_parser_ = subparsers.add_parser("load", help="load a CPU image through annctl")
+    load_parser_.add_argument("image")
+    load_parser_.add_argument("--base")
+    load_parser_.add_argument("--annctl")
+    load_parser_.set_defaults(func=load_cmd)
+
+    build_load_parser = subparsers.add_parser("build-load", help="build a single-thread source and load it")
+    build_load_parser.add_argument("source")
+    build_load_parser.add_argument("--out-dir")
+    build_load_parser.add_argument("--base")
+    build_load_parser.add_argument("--annctl")
+    build_load_parser.set_defaults(func=build_load_cmd)
+
+    package_load_parser = subparsers.add_parser("package-load", help="build a package directory and load it")
+    package_load_parser.add_argument("package_dir")
+    package_load_parser.add_argument("--out-dir")
+    package_load_parser.add_argument("--base")
+    package_load_parser.add_argument("--annctl")
+    package_load_parser.set_defaults(func=package_load_cmd)
+
+    inspect_parser_ = subparsers.add_parser("inspect", help="inspect a source file or package directory")
+    inspect_parser_.add_argument("target")
+    inspect_parser_.set_defaults(func=inspect_cmd)
+
+    return parser
+
+
+def main() -> int:
+    parser = build_parser()
+    args = parser.parse_args()
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

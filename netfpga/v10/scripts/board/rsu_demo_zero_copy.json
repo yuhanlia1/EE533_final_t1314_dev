@@ -15,5 +15,6 @@
   "path_timeout_seconds": 2.0,
   "capture_guard_timeout_seconds": 1.0,
   "window_poll_interval_seconds": 0.005,
+  "measurement_resolution_ms": 5,
   "clear_debug_before_path": true
 }

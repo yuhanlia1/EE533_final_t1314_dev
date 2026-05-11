@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-05-11T15:18:03",
+  "run_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros",
+  "config_path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/scripts/board/rsu_demo_other_pros_rate.json",
+  "init_run_dir": "other_pros_rate_init_board",
+  "rate_points_req_per_sec": [
+    6500
+  ],
+  "send_duration_seconds": 2.0,
+  "drain_timeout_seconds": 1.0,
+  "rate_accuracy_tolerance_ratio": 0.2,
+  "rate_chunk_target_seconds": 0.25,
+  "allow_fallback": false,
+  "result_count": 1,
+  "max_zero_loss_pps": null,
+  "first_overload_pps": 6500.0,
+  "threshold_complete": true,
+  "overall_verdict": "fail",
+  "recommended_figure": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/bt/system_report/figures/rate_scan_energy_validity.png",
+  "fallback_summary_json": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/bt/system_report/summary.json",
+  "rate_results": [
+    {
+      "run_name": "other_pros_rate_6500pps_r01",
+      "run_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_other_pros/other_pros_rate_6500pps_r01",
+      "runner_log": "logs/other_pros_rate_6500pps_r01.log",
+      "offered_rate_req_per_sec": 6500.0,
+      "actual_send_rate_req_per_sec": 6110.459206154554,
+      "goodput_result_per_sec": 5728.345131519051,
+      "measurement_valid": false,
+      "drop_count": 827,
+      "drop_ratio": 0.06361538461538462,
+      "mismatch_count": 827,
+      "rate_error_ratio": 0.059929352899299446,
+      "pipeline_verdict": "overload_or_loss",
+      "rate_generation_mode_used": "paced_pcap_single_replay",
+      "sender_capture_count": 13000,
+      "receiver_capture_count": 12173,
+      "engine_emit_count": 23420,
+      "zero_loss_pass": false,
+      "status": "report_failed"
+    }
+  ],
+  "updated_at": "2026-05-11T15:18:03"
+}

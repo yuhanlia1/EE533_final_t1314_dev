@@ -1,0 +1,14 @@
+[
+  {
+    "name": "window_id_20",
+    "predicted_class": 1,
+    "wire_result_data_0_u16": 1,
+    "wire_result_data_1_u16": 331,
+    "result_mode": "compact_class_score",
+    "request_id": 12288,
+    "source_name": "window_id_20",
+    "source_sample_index": 0,
+    "prepared_index": 0,
+    "prepared_label": "window_id_20@0x3000"
+  }
+]

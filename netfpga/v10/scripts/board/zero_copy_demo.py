@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import math
 import shutil
 import subprocess
 import sys
@@ -30,6 +31,7 @@ DEFAULT_THRESHOLD_WINDOWS_MS = [1600, 800, 400, 200, 100, 50, 10, 1]
 DEFAULT_PATH_TIMEOUT_SECONDS = 2.0
 DEFAULT_CAPTURE_GUARD_TIMEOUT_SECONDS = 1.0
 DEFAULT_WINDOW_POLL_INTERVAL_SECONDS = 0.005
+DEFAULT_MEASUREMENT_RESOLUTION_MS = int(math.ceil(DEFAULT_WINDOW_POLL_INTERVAL_SECONDS * 1000.0))
 DEFAULT_TERM_WIDTH = 100
 TERM_WIDTH_CAP = 100
 DEFAULT_HEX_CHUNK = 64
@@ -151,8 +153,15 @@ def _print_packet(title, metadata_dict, hex_string, indent=2, width=None):
     _print_hex_block(hex_string, indent=indent + 4, chunk=DEFAULT_HEX_CHUNK)
 
 
-def _status_word(passed):
-    return "PASS" if passed else "FAIL"
+def _status_word(verdict):
+    if isinstance(verdict, str):
+        text = verdict.strip().lower()
+        if text == "pass":
+            return "PASS"
+        if text == "unstable":
+            return "UNSTABLE"
+        return "FAIL"
+    return "PASS" if verdict else "FAIL"
 
 
 def _format_request_id(value):
@@ -260,11 +269,18 @@ def _parse_windows_arg(text):
     return sorted(set(normalized), reverse=True)
 
 
+def _measurement_resolution_ms(poll_interval_seconds):
+    return max(1, int(math.ceil(float(poll_interval_seconds) * 1000.0)))
+
+
 def _load_zero_copy_defaults(config_path):
     config = _load_json(config_path)
     if not isinstance(config, dict):
         raise SystemExit("zero-copy config must be a JSON object")
     defaults = board_sweep._normalize_defaults(config, config_path.parent)
+    window_poll_interval_seconds = float(
+        config.get("window_poll_interval_seconds", DEFAULT_WINDOW_POLL_INTERVAL_SECONDS)
+    )
     return {
         "config_path": str(config_path),
         "runner_defaults": defaults,
@@ -278,8 +294,12 @@ def _load_zero_copy_defaults(config_path):
         "capture_guard_timeout_seconds": float(
             config.get("capture_guard_timeout_seconds", DEFAULT_CAPTURE_GUARD_TIMEOUT_SECONDS)
         ),
-        "window_poll_interval_seconds": float(
-            config.get("window_poll_interval_seconds", DEFAULT_WINDOW_POLL_INTERVAL_SECONDS)
+        "window_poll_interval_seconds": window_poll_interval_seconds,
+        "measurement_resolution_ms": int(
+            config.get(
+                "measurement_resolution_ms",
+                _measurement_resolution_ms(window_poll_interval_seconds),
+            )
         ),
         "clear_debug_before_path": bool(config.get("clear_debug_before_path", True)),
     }
@@ -382,6 +402,7 @@ def _augment_manifest_for_zero_copy(run_dir, manifest, zero_copy_defaults):
         "path_timeout_seconds": float(zero_copy_defaults["path_timeout_seconds"]),
         "capture_guard_timeout_seconds": float(zero_copy_defaults["capture_guard_timeout_seconds"]),
         "window_poll_interval_seconds": float(zero_copy_defaults["window_poll_interval_seconds"]),
+        "measurement_resolution_ms": int(zero_copy_defaults["measurement_resolution_ms"]),
         "clear_debug_before_path": bool(zero_copy_defaults["clear_debug_before_path"]),
         "steps": list(STEP_ORDER),
         "artifacts": {
@@ -511,11 +532,7 @@ def _window_status_note(measurement):
     status = measurement.get("status")
     if status == "passed":
         return "Observed matching ann_result within the configured window."
-    if status == "window_miss":
-        return "No result capture completed within the configured post-replay window."
-    if status == "capture_missing":
-        return "Receiver capture was expected but missing after the run."
-    return "Observed result did not match the expected offload output."
+    return "This window is not treated as a demo-grade pass result."
 
 
 def _build_window_measurement(run_dir, manifest, labels, sample, window_ms):
@@ -529,22 +546,43 @@ def _build_window_measurement(run_dir, manifest, labels, sample, window_ms):
     )
     observed_summary = observed_packet["summary"] if observed_packet else None
     predicted_label = _predicted_label(observed_summary, labels)
-    if sample.get("status") == "passed":
+    measurement_resolution_ms = int(
+        manifest.get("zero_copy_demo", {}).get(
+            "measurement_resolution_ms",
+            _measurement_resolution_ms(
+                manifest.get("zero_copy_demo", {}).get(
+                    "window_poll_interval_seconds",
+                    DEFAULT_WINDOW_POLL_INTERVAL_SECONDS,
+                )
+            ),
+        )
+    )
+    if int(window_ms) < measurement_resolution_ms:
+        inference_check = "WINDOW BELOW MEASUREMENT RESOLUTION"
+        window_verdict = "unstable"
+        display_status = "unstable"
+    elif sample.get("status") == "passed":
         inference_check = "MATCHED EXPECTED OFFLOAD RESULT"
         window_verdict = "pass"
+        display_status = "passed"
     elif sample.get("status") == "window_miss":
         inference_check = "RESULT NOT OBSERVED WITHIN WINDOW"
         window_verdict = "fail"
+        display_status = "window_miss"
     elif sample.get("status") == "capture_missing":
         inference_check = "CAPTURE MISSING AFTER WINDOW CLOSED"
         window_verdict = "fail"
+        display_status = "capture_missing"
     else:
         inference_check = "RESULT MISMATCH"
         window_verdict = "fail"
+        display_status = sample.get("status")
     measurement = {
         "window_ms": int(window_ms),
         "window_verdict": window_verdict,
-        "status": sample.get("status"),
+        "status": display_status,
+        "raw_status": sample.get("status"),
+        "measurement_resolution_ms": measurement_resolution_ms,
         "sender_capture_exists": bool(sample.get("sender_capture_exists")),
         "receiver_capture_exists": bool(sample.get("receiver_capture_exists")),
         "receiver_completed_within_window": bool(sample.get("receiver_completed_within_window")),
@@ -569,13 +607,16 @@ def _build_window_measurement(run_dir, manifest, labels, sample, window_ms):
 
 def _threshold_window_analysis(window_results):
     passing_windows = [item["window_ms"] for item in window_results if item.get("window_verdict") == "pass"]
-    failing_windows = [item["window_ms"] for item in window_results if item.get("window_verdict") != "pass"]
+    failing_windows = [item["window_ms"] for item in window_results if item.get("window_verdict") == "fail"]
     smallest_passing = min(passing_windows) if passing_windows else None
     largest_failing = max(failing_windows) if failing_windows else None
     ordering_consistent = True
     seen_fail = False
     for item in window_results:
-        if item.get("window_verdict") != "pass":
+        verdict = item.get("window_verdict")
+        if verdict == "unstable":
+            continue
+        if verdict != "pass":
             seen_fail = True
             continue
         if seen_fail:
@@ -657,6 +698,7 @@ def _build_limit_summary(run_dir, log_path, window_ms, measurement):
         "window_ms": int(window_ms),
         "zero_copy_verdict": measurement["window_verdict"],
         "status": measurement["status"],
+        "measurement_resolution_ms": measurement.get("measurement_resolution_ms"),
         "request_id": measurement.get("request_id"),
         "predicted_class": measurement.get("predicted_class"),
         "predicted_label": measurement.get("predicted_label"),
@@ -686,6 +728,7 @@ def _render_limit_markdown(summary):
         "- runner_log: `%s`" % summary.get("runner_log"),
         "- zero_copy_verdict: `%s`" % str(summary.get("zero_copy_verdict", "fail")).upper(),
         "- window_ms: `%s`" % summary.get("window_ms"),
+        "- measurement_resolution_ms: `%s`" % summary.get("measurement_resolution_ms"),
         "- request_id: `%s`" % (summary.get("request_id") or "unavailable"),
         "- predicted_label: `%s`" % (summary.get("predicted_label") or "unavailable"),
         "- receiver_completed_within_window: `%s`" % summary.get("receiver_completed_within_window"),
@@ -899,21 +942,21 @@ def _print_threshold_block(summary):
     _print_kv("Zero-Copy Step", STEP_LABELS["threshold"], key_width=18)
     _print_wrapped_kv(
         "Method",
-        "Run one legal ANN offload per window and record a binary PASS/FAIL step for the threshold plot.",
+        "Run one legal ANN offload per window and record PASS/FAIL/UNSTABLE points for the threshold plot.",
         key_width=18,
         width=width,
     )
     _print_separator("-", width=width)
     for item in summary.get("window_results", []):
         value = "%s | %s" % (
-            _status_word(item.get("window_verdict") == "pass"),
+            _status_word(item.get("window_verdict")),
             item.get("window_note"),
         )
         if item.get("predicted_label"):
             value += " | label=%s" % item.get("predicted_label")
         _print_wrapped_kv("Window %sms" % item["window_ms"], value, key_width=18, width=width)
     _print_separator("-", width=width)
-    _print_kv("Result", _status_word(summary.get("zero_copy_verdict") == "pass"), key_width=18)
+    _print_kv("Result", _status_word(summary.get("zero_copy_verdict")), key_width=18)
     _print_kv("Smallest Pass", summary.get("smallest_passing_window_ms"), key_width=18)
     _print_kv("Largest Fail", summary.get("largest_failing_window_ms"), key_width=18)
     _print_kv("Transition Found", summary.get("threshold_transition_found"), key_width=18)
@@ -926,9 +969,10 @@ def _print_limit_block(summary):
     _print_separator("=", width=width)
     _print_kv("Zero-Copy Demo", STEP_LABELS["limit"], key_width=18)
     _print_kv("Window", "%s ms" % summary["window_ms"], key_width=18)
-    _print_kv("Result", _status_word(summary.get("zero_copy_verdict") == "pass"), key_width=18)
+    _print_kv("Result", _status_word(summary.get("zero_copy_verdict")), key_width=18)
     _print_wrapped_kv("Inference Check", summary.get("inference_check"), key_width=18, width=width)
     _print_wrapped_kv("Note", summary.get("window_note"), key_width=18, width=width)
+    _print_kv("Resolution Floor", "%s ms" % summary.get("measurement_resolution_ms"), key_width=18)
     _print_kv("Predicted Label", summary.get("predicted_label", "n/a") or "n/a", key_width=18)
     _print_separator("-", width=width)
     _print_packet(
@@ -940,7 +984,7 @@ def _print_limit_block(summary):
     )
     _print_separator("-", width=width)
     _print_packet(
-        "Observed Result",
+        "Observed Result (Debug)" if summary.get("zero_copy_verdict") == "unstable" else "Observed Result",
         summary.get("observed_packet_summary"),
         summary.get("observed_packet_hex"),
         indent=2,

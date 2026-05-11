@@ -1,0 +1,404 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use FindBin qw($RealBin);
+use lib "$RealBin/../lib";
+
+use NetFPGA::ANNControl;
+
+sub usage {
+  print <<"EOF_USAGE";
+Usage:
+  $0 regs list
+  $0 regs read <name|addr>
+  $0 regs write <name|addr> <value>
+  $0 regs dump
+
+  $0 cpu write <addr> <word32>
+  $0 cpu load <path> [base_addr]
+  $0 cpu shadow-read <addr>
+  $0 cpu shadow-dump <start_addr> <count>
+  $0 cpu hw-imem-read <addr>
+  $0 cpu hw-imem-dump <start_addr> <count>
+  $0 cpu hw-dmem-read <addr>
+  $0 cpu hw-dmem-dump <start_addr> <count>
+
+  $0 gpu imem-write <addr> <word32>
+  $0 gpu imem-load <path> [base_addr]
+  $0 gpu imem-shadow-read <addr>
+  $0 gpu imem-shadow-dump <start_addr> <count>
+  $0 gpu param-write <addr> <data64|hi32 lo32>
+  $0 gpu param-load <path>
+  $0 gpu param-shadow-read <addr>
+  $0 gpu param-shadow-dump <start_addr> <count>
+  $0 gpu ofmap-read <addr>
+  $0 gpu ofmap-dump <start_addr> <count>
+
+  $0 engine status
+  $0 engine enable
+  $0 engine disable
+  $0 engine result-config <output_base> <output_count> [compact|legacy]
+  $0 engine result-clear
+  $0 engine debug-clear
+  $0 engine debug-status
+
+  $0 reset-state
+
+Notes:
+  - CPU IMEM and CPU DMEM(low32) now have top-level debug readback through
+    hw_reserved_0 and hw_reserved_1. GPU IMEM still has no top-level readback.
+  - The *shadow* commands read the last values written by annctl from the local
+    state directory. They are different from the hardware readback commands.
+  - Program files accept blank lines and '#' comments.
+  - sw_engine_ctrl now also carries optional result-window metadata:
+      bit0      engine enable
+      bit1      compact result mode
+      bit2      debug counter clear pulse
+      bits15:8  output count
+      bits31:16 output base
+  - hw_dbg_flags bit assignments:
+      bit0      ingress overflow seen
+      bit1      parse nonfatal seen
+      bit2      parse fatal seen
+      bit3      emit stall seen
+  - CPU/GPU IMEM load files accept either:
+      <word32>
+      <addr> <word32>
+  - GPU parameter load files accept either:
+      <addr> <data64>
+      <addr> <hi32> <lo32>
+EOF_USAGE
+  exit(1);
+}
+
+sub print_register_rows {
+  my (@rows) = @_;
+  for my $row (@rows) {
+    printf "%-22s %-28s %-2s %s\n",
+      $row->{short},
+      sprintf("(%s)", $row->{symbol}),
+      $row->{access},
+      sprintf("addr=%s", sprintf("0x%08x", $row->{addr}));
+  }
+}
+
+sub print_shadow_rows {
+  my ($label, @rows) = @_;
+  for my $row (@rows) {
+    printf "%s[%s] = %s\n", $label, sprintf("0x%08x", $row->{addr}), $row->{value};
+  }
+}
+
+sub print_debug_status {
+  my ($status) = @_;
+  printf "offload_accept_count   = %d\n", $status->{offload_accept_count};
+  printf "frame_hold_count       = %d\n", $status->{frame_hold_count};
+  printf "compute_start_count    = %d\n", $status->{compute_start_count};
+  printf "compute_done_count     = %d\n", $status->{compute_done_count};
+  printf "result_emit_count      = %d\n", $status->{result_emit_count};
+  printf "last_parse_request_id  = 0x%04x\n", $status->{last_parse_request_id};
+  printf "last_compute_request_id = 0x%04x\n", $status->{last_compute_request_id};
+  printf "last_emit_request_id   = 0x%04x\n", $status->{last_emit_request_id};
+  printf "flags_raw              = 0x%08x\n", $status->{flags_raw};
+  printf "ingress_overflow_seen  = %d\n", $status->{ingress_overflow_seen};
+  printf "parse_nonfatal_seen    = %d\n", $status->{parse_nonfatal_seen};
+  printf "parse_fatal_seen       = %d\n", $status->{parse_fatal_seen};
+  printf "emit_stall_seen        = %d\n", $status->{emit_stall_seen};
+}
+
+sub run {
+  my $ctl = NetFPGA::ANNControl->new();
+  @ARGV >= 1 or usage();
+
+  my $group = shift @ARGV;
+
+  if ($group eq 'regs') {
+    my $action = shift @ARGV || usage();
+
+    if ($action eq 'list') {
+      my @rows = $ctl->register_list();
+      print_register_rows(@rows);
+      return 0;
+    }
+
+    if ($action eq 'read') {
+      @ARGV == 1 or usage();
+      my $info = $ctl->resolve_register($ARGV[0]);
+      my $value = $ctl->reg_read($ARGV[0]);
+      printf "%s = 0x%08x\n", $info->{short}, $value;
+      return 0;
+    }
+
+    if ($action eq 'write') {
+      @ARGV == 2 or usage();
+      my $result = $ctl->reg_write($ARGV[0], $ARGV[1]);
+      printf "%s <= 0x%08x\n", $result->{register}{short}, $result->{value};
+      return 0;
+    }
+
+    if ($action eq 'dump') {
+      my @rows = $ctl->dump_known_registers();
+      for my $row (@rows) {
+        printf "%-18s %-2s addr=%s value=%s\n",
+          $row->{short},
+          $row->{access},
+          sprintf("0x%08x", $row->{addr}),
+          sprintf("0x%08x", $row->{value});
+      }
+      return 0;
+    }
+
+    usage();
+  }
+
+  if ($group eq 'cpu') {
+    my $action = shift @ARGV || usage();
+
+    if ($action eq 'write') {
+      @ARGV == 2 or usage();
+      my $result = $ctl->cpu_imem_write($ARGV[0], $ARGV[1]);
+      printf "cpu_imem[%s] <= 0x%08x\n", sprintf("0x%08x", $result->{addr}), $result->{word};
+      return 0;
+    }
+
+    if ($action eq 'load') {
+      (@ARGV == 1 || @ARGV == 2) or usage();
+      my %opts = ();
+      $opts{base_addr} = $ARGV[1] if @ARGV == 2;
+      my @rows = $ctl->cpu_program_load($ARGV[0], %opts);
+      printf "loaded %d CPU instruction words\n", scalar(@rows);
+      return 0;
+    }
+
+    if ($action eq 'shadow-read') {
+      @ARGV == 1 or usage();
+      my $value = $ctl->cpu_shadow_read($ARGV[0]);
+      printf "cpu_imem_shadow[%s] = %s\n", sprintf("0x%08x", $ctl->_parse_u32($ARGV[0], allow_bare_hex => 1)), $value;
+      return 0;
+    }
+
+    if ($action eq 'shadow-dump') {
+      @ARGV == 2 or usage();
+      my @rows = $ctl->cpu_shadow_dump($ARGV[0], $ARGV[1]);
+      print_shadow_rows('cpu_imem_shadow', @rows);
+      return 0;
+    }
+
+    if ($action eq 'hw-imem-read') {
+      @ARGV == 1 or usage();
+      my $row = $ctl->cpu_hw_imem_read($ARGV[0]);
+      printf "cpu_hw_imem[%s] = 0x%08x\n", sprintf("0x%08x", $row->{addr}), $row->{word};
+      return 0;
+    }
+
+    if ($action eq 'hw-imem-dump') {
+      @ARGV == 2 or usage();
+      my @rows = $ctl->cpu_hw_imem_dump($ARGV[0], $ARGV[1]);
+      for my $row (@rows) {
+        printf "cpu_hw_imem[%s] = 0x%08x\n", sprintf("0x%08x", $row->{addr}), $row->{word};
+      }
+      return 0;
+    }
+
+    if ($action eq 'hw-dmem-read') {
+      @ARGV == 1 or usage();
+      my $row = $ctl->cpu_hw_dmem_read($ARGV[0]);
+      printf "cpu_hw_dmem_low32[%s] = 0x%08x\n", sprintf("0x%08x", $row->{addr}), $row->{word};
+      return 0;
+    }
+
+    if ($action eq 'hw-dmem-dump') {
+      @ARGV == 2 or usage();
+      my @rows = $ctl->cpu_hw_dmem_dump($ARGV[0], $ARGV[1]);
+      for my $row (@rows) {
+        printf "cpu_hw_dmem_low32[%s] = 0x%08x\n", sprintf("0x%08x", $row->{addr}), $row->{word};
+      }
+      return 0;
+    }
+
+    usage();
+  }
+
+  if ($group eq 'gpu') {
+    my $action = shift @ARGV || usage();
+
+    if ($action eq 'imem-write') {
+      @ARGV == 2 or usage();
+      my $result = $ctl->gpu_imem_write($ARGV[0], $ARGV[1]);
+      printf "gpu_imem[%s] <= 0x%08x\n", sprintf("0x%08x", $result->{addr}), $result->{word};
+      return 0;
+    }
+
+    if ($action eq 'imem-load') {
+      (@ARGV == 1 || @ARGV == 2) or usage();
+      my %opts = ();
+      $opts{base_addr} = $ARGV[1] if @ARGV == 2;
+      my @rows = $ctl->gpu_program_load($ARGV[0], %opts);
+      printf "loaded %d GPU instruction words\n", scalar(@rows);
+      return 0;
+    }
+
+    if ($action eq 'imem-shadow-read') {
+      @ARGV == 1 or usage();
+      my $value = $ctl->gpu_imem_shadow_read($ARGV[0]);
+      printf "gpu_imem_shadow[%s] = %s\n", sprintf("0x%08x", $ctl->_parse_u32($ARGV[0], allow_bare_hex => 1)), $value;
+      return 0;
+    }
+
+    if ($action eq 'imem-shadow-dump') {
+      @ARGV == 2 or usage();
+      my @rows = $ctl->gpu_imem_shadow_dump($ARGV[0], $ARGV[1]);
+      print_shadow_rows('gpu_imem_shadow', @rows);
+      return 0;
+    }
+
+    if ($action eq 'param-write') {
+      (@ARGV == 2 || @ARGV == 3) or usage();
+      my $addr = shift @ARGV;
+      my $result = $ctl->gpu_param_write($addr, @ARGV);
+      printf "gpu_param[%s] <= 0x%08x%08x\n",
+        sprintf("0x%08x", $result->{addr}),
+        $result->{hi32},
+        $result->{lo32};
+      return 0;
+    }
+
+    if ($action eq 'param-load') {
+      @ARGV == 1 or usage();
+      my @rows = $ctl->gpu_param_load($ARGV[0]);
+      printf "loaded %d GPU parameter words\n", scalar(@rows);
+      return 0;
+    }
+
+    if ($action eq 'param-shadow-read') {
+      @ARGV == 1 or usage();
+      my $value = $ctl->gpu_param_shadow_read($ARGV[0]);
+      printf "gpu_param_shadow[%s] = %s\n", sprintf("0x%08x", $ctl->_parse_u32($ARGV[0], allow_bare_hex => 1)), $value;
+      return 0;
+    }
+
+    if ($action eq 'param-shadow-dump') {
+      @ARGV == 2 or usage();
+      my @rows = $ctl->gpu_param_shadow_dump($ARGV[0], $ARGV[1]);
+      print_shadow_rows('gpu_param_shadow', @rows);
+      return 0;
+    }
+
+    if ($action eq 'ofmap-read') {
+      @ARGV == 1 or usage();
+      my $row = $ctl->gpu_ofmap_read($ARGV[0]);
+      printf "gpu_ofmap[%s] = %s\n", sprintf("0x%08x", $row->{addr}), $row->{value64};
+      return 0;
+    }
+
+    if ($action eq 'ofmap-dump') {
+      @ARGV == 2 or usage();
+      my @rows = $ctl->gpu_ofmap_dump($ARGV[0], $ARGV[1]);
+      for my $row (@rows) {
+        printf "gpu_ofmap[%s] = %s\n", sprintf("0x%08x", $row->{addr}), $row->{value64};
+      }
+      return 0;
+    }
+
+    usage();
+  }
+
+  if ($group eq 'engine') {
+    my $action = shift @ARGV || usage();
+
+    if ($action eq 'status') {
+      @ARGV == 0 or usage();
+      my $status = $ctl->engine_status();
+      printf "raw              = 0x%08x\n", $status->{raw};
+      printf "sw_engine_ctrl   = 0x%08x\n", $status->{sw_engine_ctrl};
+      printf "engine_ready     = %d\n", $status->{engine_ready};
+      printf "cpu_programmed   = %d\n", $status->{cpu_programmed};
+      printf "gpu_programmed   = %d\n", $status->{gpu_programmed};
+      printf "param_programmed = %d\n", $status->{param_programmed};
+      printf "gpu_busy         = %d\n", $status->{gpu_busy};
+      printf "compact_result   = %d\n", $status->{compact_result_enable};
+      printf "output_count     = %d\n", $status->{output_count};
+      printf "output_base      = 0x%04x\n", $status->{output_base};
+      return 0;
+    }
+
+    if ($action eq 'enable') {
+      @ARGV == 0 or usage();
+      my $next = $ctl->engine_enable(1);
+      printf "sw_engine_ctrl = 0x%08x\n", $next;
+      return 0;
+    }
+
+    if ($action eq 'disable') {
+      @ARGV == 0 or usage();
+      my $next = $ctl->engine_enable(0);
+      printf "sw_engine_ctrl = 0x%08x\n", $next;
+      return 0;
+    }
+
+    if ($action eq 'result-config') {
+      (@ARGV == 2 || @ARGV == 3) or usage();
+      my ($base, $count, $mode) = @ARGV;
+      $mode = 'compact' unless defined $mode;
+      my $compact;
+      if ($mode eq 'compact') {
+        $compact = 1;
+      }
+      elsif ($mode eq 'legacy') {
+        $compact = 0;
+      }
+      else {
+        die "invalid result mode '$mode' (expected compact or legacy)\n";
+      }
+      my $next = $ctl->engine_result_config($base, $count, compact => $compact);
+      printf "sw_engine_ctrl = 0x%08x\n", $next;
+      return 0;
+    }
+
+    if ($action eq 'result-clear') {
+      @ARGV == 0 or usage();
+      my $next = $ctl->engine_result_clear();
+      printf "sw_engine_ctrl = 0x%08x\n", $next;
+      return 0;
+    }
+
+    if ($action eq 'debug-clear') {
+      @ARGV == 0 or usage();
+      my $next = $ctl->engine_debug_clear();
+      printf "sw_engine_ctrl = 0x%08x\n", $next;
+      return 0;
+    }
+
+    if ($action eq 'debug-status') {
+      @ARGV == 0 or usage();
+      my $status = $ctl->engine_debug_status();
+      print_debug_status($status);
+      return 0;
+    }
+
+    usage();
+  }
+
+  if ($group eq 'reset-state') {
+    @ARGV == 0 or usage();
+    $ctl->reset_programming_state();
+    print "registers cleared and local shadows removed\n";
+    return 0;
+  }
+
+  if ($group eq 'help' || $group eq '--help' || $group eq '-h') {
+    usage();
+  }
+
+  usage();
+}
+
+eval { exit(run()); };
+if ($@) {
+  my $error = $@;
+  $error =~ s/\s+$//;
+  print STDERR "annctl: $error\n";
+  exit 1;
+}

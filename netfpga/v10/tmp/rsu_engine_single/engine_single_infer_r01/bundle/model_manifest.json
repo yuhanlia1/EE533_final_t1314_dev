@@ -1,0 +1,285 @@
+{
+  "model_type": "mlp",
+  "quant_type": "int16",
+  "source": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/dataset/export/rsu_ann_model_int16.json",
+  "hardware_limits": {
+    "input_dim_max": 784,
+    "output_dim_max": 96,
+    "a_scratch_capacity": 96,
+    "d_scratch_capacity": 2048,
+    "result_capacity_max": 96,
+    "result_semantics": "wire_result_data_0/1 carry logits for binary models or class_id/score for compact multi-class models"
+  },
+  "runtime": {
+    "cpu_mmio_base": 128,
+    "base_a": 128,
+    "base_b": 3072,
+    "base_c": 32,
+    "base_d": 1024,
+    "work_size": 1,
+    "entry_pc": 0,
+    "result_mode": "compact_class_score",
+    "result_output_base": 2924,
+    "result_output_count": 4
+  },
+  "input_dim": 20,
+  "output_dim": 4,
+  "labels": [
+    "Free-flow",
+    "Slow",
+    "Congested",
+    "Incident-risk"
+  ],
+  "layers": [
+    {
+      "index": 0,
+      "in_dim": 20,
+      "out_dim": 32,
+      "activation": "relu",
+      "src": {
+        "bank": "A",
+        "offset": 0
+      },
+      "dst": {
+        "bank": "D",
+        "offset": 0
+      },
+      "weight_offset": 0,
+      "bias_offset": 0
+    },
+    {
+      "index": 1,
+      "in_dim": 32,
+      "out_dim": 16,
+      "activation": "relu",
+      "src": {
+        "bank": "D",
+        "offset": 0
+      },
+      "dst": {
+        "bank": "A",
+        "offset": 800
+      },
+      "weight_offset": 640,
+      "bias_offset": 32
+    },
+    {
+      "index": 2,
+      "in_dim": 16,
+      "out_dim": 4,
+      "activation": "none",
+      "src": {
+        "bank": "A",
+        "offset": 800
+      },
+      "dst": {
+        "bank": "D",
+        "offset": 1900
+      },
+      "weight_offset": 1152,
+      "bias_offset": 48
+    }
+  ],
+  "tests": [
+    {
+      "name": "window_id_20",
+      "input_s16": [
+        -98,
+        175,
+        175,
+        98,
+        202,
+        180,
+        -76,
+        -90,
+        -51,
+        -48,
+        163,
+        -38,
+        -24,
+        25,
+        -118,
+        -36,
+        -35,
+        346,
+        228,
+        65
+      ]
+    },
+    {
+      "name": "window_id_0",
+      "input_s16": [
+        -146,
+        50,
+        -92,
+        86,
+        49,
+        22,
+        160,
+        -99,
+        -51,
+        -48,
+        -155,
+        -137,
+        -24,
+        14,
+        -118,
+        -36,
+        -25,
+        -69,
+        -31,
+        32
+      ]
+    },
+    {
+      "name": "window_id_172",
+      "input_s16": [
+        -168,
+        -224,
+        -248,
+        -149,
+        -216,
+        -266,
+        -57,
+        218,
+        -51,
+        -48,
+        -30,
+        -352,
+        927,
+        -384,
+        -118,
+        -37,
+        -67,
+        -69,
+        -323,
+        -363
+      ]
+    },
+    {
+      "name": "window_id_175",
+      "input_s16": [
+        -162,
+        -268,
+        -189,
+        -214,
+        -258,
+        -291,
+        -127,
+        218,
+        491,
+        -6,
+        -127,
+        -178,
+        -24,
+        -85,
+        233,
+        503,
+        419,
+        -69,
+        -173,
+        -137
+      ]
+    },
+    {
+      "name": "window_id_1",
+      "input_s16": [
+        -123,
+        50,
+        -99,
+        87,
+        46,
+        16,
+        112,
+        -99,
+        -51,
+        -48,
+        -53,
+        7,
+        -24,
+        161,
+        -27,
+        -36,
+        -27,
+        74,
+        -18,
+        6
+      ]
+    },
+    {
+      "name": "window_id_2",
+      "input_s16": [
+        -86,
+        63,
+        -126,
+        116,
+        55,
+        19,
+        141,
+        -99,
+        -51,
+        -48,
+        -32,
+        22,
+        -24,
+        82,
+        -33,
+        -36,
+        -26,
+        5,
+        13,
+        44
+      ]
+    },
+    {
+      "name": "window_id_3",
+      "input_s16": [
+        -57,
+        63,
+        -109,
+        108,
+        57,
+        32,
+        131,
+        -99,
+        -51,
+        -48,
+        -45,
+        58,
+        -24,
+        126,
+        35,
+        -36,
+        -21,
+        -69,
+        20,
+        49
+      ]
+    },
+    {
+      "name": "window_id_4",
+      "input_s16": [
+        -28,
+        61,
+        -69,
+        94,
+        56,
+        40,
+        -127,
+        -99,
+        -43,
+        -38,
+        -4,
+        6,
+        -24,
+        109,
+        -17,
+        -35,
+        -19,
+        -69,
+        41,
+        74
+      ]
+    }
+  ]
+}

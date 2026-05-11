@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-05-11T12:29:06",
+  "step": "bypass",
+  "label": "Bypass Gate",
+  "single_packet_variant": "bypass",
+  "status": "passed",
+  "protocol_verdict": "pass",
+  "run_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo",
+  "runner_log": "logs/protocol_bypass.log",
+  "expected_behavior": "Replay a normal IPv4/UDP packet on a non-ANN destination port. The receiver should capture it, but the ANN engine should ignore it.",
+  "protocol_check": "Captured udp_unknown on udp_dst_port=0x7777; packet stayed on bypass path",
+  "sample": {
+    "sample_index": 1,
+    "single_packet_variant": "bypass",
+    "sender_capture_path": "captures/bypass_sender_001.cap",
+    "receiver_capture_path": "captures/bypass_receiver_001.cap",
+    "timed_out": false,
+    "timing_mode": "coarse_completion",
+    "latency_status": "unsupported_without_clock_sync",
+    "sender_capture_exists": true,
+    "receiver_capture_exists": true,
+    "sender_capture_remote_exists": true,
+    "receiver_capture_remote_exists": true,
+    "status": "passed",
+    "verdict": "bypass_ok",
+    "packet_count": 1,
+    "payload_magic": "0x4445",
+    "udp_dst_port": "0x7777",
+    "frame_kind": "udp_unknown",
+    "payload_hex": "44454d4f5f425950415353",
+    "request_id": "0x4d4f",
+    "coarse_completion_us": 3056070.406999879
+  },
+  "sent_packet_summary": {
+    "frame_kind": "udp_unknown",
+    "payload_magic": "0x4445",
+    "udp_dst_port": "0x7777",
+    "payload_len": 11,
+    "request_id": "0x4d4f"
+  },
+  "sent_packet_hex": "004e46324300a0369f0a5d5b080045000027123440004011f28c0a0010030a001203400177770013000044454d4f5f425950415353",
+  "observed_packet_summary": {
+    "frame_kind": "udp_unknown",
+    "payload_magic": "0x4445",
+    "udp_dst_port": "0x7777",
+    "payload_len": 11,
+    "request_id": "0x4d4f"
+  },
+  "observed_packet_hex": "a0369f0a0eb1004e46324302080045000027123440003f11f38c0a0010030a001203400177770013000044454d4f5f42595041535300000000000000",
+  "artifacts": {
+    "step_summary_json": "protocol_bypass_summary.json",
+    "step_summary_md": "protocol_bypass_summary.md"
+  }
+}
