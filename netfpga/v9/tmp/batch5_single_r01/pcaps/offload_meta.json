@@ -1,0 +1,161 @@
+{
+  "batch_frames": [
+    {
+      "name": "window_id_20",
+      "request_id": "0x1334",
+      "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000a11e133400140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
+    },
+    {
+      "name": "window_id_0",
+      "request_id": "0x1335",
+      "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000a11e133500140000ff6e0032ffa400560031001600a0ff9dffcdffd0ff65ff77ffe8000eff8affdcffe7ffbbffe10020"
+    },
+    {
+      "name": "window_id_172",
+      "request_id": "0x1336",
+      "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000a11e133600140000ff58ff20ff08ff6bff28fef6ffc700daffcdffd0ffe2fea0039ffe80ff8affdbffbdffbbfebdfe95"
+    },
+    {
+      "name": "window_id_175",
+      "request_id": "0x1337",
+      "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000a11e133700140000ff5efef4ff43ff2afefefeddff8100da01ebfffaff81ff4effe8ffab00e901f701a3ffbbff53ff77"
+    },
+    {
+      "name": "window_id_1",
+      "request_id": "0x1338",
+      "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000a11e133800140000ff850032ff9d0057002e00100070ff9dffcdffd0ffcb0007ffe800a1ffe5ffdcffe5004affee0006"
+    }
+  ],
+  "wrong_magic": {
+    "frame_kind": "ann_task",
+    "dst_mac": "00:4e:46:32:43:00",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "ethertype": "0x0800",
+    "ip_src": "10.0.12.3",
+    "ip_dst": "10.0.14.3",
+    "ip_protocol": "0x11",
+    "ip_total_length": 76,
+    "udp_src_port": "0x4001",
+    "udp_dst_port": "0x88b5",
+    "udp_length": 56,
+    "udp_checksum": "0x0000",
+    "task_magic": "0xbeef",
+    "request_id": "0x1334",
+    "feature_count_field": 20,
+    "emitted_feature_count": 20,
+    "task_type": "0x0000",
+    "feature_values_be16": [
+      "0xff9e",
+      "0x00af",
+      "0x00af",
+      "0x0062",
+      "0x00ca",
+      "0x00b4",
+      "0xffb4",
+      "0xffa6",
+      "0xffcd",
+      "0xffd0",
+      "0x00a3",
+      "0xffda",
+      "0xffe8",
+      "0x0019",
+      "0xff8a",
+      "0xffdc",
+      "0xffdd",
+      "0x015a",
+      "0x00e4",
+      "0x0041"
+    ],
+    "feature_source": "explicit",
+    "wire_len": 90,
+    "payload_len": 48,
+    "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000beef133400140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
+  },
+  "wrong_port": {
+    "frame_kind": "ann_task",
+    "dst_mac": "00:4e:46:32:43:00",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "ethertype": "0x0800",
+    "ip_src": "10.0.12.3",
+    "ip_dst": "10.0.14.3",
+    "ip_protocol": "0x11",
+    "ip_total_length": 76,
+    "udp_src_port": "0x4001",
+    "udp_dst_port": "0x9999",
+    "udp_length": 56,
+    "udp_checksum": "0x0000",
+    "task_magic": "0xa11e",
+    "request_id": "0x1335",
+    "feature_count_field": 20,
+    "emitted_feature_count": 20,
+    "task_type": "0x0000",
+    "feature_values_be16": [
+      "0xff9e",
+      "0x00af",
+      "0x00af",
+      "0x0062",
+      "0x00ca",
+      "0x00b4",
+      "0xffb4",
+      "0xffa6",
+      "0xffcd",
+      "0xffd0",
+      "0x00a3",
+      "0xffda",
+      "0xffe8",
+      "0x0019",
+      "0xff8a",
+      "0xffdc",
+      "0xffdd",
+      "0x015a",
+      "0x00e4",
+      "0x0041"
+    ],
+    "feature_source": "explicit",
+    "wire_len": 90,
+    "payload_len": 48,
+    "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e034001999900380000a11e133500140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
+  },
+  "expected_rows": [
+    {
+      "name": "window_id_20",
+      "predicted_class": 1,
+      "wire_result_data_0_u16": 1,
+      "wire_result_data_1_u16": 331,
+      "result_mode": "compact_class_score",
+      "request_id": null
+    },
+    {
+      "name": "window_id_0",
+      "predicted_class": 1,
+      "wire_result_data_0_u16": 1,
+      "wire_result_data_1_u16": 319,
+      "result_mode": "compact_class_score",
+      "request_id": null
+    },
+    {
+      "name": "window_id_172",
+      "predicted_class": 1,
+      "wire_result_data_0_u16": 1,
+      "wire_result_data_1_u16": 172,
+      "result_mode": "compact_class_score",
+      "request_id": null
+    },
+    {
+      "name": "window_id_175",
+      "predicted_class": 1,
+      "wire_result_data_0_u16": 1,
+      "wire_result_data_1_u16": 172,
+      "result_mode": "compact_class_score",
+      "request_id": null
+    },
+    {
+      "name": "window_id_1",
+      "predicted_class": 1,
+      "wire_result_data_0_u16": 1,
+      "wire_result_data_1_u16": 320,
+      "result_mode": "compact_class_score",
+      "request_id": null
+    }
+  ]
+}

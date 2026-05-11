@@ -1,0 +1,45 @@
+{
+  "model": "dataset/export/rsu_ann_model_int16.json",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "ssh_mode": "sshpass",
+  "netfpga_host": "netfpga@nf3.usc.edu",
+  "sender_host": "node3@nf4.usc.edu",
+  "receiver_host": "node3@nf1.usc.edu",
+  "sender_iface": "port0",
+  "receiver_iface": "port2",
+  "pre_capture_delay_seconds": 0.5,
+  "capture_ready_delay_seconds": 1.0,
+  "continue_on_error": true,
+  "experiments": [
+    {
+      "name": "burst_batch16",
+      "mode": "batch_completion",
+      "sample_pool_mode": "repeat",
+      "batch_size": 16,
+      "request_id_base": "0x3100",
+      "completion_timeout_seconds": 5.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    },
+    {
+      "name": "burst_batch32",
+      "mode": "batch_completion",
+      "sample_pool_mode": "repeat",
+      "batch_size": 32,
+      "request_id_base": "0x3200",
+      "completion_timeout_seconds": 5.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    },
+    {
+      "name": "burst_batch64",
+      "mode": "batch_completion",
+      "sample_pool_mode": "repeat",
+      "batch_size": 64,
+      "request_id_base": "0x3300",
+      "completion_timeout_seconds": 8.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    }
+  ]
+}

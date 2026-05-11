@@ -1,0 +1,48 @@
+{
+  "num_samples_total": 119,
+  "num_train": 95,
+  "num_val": 24,
+  "best_epoch": 69,
+  "best_val_macro_f1": 0.84375,
+  "final_val_accuracy": 0.9166666666666666,
+  "final_val_macro_f1": 0.84375,
+  "float_pretrain_best_epoch": 69,
+  "float_pretrain_best_val_macro_f1": 0.84375,
+  "float_pretrain_val_accuracy": 0.9166666666666666,
+  "float_pretrain_val_macro_f1": 0.84375,
+  "device": "cpu",
+  "input_contract": "software_standardized_features_quantized_to_int16",
+  "quantization_mode": "qat",
+  "qat_selected": false,
+  "label_col": "road_state_label",
+  "class_counts_total": {
+    "Free-flow": 6,
+    "Slow": 65,
+    "Congested": 43,
+    "Incident-risk": 5
+  },
+  "class_counts_train": {
+    "Free-flow": 5,
+    "Slow": 52,
+    "Congested": 34,
+    "Incident-risk": 4
+  },
+  "class_counts_val": {
+    "Free-flow": 1,
+    "Slow": 13,
+    "Congested": 9,
+    "Incident-risk": 1
+  },
+  "qat_bootstrap_ptq_full_agreement": 0.6722689075630253,
+  "qat_bootstrap_input_scale": 116.64254131568373,
+  "qat_bootstrap_activation_scales": [
+    218.49064488871997,
+    344.4053025282678,
+    507.22952849061153
+  ],
+  "qat_best_epoch": 1,
+  "qat_best_val_macro_f1": 0.3508158508158508,
+  "qat_rejected_reason": "qat_val_macro_f1_not_better_than_float_pretrain",
+  "ann_manifest_output": "/home/reili/ee533/network_protocol/v8/dataset/export/rsu_ann_model_int16.json",
+  "ann_report_output": "/home/reili/ee533/network_protocol/v8/dataset/export/rsu_ann_model_int16.report.json"
+}

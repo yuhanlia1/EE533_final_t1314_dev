@@ -1,0 +1,12 @@
+mode=single
+image=image.txt
+total_words=13
+thread0.source=/home/reili/ee533/network_protocol/v5/deploy/netfpga/testdata/board_cpu_signature.s
+thread0.auto_stub=0
+thread0.base_addr=0x00000000
+thread0.original_words=10
+thread0.inserted_nops=3
+thread0.final_words=13
+thread0.hazard0=pc1->pc2:r1
+thread0.hazard1=pc4->pc5:r1
+thread0.hazard2=pc7->pc8:r1

@@ -1,0 +1,55 @@
+{
+  "model": "dataset/export/rsu_ann_model_int16.json",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "ssh_mode": "sshpass",
+  "netfpga_host": "netfpga@nf3.usc.edu",
+  "sender_host": "node3@nf4.usc.edu",
+  "receiver_host": "node3@nf1.usc.edu",
+  "sender_iface": "port0",
+  "receiver_iface": "port2",
+  "pre_capture_delay_seconds": 0.5,
+  "capture_ready_delay_seconds": 1.0,
+  "continue_on_error": true,
+  "experiments": [
+    {
+      "name": "batch8_hist_base1334",
+      "mode": "batch_completion",
+      "sample_pool_mode": "truncate",
+      "batch_size": 8,
+      "request_id_base": "0x1334",
+      "completion_timeout_seconds": 3.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    },
+    {
+      "name": "batch8_base2000",
+      "mode": "batch_completion",
+      "sample_pool_mode": "truncate",
+      "batch_size": 8,
+      "request_id_base": "0x2000",
+      "completion_timeout_seconds": 3.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    },
+    {
+      "name": "batch8_base3100",
+      "mode": "batch_completion",
+      "sample_pool_mode": "truncate",
+      "batch_size": 8,
+      "request_id_base": "0x3100",
+      "completion_timeout_seconds": 3.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    },
+    {
+      "name": "batch16_base1334_repeat",
+      "mode": "batch_completion",
+      "sample_pool_mode": "repeat",
+      "batch_size": 16,
+      "request_id_base": "0x1334",
+      "completion_timeout_seconds": 5.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 1
+    }
+  ]
+}

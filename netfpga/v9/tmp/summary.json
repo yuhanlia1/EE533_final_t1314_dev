@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-04-27T02:54:25",
+  "config_path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/rsu_demo_batch5_single.json",
+  "output_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp",
+  "runs_total": 1,
+  "runs_passed": 1,
+  "runs_failed": 0,
+  "results": [
+    {
+      "experiment_name": "batch5_single",
+      "run_name": "batch5_single_r01",
+      "repeat_index": 1,
+      "run_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01",
+      "batch_size": 5,
+      "batch_time_window_seconds": 3.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "request_id_base": "0x1334",
+      "workload_summary": "batch5",
+      "workload_results": [
+        {
+          "type": "batch",
+          "variant": null,
+          "batch_size": 5,
+          "batch_time_window_seconds": 3.0,
+          "batch_pre_replay_delay_seconds": 0.5,
+          "request_id_base": "0x1334",
+          "status": "passed",
+          "failed_step": null,
+          "error": null,
+          "report_exit_code": 0,
+          "board_passed": true,
+          "receiver_capture_mode_attempted": [
+            "count"
+          ],
+          "receiver_capture_mode_used": "count",
+          "receiver_capture_primary_status": "complete",
+          "receiver_capture_fallback_status": null,
+          "artifact_diagnostics": {
+            "remote": {
+              "receiver": {
+                "wrong_magic_bypass": {
+                  "host": "node3@nf1.usc.edu",
+                  "path": "~/v8/batch5_single_r01_receiver/captures/wrong_magic_bypass.cap",
+                  "exists": true,
+                  "size_bytes": 130
+                },
+                "wrong_port_bypass": {
+                  "host": "node3@nf1.usc.edu",
+                  "path": "~/v8/batch5_single_r01_receiver/captures/wrong_port_bypass.cap",
+                  "exists": true,
+                  "size_bytes": 130
+                },
+                "offload_batch_time_window": {
+                  "host": "node3@nf1.usc.edu",
+                  "path": "~/v8/batch5_single_r01_receiver/captures/offload_batch_receiver_primary.cap",
+                  "exists": true,
+                  "size_bytes": 554
+                }
+              },
+              "sender": {
+                "offload_batch_sender": {
+                  "host": "node3@nf4.usc.edu",
+                  "path": "~/v8/batch5_single_r01_sender/captures/offload_batch_sender_primary.cap",
+                  "exists": true,
+                  "size_bytes": 554
+                }
+              },
+              "netfpga": {
+                "debug_status_post": {
+                  "host": "netfpga@nf3.usc.edu",
+                  "path": "/home/netfpga/scripts/v8/batch5_single_r01_results/debug_status_post.txt",
+                  "exists": true,
+                  "size_bytes": 376
+                }
+              }
+            },
+            "local": {
+              "receiver": {
+                "wrong_magic_bypass": {
+                  "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/wrong_magic_bypass.cap",
+                  "exists": true,
+                  "size_bytes": 130,
+                  "packet_count": 1
+                },
+                "wrong_port_bypass": {
+                  "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/wrong_port_bypass.cap",
+                  "exists": true,
+                  "size_bytes": 130,
+                  "packet_count": 1
+                },
+                "offload_batch_time_window": {
+                  "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/offload_batch_time_window.cap",
+                  "exists": true,
+                  "size_bytes": 554,
+                  "packet_count": 5
+                }
+              },
+              "sender": {
+                "offload_batch_sender": {
+                  "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/offload_batch_sender.cap",
+                  "exists": true,
+                  "size_bytes": 554,
+                  "packet_count": 5
+                }
+              },
+              "netfpga": {
+                "debug_status_post": {
+                  "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/debug_status_post.txt",
+                  "exists": true,
+                  "size_bytes": 376,
+                  "packet_count": null
+                }
+              }
+            },
+            "receiver_capture_attempts": {
+              "primary": {
+                "name": "primary",
+                "mode": "count",
+                "remote": {
+                  "receiver": {
+                    "host": "node3@nf1.usc.edu",
+                    "path": "~/v8/batch5_single_r01_receiver/captures/offload_batch_receiver_primary.cap",
+                    "exists": true,
+                    "size_bytes": 554
+                  },
+                  "sender": {
+                    "host": "node3@nf4.usc.edu",
+                    "path": "~/v8/batch5_single_r01_sender/captures/offload_batch_sender_primary.cap",
+                    "exists": true,
+                    "size_bytes": 554
+                  }
+                },
+                "local": {
+                  "receiver": {
+                    "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/offload_batch_receiver_primary.cap",
+                    "exists": true,
+                    "size_bytes": 554,
+                    "packet_count": 5
+                  },
+                  "sender": {
+                    "path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/offload_batch_sender_primary.cap",
+                    "exists": true,
+                    "size_bytes": 554,
+                    "packet_count": 5
+                  }
+                },
+                "fetch": {
+                  "receiver_return_code": 0,
+                  "sender_return_code": 0
+                },
+                "status": "complete"
+              }
+            },
+            "receiver_capture_mode_attempted": [
+              "count"
+            ],
+            "receiver_capture_mode_used": "count",
+            "receiver_capture_primary_status": "complete",
+            "receiver_capture_fallback_status": null,
+            "selected_attempt_name": "primary",
+            "capture_issue": null,
+            "required_artifacts_ready": true
+          },
+          "capture_issue": null,
+          "receiver_capture_cleanup_status": "completed",
+          "capture_resolution_status": "capture_primary_passed",
+          "receiver_capture_remote_exists": true,
+          "receiver_capture_remote_size_bytes": 554,
+          "receiver_capture_local_exists": true,
+          "receiver_capture_local_size_bytes": 554,
+          "receiver_capture_count": 5,
+          "receiver_capture_remote_packet_count": 5,
+          "receiver_capture_local_packet_count": 5,
+          "sender_capture_local_exists": true,
+          "sender_capture_local_size_bytes": 554,
+          "sender_capture_count": 5,
+          "debug_status_local_exists": true,
+          "debug_status": {
+            "offload_accept_count": 5,
+            "frame_hold_count": 5,
+            "compute_start_count": 5,
+            "compute_done_count": 5,
+            "result_emit_count": 5,
+            "last_parse_request_id": 4920,
+            "last_compute_request_id": 4920,
+            "last_emit_request_id": 4920,
+            "flags_raw": 0,
+            "ingress_overflow_seen": 0,
+            "parse_nonfatal_seen": 0,
+            "parse_fatal_seen": 0,
+            "emit_stall_seen": 0
+          },
+          "offload_accept_count": 5,
+          "compute_done_count": 5,
+          "engine_emit_count": 5,
+          "pipeline_verdict": "healthy",
+          "verdict": "healthy",
+          "missing_request_ids": [],
+          "mismatch_count": 0,
+          "missing_sample_count": 0,
+          "capture_vs_emit_gap": 0,
+          "report_json": "batch5_single_r01/board_eval_report.json",
+          "summary_md": "batch5_single_r01/board_test_summary.md"
+        }
+      ],
+      "status": "passed",
+      "failed_step": null,
+      "error": null,
+      "report_exit_code": 0,
+      "board_passed": true,
+      "receiver_capture_mode_attempted": [
+        "count"
+      ],
+      "receiver_capture_mode_used": "count",
+      "receiver_capture_primary_status": "complete",
+      "receiver_capture_fallback_status": null,
+      "runner_log": "logs/batch5_single_r01.log",
+      "capture_issue": null,
+      "capture_resolution_status": "capture_primary_passed",
+      "receiver_capture_remote_exists": true,
+      "receiver_capture_remote_size_bytes": 554,
+      "receiver_capture_local_exists": true,
+      "receiver_capture_local_size_bytes": 554,
+      "receiver_capture_count": 5,
+      "receiver_capture_remote_packet_count": 5,
+      "receiver_capture_local_packet_count": 5,
+      "sender_capture_local_exists": true,
+      "sender_capture_local_size_bytes": 554,
+      "sender_capture_count": 5,
+      "debug_status_local_exists": true,
+      "debug_status": {
+        "offload_accept_count": 5,
+        "frame_hold_count": 5,
+        "compute_start_count": 5,
+        "compute_done_count": 5,
+        "result_emit_count": 5,
+        "last_parse_request_id": 4920,
+        "last_compute_request_id": 4920,
+        "last_emit_request_id": 4920,
+        "flags_raw": 0,
+        "ingress_overflow_seen": 0,
+        "parse_nonfatal_seen": 0,
+        "parse_fatal_seen": 0,
+        "emit_stall_seen": 0
+      },
+      "offload_accept_count": 5,
+      "compute_done_count": 5,
+      "engine_emit_count": 5,
+      "pipeline_verdict": "healthy",
+      "missing_request_ids": [],
+      "mismatch_count": 0,
+      "missing_sample_count": 0,
+      "capture_vs_emit_gap": 0,
+      "report_json": "batch5_single_r01/board_eval_report.json",
+      "summary_md": "batch5_single_r01/board_test_summary.md"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "model": "dataset/export/rsu_ann_model_int16.json",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "ssh_mode": "sshpass",
+  "netfpga_host": "netfpga@nf3.usc.edu",
+  "sender_host": "node3@nf4.usc.edu",
+  "receiver_host": "node3@nf1.usc.edu",
+  "sender_iface": "port0",
+  "receiver_iface": "port2",
+  "pre_capture_delay_seconds": 0.5,
+  "capture_ready_delay_seconds": 1.0,
+  "continue_on_error": true,
+  "experiments": [
+    {
+      "name": "single_offload_relative",
+      "mode": "latency_single",
+      "single_packet_variant": "offload",
+      "request_id_base": "0x1100",
+      "warmup_count": 5,
+      "sample_count": 20,
+      "single_result_timeout_seconds": 2.0,
+      "inter_sample_pause_seconds": 0.05
+    },
+    {
+      "name": "single_wrong_magic_relative",
+      "mode": "latency_single",
+      "single_packet_variant": "wrong_magic",
+      "request_id_base": "0x1200",
+      "warmup_count": 5,
+      "sample_count": 20,
+      "single_result_timeout_seconds": 2.0,
+      "inter_sample_pause_seconds": 0.05
+    },
+    {
+      "name": "single_wrong_port_relative",
+      "mode": "latency_single",
+      "single_packet_variant": "wrong_port",
+      "request_id_base": "0x1300",
+      "warmup_count": 5,
+      "sample_count": 20,
+      "single_result_timeout_seconds": 2.0,
+      "inter_sample_pause_seconds": 0.05
+    }
+  ]
+}

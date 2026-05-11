@@ -1,0 +1,46 @@
+{
+  "model": "dataset/export/rsu_ann_model_int16.json",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "ssh_mode": "sshpass",
+  "netfpga_host": "netfpga@nf9.usc.edu",
+  "sender_host": "node4@nf5.usc.edu",
+  "receiver_host": "node4@nf7.usc.edu",
+  "sender_iface": "port0",
+  "receiver_iface": "port2",
+  "pre_capture_delay_seconds": 0.5,
+  "capture_ready_delay_seconds": 1.0,
+  "continue_on_error": true,
+  "experiments": [
+    {
+      "name": "single_packet_completion_demo",
+      "mode": "latency_single",
+      "request_id_base": "0x1234",
+      "warmup_count": 5,
+      "sample_count": 20,
+      "single_result_timeout_seconds": 2.0,
+      "inter_sample_pause_seconds": 0.05
+    },
+    {
+      "name": "batch8_completion",
+      "mode": "batch_completion",
+      "batch_size": 8,
+      "request_id_base": "0x1334",
+      "completion_timeout_seconds": 3.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "repeats": 3
+    },
+    {
+      "name": "rate_scan_demo",
+      "mode": "rate_scan",
+      "request_id_base_start": "0x2000",
+      "rate_points_req_per_sec": [
+        10,
+        25,
+        50
+      ],
+      "send_duration_seconds": 2.0,
+      "drain_timeout_seconds": 1.0,
+      "repeats": 2
+    }
+  ]
+}

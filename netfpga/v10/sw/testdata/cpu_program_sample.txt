@@ -1,0 +1,6 @@
+# Sequential words start at address 0.
+0xE3A01001
+0xE3A02002
+
+# Explicit addresses are also accepted.
+4 0xEAFFFFFE

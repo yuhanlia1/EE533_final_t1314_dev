@@ -1,0 +1,17 @@
+[2026-04-27T02:42:35] run_name=batch5_single_r01
+[2026-04-27T02:42:35] config=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/rsu_demo_batch5_single.json
+[2026-04-27T02:42:35] workloads=batch5
+[2026-04-27T02:42:35] prepare_limit=5
+[2026-04-27T02:42:35] LOCAL  /usr/bin/python3 /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/boardctl.py prepare --model /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/dataset/export/rsu_ann_model_int16.json --out-dir /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/tmp/batch5_single_r01 --run-name batch5_single_r01 --limit 5 --force --bitfile nw_proc4_2_moreobserve.bit --netfpga-host netfpga@nf3.usc.edu --sender-host node3@nf4.usc.edu --receiver-host node3@nf1.usc.edu --sender-iface port0 --receiver-iface port2 --request-id-base 0x1334 --batch-time-window-seconds 3.0
+Traceback (most recent call last):
+  File "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/boardctl.py", line 1030, in <module>
+    raise SystemExit(main())
+  File "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/boardctl.py", line 1026, in main
+    return args.func(args)
+  File "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/boardctl.py", line 848, in prepare_cmd
+    shutil.copy2(Path(args.model), run_dir / "model_source.json")
+  File "/usr/lib/python3.8/shutil.py", line 435, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/usr/lib/python3.8/shutil.py", line 264, in copyfile
+    with open(src, 'rb') as fsrc, open(dst, 'wb') as fdst:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/dataset/export/rsu_ann_model_int16.json'

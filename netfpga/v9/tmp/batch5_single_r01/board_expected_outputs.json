@@ -1,0 +1,42 @@
+[
+  {
+    "name": "window_id_20",
+    "predicted_class": 1,
+    "wire_result_data_0_u16": 1,
+    "wire_result_data_1_u16": 331,
+    "result_mode": "compact_class_score",
+    "request_id": null
+  },
+  {
+    "name": "window_id_0",
+    "predicted_class": 1,
+    "wire_result_data_0_u16": 1,
+    "wire_result_data_1_u16": 319,
+    "result_mode": "compact_class_score",
+    "request_id": null
+  },
+  {
+    "name": "window_id_172",
+    "predicted_class": 1,
+    "wire_result_data_0_u16": 1,
+    "wire_result_data_1_u16": 172,
+    "result_mode": "compact_class_score",
+    "request_id": null
+  },
+  {
+    "name": "window_id_175",
+    "predicted_class": 1,
+    "wire_result_data_0_u16": 1,
+    "wire_result_data_1_u16": 172,
+    "result_mode": "compact_class_score",
+    "request_id": null
+  },
+  {
+    "name": "window_id_1",
+    "predicted_class": 1,
+    "wire_result_data_0_u16": 1,
+    "wire_result_data_1_u16": 320,
+    "result_mode": "compact_class_score",
+    "request_id": null
+  }
+]

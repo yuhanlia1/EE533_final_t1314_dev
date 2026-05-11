@@ -1,0 +1,68 @@
+{
+  "sample_count": 5,
+  "observed_count": 5,
+  "matched_count": 5,
+  "class_matches": 5,
+  "wire_matches": 5,
+  "class_accuracy": 1.0,
+  "wire_accuracy": 1.0,
+  "missing_samples": [],
+  "mismatches": [],
+  "confusion_matrix": {
+    "1->1": 5
+  },
+  "alignment_mode": "request_id",
+  "request_id_base": "0x1334",
+  "sent_count": 5,
+  "capture_count": 5,
+  "batch_capture_mode": "time_window",
+  "batch_capture_path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/tmp/batch5_single_r01/captures/offload_batch_time_window.cap",
+  "missing_request_ids": [],
+  "debug_counters": {
+    "offload_accept_count": 5,
+    "frame_hold_count": 5,
+    "compute_start_count": 5,
+    "compute_done_count": 5,
+    "result_emit_count": 5,
+    "last_parse_request_id": 4920,
+    "last_compute_request_id": 4920,
+    "last_emit_request_id": 4920,
+    "flags_raw": 0,
+    "ingress_overflow_seen": 0,
+    "parse_nonfatal_seen": 0,
+    "parse_fatal_seen": 0,
+    "emit_stall_seen": 0
+  },
+  "debug_emit_count": 5,
+  "debug_compute_done_count": 5,
+  "debug_frame_hold_count": 5,
+  "debug_offload_accept_count": 5,
+  "capture_vs_emit_gap": 0,
+  "pipeline_verdict": "healthy",
+  "expected_request_ids": [
+    "0x1334",
+    "0x1335",
+    "0x1336",
+    "0x1337",
+    "0x1338"
+  ],
+  "sender_capture_count": 5,
+  "receiver_capture_count": 5,
+  "sender_request_ids": [
+    "0x1334",
+    "0x1335",
+    "0x1336",
+    "0x1337",
+    "0x1338"
+  ],
+  "receiver_request_ids": [
+    "0x1334",
+    "0x1335",
+    "0x1336",
+    "0x1337",
+    "0x1338"
+  ],
+  "engine_emit_count": 5,
+  "engine_last_emit_request_id": "0x1338",
+  "debug_status_path": "debug_status_post.txt"
+}

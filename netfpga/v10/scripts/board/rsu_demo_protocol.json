@@ -1,0 +1,16 @@
+{
+  "model": "dataset/export/rsu_ann_model_int16.json",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "ssh_mode": "sshpass",
+  "netfpga_host": "netfpga@nf9.usc.edu",
+  "sender_host": "node4@nf5.usc.edu",
+  "receiver_host": "node4@nf7.usc.edu",
+  "sender_iface": "port0",
+  "receiver_iface": "port2",
+  "pre_capture_delay_seconds": 0.5,
+  "capture_ready_delay_seconds": 1.0,
+  "request_id_base": "0x1100",
+  "single_result_timeout_seconds": 2.0,
+  "bypass_udp_dst_port": "0x7777",
+  "bypass_payload_hex": "44454d4f5f425950415353"
+}

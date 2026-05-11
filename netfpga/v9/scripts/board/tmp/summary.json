@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-04-27T02:42:35",
+  "config_path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/rsu_demo_batch5_single.json",
+  "output_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/tmp",
+  "runs_total": 1,
+  "runs_passed": 0,
+  "runs_failed": 1,
+  "results": [
+    {
+      "experiment_name": "batch5_single",
+      "run_name": "batch5_single_r01",
+      "repeat_index": 1,
+      "run_dir": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/tmp/batch5_single_r01",
+      "batch_size": 5,
+      "batch_time_window_seconds": 3.0,
+      "batch_pre_replay_delay_seconds": 0.5,
+      "request_id_base": "0x1334",
+      "workload_summary": "batch5",
+      "workload_results": [],
+      "status": "failed",
+      "failed_step": "command",
+      "error": "command failed with exit code 1: ['/usr/bin/python3', '/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/boardctl.py', 'prepare', '--model', '/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/dataset/export/rsu_ann_model_int16.json', '--out-dir', '/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/scripts/board/tmp/batch5_single_r01', '--run-name', 'batch5_single_r01', '--limit', '5', '--force', '--bitfile', 'nw_proc4_2_moreobserve.bit', '--netfpga-host', 'netfpga@nf3.usc.edu', '--sender-host', 'node3@nf4.usc.edu', '--receiver-host', 'node3@nf1.usc.edu', '--sender-iface', 'port0', '--receiver-iface', 'port2', '--request-id-base', '0x1334', '--batch-time-window-seconds', '3.0']",
+      "report_exit_code": null,
+      "board_passed": false,
+      "receiver_capture_mode_attempted": [],
+      "receiver_capture_mode_used": null,
+      "receiver_capture_primary_status": null,
+      "receiver_capture_fallback_status": null,
+      "runner_log": "logs/batch5_single_r01.log"
+    }
+  ]
+}

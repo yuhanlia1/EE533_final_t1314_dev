@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "run_name": "batch5_single_r01",
+  "created_at": "2026-04-27T02:45:44",
+  "bitfile": "nw_proc4_2_moreobserve.bit",
+  "reg_defines_snapshot": "config/reg_defines_v8.h",
+  "model": {
+    "source": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v9/dataset/export/rsu_ann_model_int16.json",
+    "input_dim": 20,
+    "output_dim": 4,
+    "result_mode": "compact_class_score",
+    "result_base": "0x00000b6c",
+    "layer_count": 3
+  },
+  "network": {
+    "dst_mac": "00:4e:46:32:43:00",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "src_ip": "10.0.12.3",
+    "dst_ip": "10.0.14.3",
+    "src_udp_port": "0x4001",
+    "dst_udp_port": "0x88b5",
+    "task_type": "0x0000",
+    "request_id_base": "0x1334"
+  },
+  "usc": {
+    "netfpga_host": "netfpga@nf3.usc.edu",
+    "sender_host": "node3@nf4.usc.edu",
+    "receiver_host": "node3@nf1.usc.edu",
+    "sender_iface": "port0",
+    "receiver_iface": "port2",
+    "router_op_lut_macs": [
+      "00:4e:46:32:43:00",
+      "00:4e:46:32:43:01",
+      "00:4e:46:32:43:02",
+      "00:4e:46:32:43:03"
+    ],
+    "remote_netfpga_root": "/home/netfpga/scripts/v8/batch5_single_r01_netfpga",
+    "remote_netfpga_results": "/home/netfpga/scripts/v8/batch5_single_r01_results",
+    "remote_sender_root": "~/v8/batch5_single_r01_sender",
+    "remote_receiver_root": "~/v8/batch5_single_r01_receiver"
+  },
+  "artifacts": {
+    "bundle_dir": "bundle",
+    "selected_test_vectors": "board_test_vectors.json",
+    "selected_expected_outputs": "board_expected_outputs.json",
+    "offload_batch_pcap": "pcaps/offload_batch.pcap",
+    "offload_smoke_pcap": "pcaps/offload_smoke_0.pcap",
+    "wrong_magic_pcap": "pcaps/wrong_magic_bypass.pcap",
+    "wrong_port_pcap": "pcaps/wrong_port_bypass.pcap",
+    "capture_dir": "captures",
+    "offload_smoke_capture": "captures/offload_smoke.cap",
+    "offload_batch_time_window_capture": "captures/offload_batch_time_window.cap",
+    "debug_status_txt": "debug_status_post.txt",
+    "observed_json": "observed_results.json",
+    "report_json": "board_eval_report.json",
+    "summary_md": "board_test_summary.md"
+  },
+  "counts": {
+    "selected_samples": 5,
+    "batch_packet_count": 5,
+    "smoke_packet_count": 1
+  },
+  "smoke": {
+    "offload_sample": "window_id_20",
+    "wrong_magic_request_id": "0x1334",
+    "wrong_port_request_id": "0x1335"
+  },
+  "capture": {
+    "batch_modes": [
+      "count",
+      "time_window"
+    ],
+    "batch_time_window_seconds": 3.0
+  },
+  "sweep": {
+    "batch_pre_replay_delay_seconds": 0.5,
+    "capture_ready_delay_seconds": 1.0,
+    "receiver_capture_mode": "auto",
+    "receiver_capture_primary_mode": "count",
+    "receiver_capture_fallback_mode": "time_window"
+  }
+}
