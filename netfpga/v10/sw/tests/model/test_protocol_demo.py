@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import contextlib
+import io
 import importlib.util
 import tempfile
 import unittest
@@ -154,6 +156,45 @@ class ProtocolDemoTests(unittest.TestCase):
             self.assertTrue((run_dir / "pcaps" / "protocol_bypass.pcap").exists())
             self.assertTrue((run_dir / "commands" / "nf1_capture_protocol_bypass.sh").exists())
             self.assertTrue((run_dir / "commands" / "nf4_replay_protocol_bypass.sh").exists())
+
+    def test_print_step_block_adds_blank_lines_between_sections(self) -> None:
+        step_summary = {
+            "step": "bypass",
+            "label": "Bypass Gate",
+            "expected_behavior": "Packet should stay on bypass path.",
+            "protocol_check": "receiver observed udp_unknown without ann_result",
+            "protocol_verdict": "pass",
+            "sent_packet_summary": {
+                "request_id": "0x1100",
+                "frame_kind": "udp_unknown",
+                "udp_dst_port": "0x7777",
+            },
+            "sent_packet_hex": "00112233",
+            "observed_packet_summary": {
+                "request_id": "0x1100",
+                "frame_kind": "udp_unknown",
+                "udp_dst_port": "0x7777",
+            },
+            "observed_packet_hex": "aabbccdd",
+            "artifacts": {"step_summary_md": "protocol_bypass_summary.md"},
+        }
+
+        stdout = io.StringIO()
+        with contextlib.redirect_stdout(stdout):
+            protocol_demo._print_step_block(step_summary)
+
+        rendered = stdout.getvalue()
+        self.assertTrue(rendered.startswith("\n"))
+        self.assertIn("Expected          : Non-ANN UDP should stay on bypass path.\n", rendered)
+        self.assertIn("Protocol Check    : udp_unknown captured on 0x7777\n", rendered)
+        self.assertIn("Result            : PASS\n\n", rendered)
+        self.assertIn("  Request Edge:\n\n", rendered)
+        self.assertIn("    Sent Packet:\n\n", rendered)
+        self.assertIn("hex:\n", rendered)
+        self.assertIn("\n\n----------------------------------------------------------------------------------------------------\n  Result Edge:\n\n", rendered)
+        self.assertIn("    Observed Packet:\n\n", rendered)
+        self.assertIn("\n\n----------------------------------------------------------------------------------------------------\n  Step Summary:\n\n", rendered)
+        self.assertTrue(rendered.endswith("====================================================================================================\n\n"))
 
 
 if __name__ == "__main__":

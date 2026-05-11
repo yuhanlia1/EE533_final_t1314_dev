@@ -3,6 +3,7 @@
 import argparse
 import json
 import shutil
+import subprocess
 import sys
 import textwrap
 from datetime import datetime
@@ -96,6 +97,24 @@ def _print_separator(char="=", width=None):
     print(char * width)
 
 
+def _restore_local_tty():
+    if not sys.stdout.isatty():
+        return
+    if shutil.which("stty") is None:
+        return
+    try:
+        with open("/dev/tty", "rb+", buffering=0) as tty_handle:
+            subprocess.run(
+                ["stty", "sane"],
+                stdin=tty_handle,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+    except OSError:
+        return
+
+
 def _print_kv(key, value, indent=0, key_width=17):
     prefix = " " * int(indent)
     print("%s%-*s : %s" % (prefix, int(key_width), str(key), str(value)))
@@ -153,9 +172,10 @@ def _metadata_rows(summary):
     return rows
 
 
-def _print_packet(title, metadata_dict, hex_string, indent=2, width=None):
+def _print_packet(title, metadata_dict, hex_string, indent=2, width=None, show_title=True):
     width = width or _term_width()
-    print("%s%s:" % (" " * int(indent), title))
+    if show_title:
+        print("%s%s:" % (" " * int(indent), title))
     rows = _metadata_rows(metadata_dict)
     if rows:
         for key, value in rows:
@@ -547,6 +567,36 @@ def _step_protocol_check(step_name, sample, observed_summary):
     return "protocol check unavailable"
 
 
+def _terminal_expected_behavior(step_summary):
+    step_name = step_summary.get("step")
+    if step_name == "bypass":
+        return "Non-ANN UDP should stay on bypass path."
+    if step_name == "wrong_magic":
+        return "ANN UDP port + invalid magic should stay on bypass path."
+    if step_name == "offload":
+        return "Legal ANN task should return ann_result."
+    return step_summary.get("expected_behavior", "n/a")
+
+
+def _terminal_protocol_check(step_summary):
+    step_name = step_summary.get("step")
+    observed = step_summary.get("observed_packet_summary") or {}
+    if step_name == "bypass":
+        return "udp_unknown captured on %s" % observed.get("udp_dst_port", "n/a")
+    if step_name == "wrong_magic":
+        return "udp_unknown captured on %s with magic %s" % (
+            observed.get("udp_dst_port", "n/a"),
+            observed.get("payload_magic", "n/a"),
+        )
+    if step_name == "offload":
+        return "ann_result captured for %s class=%s score=%s" % (
+            observed.get("request_id", "n/a"),
+            observed.get("predicted_class", "n/a"),
+            observed.get("predicted_score_s16", "n/a"),
+        )
+    return step_summary.get("protocol_check", "n/a")
+
+
 def _render_step_markdown(step_summary):
     lines = [
         "# %s" % step_summary["label"],
@@ -634,24 +684,47 @@ def _build_step_summary(run_dir, manifest, step_name, log_path, sample):
 
 def _print_step_block(step_summary):
     width = _term_width()
+    print()
     _print_separator("=", width=width)
     _print_kv("Protocol Step", step_summary["label"], key_width=17)
-    _print_wrapped_kv("Expected", step_summary["expected_behavior"], key_width=17, width=width)
-    _print_wrapped_kv("Protocol Check", step_summary["protocol_check"], key_width=17, width=width)
+    _print_wrapped_kv("Expected", _terminal_expected_behavior(step_summary), key_width=17, width=width)
+    _print_wrapped_kv("Protocol Check", _terminal_protocol_check(step_summary), key_width=17, width=width)
     _print_kv("Result", _status_word(step_summary["protocol_verdict"] == "pass"), key_width=17)
+    print()
     _print_separator("-", width=width)
-    _print_packet("Sent Packet", step_summary.get("sent_packet_summary"), step_summary.get("sent_packet_hex"), indent=2, width=width)
+    print("  Request Edge:")
+    print()
+    print("    Sent Packet:")
+    print()
+    _print_packet(
+        "Sent Packet",
+        step_summary.get("sent_packet_summary"),
+        step_summary.get("sent_packet_hex"),
+        indent=6,
+        width=width,
+        show_title=False,
+    )
+    print()
     _print_separator("-", width=width)
+    print("  Result Edge:")
+    print()
+    print("    Observed Packet:")
+    print()
     _print_packet(
         "Observed Packet",
         step_summary.get("observed_packet_summary"),
         step_summary.get("observed_packet_hex"),
-        indent=2,
+        indent=6,
         width=width,
+        show_title=False,
     )
+    print()
     _print_separator("-", width=width)
-    _print_kv("Step Summary", step_summary["artifacts"]["step_summary_md"], key_width=17)
+    print("  Step Summary:")
+    print()
+    _print_kv("summary_md", step_summary["artifacts"]["step_summary_md"], indent=4, key_width=13)
     _print_separator("=", width=width)
+    print()
 
 
 def init_command(args):
@@ -739,7 +812,9 @@ def run_step_command(args, step_name):
     _write_json(summary_json_path, step_summary)
     _write_text(summary_md_path, _render_step_markdown(step_summary))
     _update_protocol_summary(run_dir, manifest, step_summary)
+    _restore_local_tty()
     _print_step_block(step_summary)
+    _restore_local_tty()
     return 0 if step_summary["protocol_verdict"] == "pass" else 1
 
 
