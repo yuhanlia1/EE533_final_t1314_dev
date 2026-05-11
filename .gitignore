@@ -1,3 +1,4 @@
 netfpga/v8/dataset/raw/original_dataset/NGSIM.xlsx
 *.xlsx
 netfpga/v9/pd/asic_report/pnr/user_top/results/
+netfpga/v10/pd/asic_report/pnr/user_top/results/*.def
