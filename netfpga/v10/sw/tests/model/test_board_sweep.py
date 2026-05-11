@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import io
+from unittest import mock
 import tempfile
 import unittest
 from pathlib import Path
@@ -503,6 +505,43 @@ class BoardSweepTests(unittest.TestCase):
         self.assertEqual(runner.started, [])
         self.assertEqual(runner.attempts, ["primary"])
         self.assertEqual(runner.ran, ["nf3_debug_snapshot.sh"])
+
+    def test_run_remote_script_detaches_stdin_from_local_tty(self) -> None:
+        runner = board_sweep.SweepRunner(
+            output_dir=Path("/tmp/out"),
+            config_path=Path("/tmp/config.json"),
+            defaults=self._runner_defaults(),
+        )
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            script_path = Path(tmpdir) / "demo.sh"
+            script_path.write_text("#!/usr/bin/env bash\nexit 0\n", encoding="utf-8")
+            handle = io.StringIO()
+
+            with mock.patch.object(board_sweep.subprocess, "run") as run_mock:
+                run_mock.return_value = mock.Mock(returncode=0)
+                runner._run_remote_script(handle, "node4@nf5.usc.edu", script_path, tty=True)
+
+            self.assertEqual(run_mock.call_args.kwargs["stdin"], board_sweep.subprocess.DEVNULL)
+
+    def test_start_remote_script_detaches_stdin_from_local_tty(self) -> None:
+        runner = board_sweep.SweepRunner(
+            output_dir=Path("/tmp/out"),
+            config_path=Path("/tmp/config.json"),
+            defaults=self._runner_defaults(),
+        )
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            script_path = Path(tmpdir) / "demo.sh"
+            script_path.write_text("#!/usr/bin/env bash\nsleep 1\n", encoding="utf-8")
+            handle = io.StringIO()
+
+            process = mock.Mock()
+            process.poll.return_value = None
+            with mock.patch.object(board_sweep.subprocess, "Popen", return_value=process) as popen_mock:
+                runner._start_remote_script(handle, "node4@nf5.usc.edu", script_path, tty=True)
+
+            self.assertEqual(popen_mock.call_args.kwargs["stdin"], board_sweep.subprocess.DEVNULL)
 
 
 if __name__ == "__main__":

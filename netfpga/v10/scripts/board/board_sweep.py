@@ -618,6 +618,7 @@ class SweepRunner:
         self._log(handle, "REMOTE %s" % rendered)
         result = subprocess.run(
             command,
+            stdin=subprocess.DEVNULL,
             stdout=handle,
             stderr=subprocess.STDOUT,
             text=True,
@@ -633,6 +634,7 @@ class SweepRunner:
         self._log(handle, "REMOTE %s" % rendered)
         result = subprocess.run(
             command,
+            stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
             text=True,
@@ -653,6 +655,7 @@ class SweepRunner:
         self._log(handle, "COPY   %s" % rendered)
         result = subprocess.run(
             command,
+            stdin=subprocess.DEVNULL,
             stdout=handle,
             stderr=subprocess.STDOUT,
             text=True,
@@ -672,6 +675,7 @@ class SweepRunner:
         self._log(handle, "REMOTE %s < %s" % (rendered, script_path))
         result = subprocess.run(
             command,
+            stdin=subprocess.DEVNULL,
             stdout=handle,
             stderr=subprocess.STDOUT,
             text=True,
@@ -687,6 +691,7 @@ class SweepRunner:
         self._log(handle, "ASYNC  %s < %s" % (rendered, script_path))
         process = subprocess.Popen(
             command,
+            stdin=subprocess.DEVNULL,
             stdout=handle,
             stderr=subprocess.STDOUT,
             text=True,
