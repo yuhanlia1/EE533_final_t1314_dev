@@ -1382,36 +1382,36 @@ PATH="$BOARD_SWEEP_MOCK_BIN:$PATH" \
 BOARD_SWEEP_MOCK_BIN="$BOARD_SWEEP_MOCK_BIN" \
 BOARD_SWEEP_MOCK_REMOTE_ROOT="$BOARD_SWEEP_REMOTE_ROOT" \
 BOARD_SWEEP_MOCK_WORKSPACE_ROOT="$ROOT_DIR" \
-BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf9.usc.edu" \
-BOARD_SWEEP_MOCK_SENDER_HOST="node4@nf5.usc.edu" \
-BOARD_SWEEP_MOCK_RECEIVER_HOST="node4@nf7.usc.edu" \
+BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf3.usc.edu" \
+BOARD_SWEEP_MOCK_SENDER_HOST="node3@nf4.usc.edu" \
+BOARD_SWEEP_MOCK_RECEIVER_HOST="node3@nf1.usc.edu" \
 bash "$ROOT_DIR/scripts/board/rsu_demo.sh" protocol-init --password-file "$BOARD_SWEEP_PASSWORD_FILE" --out-dir "$PROTOCOL_DEMO_OUT" --force >/dev/null
 
 PATH="$BOARD_SWEEP_MOCK_BIN:$PATH" \
 BOARD_SWEEP_MOCK_BIN="$BOARD_SWEEP_MOCK_BIN" \
 BOARD_SWEEP_MOCK_REMOTE_ROOT="$BOARD_SWEEP_REMOTE_ROOT" \
 BOARD_SWEEP_MOCK_WORKSPACE_ROOT="$ROOT_DIR" \
-BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf9.usc.edu" \
-BOARD_SWEEP_MOCK_SENDER_HOST="node4@nf5.usc.edu" \
-BOARD_SWEEP_MOCK_RECEIVER_HOST="node4@nf7.usc.edu" \
+BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf3.usc.edu" \
+BOARD_SWEEP_MOCK_SENDER_HOST="node3@nf4.usc.edu" \
+BOARD_SWEEP_MOCK_RECEIVER_HOST="node3@nf1.usc.edu" \
 bash "$ROOT_DIR/scripts/board/rsu_demo.sh" protocol-bypass --password-file "$BOARD_SWEEP_PASSWORD_FILE" --run-dir "$PROTOCOL_DEMO_OUT" >/dev/null
 
 PATH="$BOARD_SWEEP_MOCK_BIN:$PATH" \
 BOARD_SWEEP_MOCK_BIN="$BOARD_SWEEP_MOCK_BIN" \
 BOARD_SWEEP_MOCK_REMOTE_ROOT="$BOARD_SWEEP_REMOTE_ROOT" \
 BOARD_SWEEP_MOCK_WORKSPACE_ROOT="$ROOT_DIR" \
-BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf9.usc.edu" \
-BOARD_SWEEP_MOCK_SENDER_HOST="node4@nf5.usc.edu" \
-BOARD_SWEEP_MOCK_RECEIVER_HOST="node4@nf7.usc.edu" \
+BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf3.usc.edu" \
+BOARD_SWEEP_MOCK_SENDER_HOST="node3@nf4.usc.edu" \
+BOARD_SWEEP_MOCK_RECEIVER_HOST="node3@nf1.usc.edu" \
 bash "$ROOT_DIR/scripts/board/rsu_demo.sh" protocol-wrong-magic --password-file "$BOARD_SWEEP_PASSWORD_FILE" --run-dir "$PROTOCOL_DEMO_OUT" >/dev/null
 
 PATH="$BOARD_SWEEP_MOCK_BIN:$PATH" \
 BOARD_SWEEP_MOCK_BIN="$BOARD_SWEEP_MOCK_BIN" \
 BOARD_SWEEP_MOCK_REMOTE_ROOT="$BOARD_SWEEP_REMOTE_ROOT" \
 BOARD_SWEEP_MOCK_WORKSPACE_ROOT="$ROOT_DIR" \
-BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf9.usc.edu" \
-BOARD_SWEEP_MOCK_SENDER_HOST="node4@nf5.usc.edu" \
-BOARD_SWEEP_MOCK_RECEIVER_HOST="node4@nf7.usc.edu" \
+BOARD_SWEEP_MOCK_NETFPGA_HOST="netfpga@nf3.usc.edu" \
+BOARD_SWEEP_MOCK_SENDER_HOST="node3@nf4.usc.edu" \
+BOARD_SWEEP_MOCK_RECEIVER_HOST="node3@nf1.usc.edu" \
 bash "$ROOT_DIR/scripts/board/rsu_demo.sh" protocol-offload --password-file "$BOARD_SWEEP_PASSWORD_FILE" --run-dir "$PROTOCOL_DEMO_OUT" >/dev/null
 
 assert_file_exists "$PROTOCOL_DEMO_OUT/protocol_demo_summary.json" "protocol_demo missing protocol_demo_summary.json"

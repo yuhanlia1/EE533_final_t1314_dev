@@ -1,46 +1,46 @@
-[2026-05-11T12:29:02] run_dir=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo
-[2026-05-11T12:29:02] step=bypass
-[2026-05-11T12:29:02] ASYNC  sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node4@nf5.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+[2026-05-11T23:32:59] run_dir=/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo
+[2026-05-11T23:32:59] step=bypass
+[2026-05-11T23:32:59] ASYNC  sshpass -p r006+vYeW0Or ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node3@nf4.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
 set -euo pipefail
 mkdir -p "$HOME/v8/rsu_protocol_demo_sender/captures"
 rm -f "$HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap"
-sudo /usr/sbin/tcpdump -i port0 -nn -U -c 1 '"'"'"'"'"'"'"'"'udp and src host 10.0.16.3 and dst host 10.0.18.3'"'"'"'"'"'"'"'"' -w "$HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap"
+sudo /usr/sbin/tcpdump -i port0 -nn -U -c 1 '"'"'"'"'"'"'"'"'udp and src host 10.0.12.3 and dst host 10.0.14.3'"'"'"'"'"'"'"'"' -w "$HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap"
 '"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/commands/nf4_capture_single_sender.sh
-[2026-05-11T12:29:03] ASYNC  sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node4@nf7.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+[2026-05-11T23:32:59] ASYNC  sshpass -p r006+vYeW0Or ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node3@nf1.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
 set -euo pipefail
 mkdir -p "$HOME/v8/rsu_protocol_demo_receiver/captures"
 rm -f "$HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap"
-sudo /usr/sbin/tcpdump -i port2 -nn -U -c 1 '"'"'"'"'"'"'"'"'udp and src host 10.0.16.3 and dst host 10.0.18.3'"'"'"'"'"'"'"'"' -w "$HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap"
+sudo /usr/sbin/tcpdump -i port2 -nn -U -c 1 '"'"'"'"'"'"'"'"'udp and src host 10.0.12.3 and dst host 10.0.14.3'"'"'"'"'"'"'"'"' -w "$HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap"
 '"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/commands/nf1_capture_protocol_bypass.sh
 tcpdump: listening on port2, link-type EN10MB (Ethernet), capture size 96 bytes
-tcpdump: listening on port0, link-type EN10MB (Ethernet), capture size 96 bytes
-[2026-05-11T12:29:03] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node4@nf5.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
+[2026-05-11T23:32:59] REMOTE sshpass -p r006+vYeW0Or ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 -tt node3@nf4.usc.edu 'bash -lc '"'"'#!/usr/bin/env bash
 set -euo pipefail
 sudo /usr/bin/tcpreplay -i port0 "$HOME/v8/rsu_protocol_demo_sender/pcaps/protocol_bypass.pcap"
 '"'"'' < /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/commands/nf4_replay_protocol_bypass.sh
-1 packets captured
+tcpdump: listening on port0, link-type EN10MB (Ethernet), capture size 96 bytes
 1 packets captured
 1 packets received by filter
 0 packets dropped by kernel
-Connection to nf5.usc.edu closed.
-Actual: 1 packets (53 bytes) sent in 0.000115 seconds.
-Rated: 460800.0 Bps, 3.68 Mbps, 8695.65 pps
-Flows: 1 flows, 8695.65 fps, 1 flow packets, 0 non-flow
+1 packets captured
+1 packets received by filterActual: 1 packets (53 bytes) sent in 0.000111 seconds.
+Rated: 477400.0 Bps, 3.81 Mbps, 9009.00 pps
+Flows: 1 flows, 9009.00 fps, 1 flow packets, 0 non-flow
 Statistics for network device: port0
 	Successful packets:        1
 	Failed packets:            0
 	Truncated packets:         0
 	Retried packets (ENOBUFS): 0
 	Retried packets (EAGAIN):  0
-1 packets received by filter
+Connection to nf1.usc.edu closed.
+
 0 packets dropped by kernel
-Connection to nf7.usc.edu closed.
-Connection to nf5.usc.edu closed.
-[2026-05-11T12:29:04] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node4@nf5.usc.edu 'if [ -f $HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap ]; then bytes=$(wc -c < $HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap); printf '"'"'exists=1\nsize_bytes=%s\n'"'"' "$bytes"; else printf '"'"'exists=0\n'"'"'; fi'
+Connection to nf4.usc.edu closed.
+Connection to nf4.usc.edu closed.
+[2026-05-11T23:33:01] REMOTE sshpass -p r006+vYeW0Or ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node3@nf4.usc.edu 'if [ -f $HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap ]; then bytes=$(wc -c < $HOME/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap); printf '"'"'exists=1\nsize_bytes=%s\n'"'"' "$bytes"; else printf '"'"'exists=0\n'"'"'; fi'
 exists=1
 size_bytes=93
-[2026-05-11T12:29:05] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 'node4@nf5.usc.edu:~/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap' /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/captures/bypass_sender_001.cap
-[2026-05-11T12:29:05] REMOTE sshpass -p 2hJknPlW+nz3 ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node4@nf7.usc.edu 'if [ -f $HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap ]; then bytes=$(wc -c < $HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap); printf '"'"'exists=1\nsize_bytes=%s\n'"'"' "$bytes"; else printf '"'"'exists=0\n'"'"'; fi'
+[2026-05-11T23:33:01] COPY   sshpass -p r006+vYeW0Or scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 'node3@nf4.usc.edu:~/v8/rsu_protocol_demo_sender/captures/offload_smoke_sender.cap' /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/captures/bypass_sender_001.cap
+[2026-05-11T23:33:02] REMOTE sshpass -p r006+vYeW0Or ssh -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 node3@nf1.usc.edu 'if [ -f $HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap ]; then bytes=$(wc -c < $HOME/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap); printf '"'"'exists=1\nsize_bytes=%s\n'"'"' "$bytes"; else printf '"'"'exists=0\n'"'"'; fi'
 exists=1
 size_bytes=100
-[2026-05-11T12:29:06] COPY   sshpass -p 2hJknPlW+nz3 scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 'node4@nf7.usc.edu:~/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap' /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/captures/bypass_receiver_001.cap
+[2026-05-11T23:33:02] COPY   sshpass -p r006+vYeW0Or scp -o StrictHostKeyChecking=no -o KexAlgorithms=+diffie-hellman-group14-sha1 'node3@nf1.usc.edu:~/v8/rsu_protocol_demo_receiver/captures/protocol_bypass.cap' /home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/tmp/rsu_protocol_demo/captures/bypass_receiver_001.cap

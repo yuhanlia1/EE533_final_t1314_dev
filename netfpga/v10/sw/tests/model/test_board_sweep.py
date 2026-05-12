@@ -520,7 +520,7 @@ class BoardSweepTests(unittest.TestCase):
 
             with mock.patch.object(board_sweep.subprocess, "run") as run_mock:
                 run_mock.return_value = mock.Mock(returncode=0)
-                runner._run_remote_script(handle, "node4@nf5.usc.edu", script_path, tty=True)
+                runner._run_remote_script(handle, "node3@nf4.usc.edu", script_path, tty=True)
 
             self.assertEqual(run_mock.call_args.kwargs["stdin"], board_sweep.subprocess.DEVNULL)
 
@@ -539,7 +539,7 @@ class BoardSweepTests(unittest.TestCase):
             process = mock.Mock()
             process.poll.return_value = None
             with mock.patch.object(board_sweep.subprocess, "Popen", return_value=process) as popen_mock:
-                runner._start_remote_script(handle, "node4@nf5.usc.edu", script_path, tty=True)
+                runner._start_remote_script(handle, "node3@nf4.usc.edu", script_path, tty=True)
 
             self.assertEqual(popen_mock.call_args.kwargs["stdin"], board_sweep.subprocess.DEVNULL)
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "run_name": "engine_single_infer_r01",
-  "created_at": "2026-05-11T13:05:28",
+  "created_at": "2026-05-11T23:44:19",
   "bitfile": "nw_proc4_2_moreobserve.bit",
   "reg_defines_snapshot": "config/reg_defines_v8.h",
   "model": {
@@ -14,18 +14,18 @@
   },
   "network": {
     "dst_mac": "00:4e:46:32:43:00",
-    "src_mac": "a0:36:9f:0a:5d:5b",
-    "src_ip": "10.0.16.3",
-    "dst_ip": "10.0.18.3",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "src_ip": "10.0.12.3",
+    "dst_ip": "10.0.14.3",
     "src_udp_port": "0x4001",
     "dst_udp_port": "0x88b5",
     "task_type": "0x0000",
     "request_id_base": "0x1100"
   },
   "usc": {
-    "netfpga_host": "netfpga@nf9.usc.edu",
-    "sender_host": "node4@nf5.usc.edu",
-    "receiver_host": "node4@nf7.usc.edu",
+    "netfpga_host": "netfpga@nf3.usc.edu",
+    "sender_host": "node3@nf4.usc.edu",
+    "receiver_host": "node3@nf1.usc.edu",
     "sender_iface": "port0",
     "receiver_iface": "port2",
     "router_op_lut_macs": [

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "created_at": "2026-05-11T12:30:12",
+  "created_at": "2026-05-11T23:34:23",
   "step": "wrong_magic",
   "label": "Payload Gate",
   "single_packet_variant": "wrong_magic",
@@ -29,7 +29,7 @@
     "payload_magic": "0xbeef",
     "udp_dst_port": "0x88b5",
     "frame_kind": "udp_unknown",
-    "coarse_completion_us": 3296485.4410001864
+    "coarse_completion_us": 3110624.246000043
   },
   "sent_packet_summary": {
     "frame_kind": "udp_unknown",
@@ -38,7 +38,7 @@
     "payload_len": 48,
     "request_id": "0x1100"
   },
-  "sent_packet_hex": "004e46324300a0369f0a5d5b08004500004c123440004011f2670a0010030a001203400188b500380000beef110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041",
+  "sent_packet_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000beef110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041",
   "observed_packet_summary": {
     "frame_kind": "udp_unknown",
     "payload_magic": "0xbeef",
@@ -46,7 +46,7 @@
     "payload_len": 48,
     "request_id": "0x1100"
   },
-  "observed_packet_hex": "a0369f0a0eb1004e4632430208004500004c123440003f11f3670a0010030a001203400188b500380000beef110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041",
+  "observed_packet_hex": "a0369f0a5c65004e4632430208004500004c123440003f11fb670a000c030a000e03400188b500380000beef110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041",
   "artifacts": {
     "step_summary_json": "protocol_wrong_magic_summary.json",
     "step_summary_md": "protocol_wrong_magic_summary.md"

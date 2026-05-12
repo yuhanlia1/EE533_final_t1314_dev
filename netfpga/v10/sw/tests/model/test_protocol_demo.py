@@ -123,9 +123,9 @@ class ProtocolDemoTests(unittest.TestCase):
                 "bitfile": "demo.bit",
                 "network": {
                     "dst_mac": "00:4e:46:32:43:00",
-                    "src_mac": "a0:36:9f:0a:5d:5b",
-                    "src_ip": "10.0.16.3",
-                    "dst_ip": "10.0.18.3",
+                    "src_mac": "a0:36:9f:1d:48:c3",
+                    "src_ip": "10.0.12.3",
+                    "dst_ip": "10.0.14.3",
                     "src_udp_port": "0x4001",
                     "dst_udp_port": "0x88b5",
                     "task_type": "0x0000",

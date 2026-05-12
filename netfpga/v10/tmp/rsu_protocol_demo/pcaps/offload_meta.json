@@ -3,16 +3,16 @@
     {
       "name": "window_id_20",
       "request_id": "0x1100",
-      "wire_frame_hex": "004e46324300a0369f0a5d5b08004500004c123440004011f2670a0010030a001203400188b500380000a11e110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
+      "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000a11e110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
     }
   ],
   "wrong_magic": {
     "frame_kind": "ann_task",
     "dst_mac": "00:4e:46:32:43:00",
-    "src_mac": "a0:36:9f:0a:5d:5b",
+    "src_mac": "a0:36:9f:1d:48:c3",
     "ethertype": "0x0800",
-    "ip_src": "10.0.16.3",
-    "ip_dst": "10.0.18.3",
+    "ip_src": "10.0.12.3",
+    "ip_dst": "10.0.14.3",
     "ip_protocol": "0x11",
     "ip_total_length": 76,
     "udp_src_port": "0x4001",
@@ -49,15 +49,15 @@
     "feature_source": "explicit",
     "wire_len": 90,
     "payload_len": 48,
-    "wire_frame_hex": "004e46324300a0369f0a5d5b08004500004c123440004011f2670a0010030a001203400188b500380000beef110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
+    "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e03400188b500380000beef110000140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
   },
   "wrong_port": {
     "frame_kind": "ann_task",
     "dst_mac": "00:4e:46:32:43:00",
-    "src_mac": "a0:36:9f:0a:5d:5b",
+    "src_mac": "a0:36:9f:1d:48:c3",
     "ethertype": "0x0800",
-    "ip_src": "10.0.16.3",
-    "ip_dst": "10.0.18.3",
+    "ip_src": "10.0.12.3",
+    "ip_dst": "10.0.14.3",
     "ip_protocol": "0x11",
     "ip_total_length": 76,
     "udp_src_port": "0x4001",
@@ -94,7 +94,7 @@
     "feature_source": "explicit",
     "wire_len": 90,
     "payload_len": 48,
-    "wire_frame_hex": "004e46324300a0369f0a5d5b08004500004c123440004011f2670a0010030a0012034001999900380000a11e110100140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
+    "wire_frame_hex": "004e46324300a0369f1d48c308004500004c123440004011fa670a000c030a000e034001999900380000a11e110100140000ff9e00af00af006200ca00b4ffb4ffa6ffcdffd000a3ffdaffe80019ff8affdcffdd015a00e40041"
   },
   "expected_rows": [
     {

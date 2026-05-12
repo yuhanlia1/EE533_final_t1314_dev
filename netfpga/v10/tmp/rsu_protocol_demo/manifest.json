@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "run_name": "rsu_protocol_demo",
-  "created_at": "2026-05-11T12:23:38",
+  "created_at": "2026-05-11T23:27:58",
   "bitfile": "nw_proc4_2_moreobserve.bit",
   "reg_defines_snapshot": "config/reg_defines_v8.h",
   "model": {
@@ -14,18 +14,18 @@
   },
   "network": {
     "dst_mac": "00:4e:46:32:43:00",
-    "src_mac": "a0:36:9f:0a:5d:5b",
-    "src_ip": "10.0.16.3",
-    "dst_ip": "10.0.18.3",
+    "src_mac": "a0:36:9f:1d:48:c3",
+    "src_ip": "10.0.12.3",
+    "dst_ip": "10.0.14.3",
     "src_udp_port": "0x4001",
     "dst_udp_port": "0x88b5",
     "task_type": "0x0000",
     "request_id_base": "0x1100"
   },
   "usc": {
-    "netfpga_host": "netfpga@nf9.usc.edu",
-    "sender_host": "node4@nf5.usc.edu",
-    "receiver_host": "node4@nf7.usc.edu",
+    "netfpga_host": "netfpga@nf3.usc.edu",
+    "sender_host": "node3@nf4.usc.edu",
+    "receiver_host": "node3@nf1.usc.edu",
     "sender_iface": "port0",
     "receiver_iface": "port2",
     "router_op_lut_macs": [
@@ -80,7 +80,7 @@
   },
   "protocol_demo": {
     "schema_version": 1,
-    "created_at": "2026-05-11T12:23:39",
+    "created_at": "2026-05-11T23:27:59",
     "config_path": "/home/reili/ee533/lab9/EE533_final_t1314_dev/netfpga/v10/scripts/board/rsu_demo_protocol.json",
     "ssh_mode": "sshpass",
     "pre_capture_delay_seconds": 0.5,
@@ -98,10 +98,10 @@
     "bypass_packet_metadata": {
       "frame_kind": "udp_unknown",
       "dst_mac": "00:4e:46:32:43:00",
-      "src_mac": "a0:36:9f:0a:5d:5b",
+      "src_mac": "a0:36:9f:1d:48:c3",
       "ethertype": "0x0800",
-      "ip_src": "10.0.16.3",
-      "ip_dst": "10.0.18.3",
+      "ip_src": "10.0.12.3",
+      "ip_dst": "10.0.14.3",
       "ip_protocol": "0x11",
       "ip_total_length": 39,
       "udp_src_port": "0x4001",
@@ -111,7 +111,7 @@
       "payload_len": 11,
       "payload_hex": "44454d4f5f425950415353",
       "wire_len": 53,
-      "wire_frame_hex": "004e46324300a0369f0a5d5b080045000027123440004011f28c0a0010030a001203400177770013000044454d4f5f425950415353"
+      "wire_frame_hex": "004e46324300a0369f1d48c3080045000027123440004011fa8c0a000c030a000e03400177770013000044454d4f5f425950415353"
     },
     "steps": [
       "bypass",
